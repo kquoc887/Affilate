@@ -21,11 +21,12 @@ class CreateSuppliersTable extends Migration
             $table->string('phone');
             $table->text('address');
             $table->string('link_web');
-            $table->primary('company_code');
             $table->integer('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->boolean('active')->default(0);
             $table->rememberToken();
             $table->timestamps();
+            $table->primary('company_code');
         });
     }
 
