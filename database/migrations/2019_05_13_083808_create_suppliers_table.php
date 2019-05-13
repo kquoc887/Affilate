@@ -24,6 +24,7 @@ class CreateSuppliersTable extends Migration
             $table->primary('company_code');
             $table->integer('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
