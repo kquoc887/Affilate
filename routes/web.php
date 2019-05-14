@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('affilate.master');
 });
+
+Route::get('login', function() {
+    return view('affilate.login');
+});
+
+Route::get('forgetpass',function() {
+    return view('affilate.forgetpass');
+});

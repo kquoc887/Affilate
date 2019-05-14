@@ -6,14 +6,20 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <div class="navbar-nav ml-auto mt-lg-0">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-primary">Advertiser</a>
+                    <a href="#" class="btn btn-danger">Publisher</a>
+                </div>
+            </div>
+            {{-- <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item ">
                     <a class="nav-link" href="#">Advertiser <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Publisher</a>
                 </li>
-            </ul>
+            </ul> --}}
         </div>
    </div>
 </nav>
