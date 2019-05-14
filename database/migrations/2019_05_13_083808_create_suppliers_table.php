@@ -14,19 +14,18 @@ class CreateSuppliersTable extends Migration
     public function up()
     {
         Schema::create('suppliers', function (Blueprint $table) {
-            $table->string('company_code');
-            $table->string('full_name');
-            $table->string('company_name');
+            $table->increments('id');
             $table->string('email')->unique();
+            $table->string('fullname');
+            $table->string('password');
+            $table->string('name_company');
             $table->string('phone');
             $table->text('address');
-            $table->string('link_web');
-            $table->integer('role_id')->unsigned();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->string('uri');
+            $table->boolean('is_admin')->default(1);
             $table->boolean('active')->default(0);
             $table->rememberToken();
             $table->timestamps();
-            $table->primary('company_code');
         });
     }
 
