@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">Advertiser <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="">Advertiser <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Publisher</a>
+                    <a class="nav-link" href="">Publisher</a>
                 </li>
             </ul>
         </div>

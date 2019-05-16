@@ -12,5 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('affilate.master');
+    return view('affilate.web.home');
 });
+// route get of all page
+Route::resource('home','TestController');
+Route::get('saleprofit','TestController@getSaleProfit');
