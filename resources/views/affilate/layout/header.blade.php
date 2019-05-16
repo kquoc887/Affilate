@@ -1,16 +1,17 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-   <div class="container">
-        <a class="navbar-brand" href="#">Affilate</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <div class="navbar-nav ml-auto mt-lg-0">
-                <div class="btn-group">
-                    <a href="{{route('getlogin', '123')}}" class="btn btn-primary">Advertiser</a>
-                    <a href="#" class="btn btn-danger">Publisher</a>
-                </div>
-            </div>
-   </div>
+<nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+        <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{route('dashboard')}}" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Contact</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li><a href="#">Thoát</a></li>
+    </ul>
 </nav>

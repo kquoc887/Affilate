@@ -1,4 +1,4 @@
-<form action="{{route('login')}}" method="POST" id='frmLogin'>
+<form action="#" method="POST" id='frmLogin'>
     @csrf
     <div class="card">
         <div class="card-header text-center">Vui lòng điền thông tin để đăng nhập</div>
@@ -15,7 +15,7 @@
             <label for="remmber">Ghi nhớ mật khẩu</label>
             <input type="checkbox" name="chkRe" id="chkRe">
         </div>
-        <a href="{{route('forgetpass')}}">Bấm vào đây để lấy lại mật khẩu</a>
+        <a href="#">Bấm vào đây để lấy lại mật khẩu</a>
         <button type="submit" class="btn btn-primary offset-md-4">Đăng nhập</button>
         </div>
     </div>

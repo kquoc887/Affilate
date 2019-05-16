@@ -19,9 +19,17 @@ Route::get('login', function() {
     return view('affilate.login');
 })->name('getlogin');
 
-Route::post('login', 'SupplierController@test')->name('login');
-// Route::get('')
-Route::get('forgetpass',function() {
-    return view('affilate.forgetpass');
-})->name('forgetpass');
+
+Route::get('dashboard', function() {
+    return view('affilate.publisher.dashboard');
+})->name('dashboard');
+
+Route::get('sale-profit', function() {
+    return view('affilate.publisher.sale_profit');
+})->name('sale-profit');
+
+Route::get('advertiser', function() {
+    return view('affilate.publisher.advertisers');
+})->name('advertiser');
+
 

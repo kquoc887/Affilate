@@ -22,7 +22,6 @@ class CreateTblUser extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('address');
-            $table->string('uri');
             $table->string('aff_code');
             $table->string('user_token');
             $table->boolean('active')->default(0);

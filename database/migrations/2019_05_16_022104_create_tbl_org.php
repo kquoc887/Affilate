@@ -16,6 +16,7 @@ class CreateTblOrg extends Migration
         Schema::create('tbl_org', function (Blueprint $table) {
             $table->increments('org_id');
             $table->string('org_name')->unique();
+            $table->string('uri');
             $table->string('org_email');
             $table->string('org_address');
             $table->string('org_phone');

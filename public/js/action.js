@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // alert(123);
     $(document).on('click', '#btn_register', function(event) {
         $(this).text('Đăng nhập');
         $(this).attr('id', 'btn_login');
@@ -13,5 +14,4 @@ $(document).ready(function () {
         $('.region-login').css('padding-top', '10%');
         $('#frmRegister').css('display', 'none');
     });
-    
 });
