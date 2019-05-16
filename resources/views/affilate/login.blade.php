@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="container">
-        <form action="" method="POST" id='frmLogin'>
+      <form action="{{route('login')}}" method="POST" id='frmLogin'>
             @csrf
             <div class="row">
               <div class="col-md-5 offset-md-3">
@@ -24,13 +24,13 @@
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" name="email" id="email" class="form-control" placeholder="Vui lòng nhập password" aria-describedby="helpId">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Vui lòng nhập password" aria-describedby="helpId">
                     </div>
                     <div class="chkRemember">
                       <label for="remmber">Ghi nhớ mật khẩu</label>
                       <input type="checkbox" name="chkRe" id="chkRe">
                     </div>
-                    <a href="#">Bấm vào đây để lấy lại mật khẩu</a>
+                    <a href="{{route('forgetpass')}}">Bấm vào đây để lấy lại mật khẩu</a>
                     <button type="submit" class="btn btn-primary offset-md-4">Đăng nhập</button>
                   </div>
                 </div>

@@ -8,18 +8,9 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <div class="navbar-nav ml-auto mt-lg-0">
                 <div class="btn-group">
-                    <a href="#" class="btn btn-primary">Advertiser</a>
+                    <a href="{{route('getlogin', '123')}}" class="btn btn-primary">Advertiser</a>
                     <a href="#" class="btn btn-danger">Publisher</a>
                 </div>
             </div>
-            {{-- <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">Advertiser <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Publisher</a>
-                </li>
-            </ul> --}}
-        </div>
    </div>
 </nav>

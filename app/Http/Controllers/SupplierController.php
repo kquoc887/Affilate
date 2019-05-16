@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
+
+    public function test(Request $request) 
+    {
+        // return route()
+    }
     /**
      * Display a listing of the resource.
      *

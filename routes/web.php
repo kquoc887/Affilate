@@ -17,8 +17,11 @@ Route::get('/', function () {
 
 Route::get('login', function() {
     return view('affilate.login');
-});
+})->name('getlogin');
 
+Route::post('login', 'SupplierController@test')->name('login');
+// Route::get('')
 Route::get('forgetpass',function() {
     return view('affilate.forgetpass');
-});
+})->name('forgetpass');
+
