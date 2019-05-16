@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header text-center">Vui lòng điền thông tin</div>
             <div class="card-body">
-                <label for="user_info">Thông tin khách hàng</label>
+                <h4 for="user_info">Thông tin khách hàng</h4>
                 <div class="form-group">
                     <label for="company_name">Tên công ty (*)</label>
                     <input type="text" name="company_name" class="form-control" placeholder="Vui lòng nhập tên công ty" aria-describedby="helpId">
@@ -28,7 +28,15 @@
                     <label for="phone">Điện thoại</label>
                     <input type="text" name="phone"  class="form-control" placeholder="Vui lòng nhập password" aria-describedby="helpId">
                 </div>
-                <label for="info_login">Thông tin đăng nhập</label>
+               <div class="form-check form-check-inline">
+                   <label class="form-check-label">
+                       <input class="form-check-input" type="radio" name="user_type"  value="0">Cá nhân &nbsp;
+                   </label>
+                   <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="user_type"  value="1">Tổ chức
+                    </label>
+               </div>
+                <h4 for="info_login">Thông tin đăng nhập</h4>
                 <div class="form-group">
                     <label for="email">Email (*)</label>
                     <input type="email" name="email"  class="form-control" placeholder="Vui lòng nhập email" aria-describedby="helpId">
