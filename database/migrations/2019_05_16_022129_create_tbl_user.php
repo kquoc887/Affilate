@@ -14,8 +14,20 @@ class CreateTblUser extends Migration
     public function up()
     {
         Schema::create('tbl_user', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('user_id');
+            $talble->integer('org_id')->unsigned();
+            $table->foreign('org_id')->references('org_id')->on('tbl_org')->onDelete('cascade');
+            $table->string('email')->unique();
+            $table->string('username');
+            $table->string('password');
+            $table->string('address');
+            $table->string('uri');
+            $table->string('aff_code');
+            $table->string('user_token');
+            $table->boolean('active')->default(0);
+            $table->integer('role');
             $table->timestamps();
+
         });
     }
 
