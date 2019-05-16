@@ -15,9 +15,10 @@ class CreateTblUser extends Migration
     {
         Schema::create('tbl_user', function (Blueprint $table) {
             $table->increments('user_id');
-            $talble->integer('org_id')->unsigned();
+            $table->integer('org_id')->unsigned();
             $table->foreign('org_id')->references('org_id')->on('tbl_org')->onDelete('cascade');
             $table->string('email')->unique();
+            $table->boolean('gender');
             $table->string('username');
             $table->string('password');
             $table->string('address');
