@@ -1,4 +1,4 @@
-@extends('affilate.web.index');
+@extends('affilate.web.index')
 @section('content')
 <div class="content-wrapper" style="min-height: 445px;">
     <!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Data Tables</h1>
+            <h1>Sale Profit</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -108,7 +108,7 @@
       </div>
       <!-- /.row -->
     
-</section>
+  </section>
     <!-- /.content -->
-  </div>
+</div>
 @endsection

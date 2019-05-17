@@ -31,7 +31,7 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  @include('affilate.web.layout.header');
+  @include('affilate.web.layout.header')
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -63,7 +63,7 @@
 <script src="../public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="../public/plugins/morris/morris.min.js"></script>
+<script src="../public/plugins/morris/morris.min.js"></script> 
 <!-- Sparkline -->
 <script src="../public/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
@@ -89,6 +89,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../public/dist/js/demo.js"></script>
 <!-- My script -->
-@stack('script')
+@yield('script')
 </body>
 </html>
