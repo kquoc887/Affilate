@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('affilate.master');
-});
 
+
+//route of QuocKhanh
 Route::get('login', function() {
     return view('affilate.login');
 })->name('getlogin');
@@ -32,4 +31,11 @@ Route::get('advertiser', function() {
     return view('affilate.publisher.advertisers');
 })->name('advertiser');
 
+
+// route of PhuocNguyen
+Route::get('/', function () {
+    return view('affilate.web.home');
+});
+Route::resource('home','TestController');
+Route::get('saleprofit','TestController@getSaleProfit');
 

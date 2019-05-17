@@ -25,16 +25,19 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   </head>
   <body>
-    <div class="wrapper">
-    {{-- begin header --}}
-    @include('affilate.layout.header')
-    {{-- end header --}}
 
-    {{-- begin sidebar --}}
+    <div class="wrapper">
+    
+    <!-- begin header -->
+      @include('affilate.layout.header')
+    <!-- end header -->
+
+    <!-- begin sidebar -->
     @include('affilate.layout.sidebar')
-     {{-- end sidebar --}}
+     <!-- end sidebar -->
     @yield('content')
     </div>   
+
     <!-- Optional JavaScript -->
     <!-- jQuery -->
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
