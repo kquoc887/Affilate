@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use DateTime;
+use App\tbl_org;
 
 class RegisterController extends Controller
 {
@@ -49,9 +52,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8'],
+            'repass' => ['required', 'string', 'min:8','same:password'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'uri' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -61,12 +69,34 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(Request $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $this->validator($data->all());
+        if(isset($data['company_name']))
+        {
+            tbl_org::create([
+                'org_name'    => $data['company_name'],
+                'org_email'   => $data['email'],
+                'org_address' => $data['address'],
+                'org_phone'   => $data['phone'],
+                'created_at'=> new DateTime(),
+                'updated_at'=> new DateTime(),
+            ]);
+    
+        }        
+        User::create([
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'firstname' => $data['firstname'],
+                'lastname' => $data['lastname'],
+                'gender' => $data['gender'],
+                'address' => $data['address'],
+                'phone'=>$data['phone'],
+                'uri' => $data['uri'],
+                'token' => $data['_token'],
+                'created_at'=> new DateTime(),
+                'updated_at'=> new DateTime(),
+            ]);
+            return 'ok nha';
     }
 }

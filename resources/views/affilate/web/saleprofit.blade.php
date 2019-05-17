@@ -24,7 +24,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Data Table With Full Features</h3>
+              <h3 class="card-title">Lợi nhuận của từng cộng tác viên</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

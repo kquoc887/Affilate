@@ -23,8 +23,8 @@
             </div>
             <div class="col-sm-9">
                 @include('affilate.block.form_login')
-                @include('affilate.block.form_register_advertiser');
-                @include('affilate.block.form_register_publisher');
+                @include('affilate.block.form_register_advertiser')
+                @include('affilate.block.form_register_publisher')
             </div>
          </div>
       </div>

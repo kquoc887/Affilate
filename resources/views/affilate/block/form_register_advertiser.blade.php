@@ -1,4 +1,4 @@
-<form action="#" method="POST" id='frmRegisterAd' name="frmRegisterAd">
+<form action="postSignUp" method="POST" id='frmRegisterAd' name="frmRegisterAd">
         @csrf
         <div class="card">
             <div class="card-header text-center">Vui lòng điền thông tin</div>
@@ -24,7 +24,7 @@
                             <input type="text" class="form-control" name="lastname" placeholder="Vui lòng nhập tên đầy đủ">
                             <label for="firstname">Tên</label>
                             <input type="text" class="form-control" name="firstname" placeholder="Vui lòng nhập tên đầy đủ">
-                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="address">Địa chỉ</label>
                             <textarea class="form-control"  name="address" rows="2"></textarea>

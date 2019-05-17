@@ -19,7 +19,7 @@ class CreateOrgTable extends Migration
             $table->string('org_email');
             $table->string('org_address');
             $table->string('org_phone');
-            $table->string('org_token');
+            $table->string('org_token')->default('');
             $table->timestamps();
         });
     }

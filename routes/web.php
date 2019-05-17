@@ -38,4 +38,5 @@ Route::get('/', function () {
 });
 Route::resource('home','TestController');
 Route::get('saleprofit','TestController@getSaleProfit');
-
+//route đăng kí PhuocNguyen
+Route::post("postSignUp",'Auth\RegisterController@create')->name('postSignUp');

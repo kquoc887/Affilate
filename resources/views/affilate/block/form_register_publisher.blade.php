@@ -1,4 +1,4 @@
-<form action="#" method="POST" id='frmRegisterPub' name="frmRegisterPub">
+<form action="postSignUp" method="POST" id='frmRegisterPub' name="frmRegisterPub">
     @csrf
     <div class="card">
         <div class="card-header text-center">Vui lòng điền thông tin</div>
@@ -12,7 +12,10 @@
                             <option value="0">Chị</option>
                             <option value="1">Anh</option>
                         </select><br/>
-                        <input type="text" class="form-control" name="fullname"  placeholder="Vui lòng nhập tên đầy đủ">
+                        <label for="lastname">Họ và tên lót</label>
+                        <input type="text" class="form-control" name="lastname" placeholder="Vui lòng nhập Họ và tên lót">
+                        <label for="firstname">Tên</label>
+                        <input type="text" class="form-control" name="firstname" placeholder="Vui lòng nhập tên">
                     </div>
                     <div class="form-group">
                         <label for="uri">Link web (*)</label>
