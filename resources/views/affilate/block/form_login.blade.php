@@ -15,8 +15,12 @@
             <label for="remmber">Ghi nhớ mật khẩu</label>
             <input type="checkbox" name="chkRe" id="chkRe">
         </div>
-        <a href="#">Bấm vào đây để lấy lại mật khẩu</a>
-        <button type="submit" class="btn btn-primary offset-md-4">Đăng nhập</button>
+        <div class="form-group">
+            <a href="#" data-toggle="modal" data-target="#myModal">Bấm vào đây để lấy lại mật khẩu</a>
+        </div>
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
         </div>
     </div>
 </form>
+
+@include('affilate.modal.modal_forget_pass')

@@ -13,14 +13,18 @@
     <div class="wrapper">
       <div class="container region-login">
          <div class="row">
-            <div class="col-sm-3 text-center mt-5 mb-2">
+            <div class="col-sm-3 text-center mt-5 mb-2 region-action">
               <img src="" alt="">
-              <h2 class="text-white">Wellcome</h2>
-              <button typle="button" class="btn btn-light" id="btn_register">Đăng ký</button>
+              <h2 class="text-white">Đăng ký</h2>
+              <div class="btn-group">
+                <button type="button" class="btn btn-success btn-register" value="Advertiser">Advertiser</button>
+                <button type="button" class="btn btn-danger btn-register" value="Publisher">Publisher</button>
+              </div>
             </div>
             <div class="col-sm-9">
                 @include('affilate.block.form_login')
-                @include('affilate.block.form_register');
+                @include('affilate.block.form_register_advertiser');
+                @include('affilate.block.form_register_publisher');
             </div>
          </div>
       </div>

@@ -11,13 +11,12 @@ html, body {
     overflow-y:scroll;
 }
 
-#frmRegister {
+#frmRegisterAd, #frmRegisterPub {
     display: none;
-    
 }
 
 .region-login {
-    padding-top: 10%;
+    padding-top: 7%;
   
 }
 

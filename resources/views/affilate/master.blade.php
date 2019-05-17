@@ -12,12 +12,20 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <!-- Theme style -->  
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
-
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{asset('plugins/iCheck/flat/blue.css')}}">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="{{asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="{{asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
      <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   </head>
   <body>
+    <div class="wrapper">
     {{-- begin header --}}
     @include('affilate.layout.header')
     {{-- end header --}}
@@ -26,8 +34,8 @@
     @include('affilate.layout.sidebar')
      {{-- end sidebar --}}
     @yield('content')
+    </div>   
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- jQuery -->
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
     <!-- jQuery UI 1.11.4 -->
