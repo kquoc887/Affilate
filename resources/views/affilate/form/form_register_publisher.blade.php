@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Điện thoại</label>
-                        <input type="text" name="phone"  class="form-control" placeholder="Vui lòng nhập password" aria-describedby="helpId">
+                        <input type="text" name="phone"  class="form-control" placeholder="Vui lòng nhập điện thoại" aria-describedby="helpId">
                     </div>
                 </div>
                 <div class="col-6">
