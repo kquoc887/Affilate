@@ -10,6 +10,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
+          <div class="bs-example-bg-classes">
+              <p class="bg-secondary text-white">Nếu bạn quên mật khẩu, vui lòng nhập địa chỉ e-mail của bạn mà bạn đã đăng ký từ trước.
+              <br/>
+              Đường link hướng dẫn thay đổi pass sẽ được gửi đến email của bạn !
+              </p>
+          </div>
         <div class="form-group">
           <label for="">Nhập Email (*)</label>
           <input type="email" name="email"  class="form-control" placeholder="Vui lòng nhập email" aria-describedby="helpId">
