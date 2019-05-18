@@ -32,43 +32,36 @@ $(document).ready(function () {
         nav_link[0].classList.add('active');
     });
 
-    // $('#frmRegisterAd, #frmRegisterPub').on('submit', function(event) {
-    //     event.preventDefault();
-    //     var formId = $(this).attr('id');
-    //     // console.log($(this).find('input[name=_token]').val());
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $(this).find('input[name=_token]').val()
-    //         }
-    //     })
+    $('#frmRegisterAd, #frmRegisterPub').on('submit', function(event) {
+        event.preventDefault();
+        var formId = $(this).attr('id');
 
-    //     $.ajax({
-    //         url: route('postSignUp'),
-    //         type: 'POST',
-    //         data: new FormData(this),
-    //         contentType: false,
-    //         cache: false,
-    //         processData: false,
-    //         dataType: 'json',
-    //         success: function(data, status) {
-    //             refreshValidate(formId);
-    //             //Kiểm tra người dùng có nhập đầy đủ thông tin không.
-    //             if (data.errors) {
-    //                 checkValidate(data.errors, formId);
-    //             } 
+        $.ajax({
+            url: route('postSignUp'),
+            type: 'POST',
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            dataType: 'json',
+            success: function(data, status) {
+                refreshValidate(formId);
+                //Kiểm tra người dùng có nhập đầy đủ thông tin không.
+                if (data.errors) {
+                    checkValidate(data.errors, formId);
+                } 
 
-    //             if (data.success) {
-    //                 console.log(data.success)
-    //                 // $('#' + formId + ' #form_result').html(data.success);
-    //                 // $('#' + formId)[0].reset();
-    //             } else {
-    //                 console.log(123);
+                if (data.success) {
+                   
+                    $('#' + formId + ' #form_result').html(data.success);
+                    $('#' + formId)[0].reset();
+                } else {
                     
-    //                 // $('#' + formId + ' #form_result').html('');
-    //             }
-    //         }
-    //     });
-    // });
+                    $('#' + formId + ' #form_result').html('');
+                }
+            }
+        });
+    });
 
   
 });

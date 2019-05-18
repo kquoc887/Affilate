@@ -45,7 +45,7 @@ class LoginController extends Controller
         {
             switch(Auth::user()->role){
                 case 0:
-                    return view('');
+                    return view('affilate.publisher.dashboard');
                     break;
                 case 1:
                     return view('affilate.web.home');
