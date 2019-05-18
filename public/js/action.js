@@ -31,4 +31,69 @@ $(document).ready(function () {
         nav_link = $(this).find('a.nav-link');
         nav_link[0].classList.add('active');
     });
+
+    // $('#frmRegisterAd, #frmRegisterPub').on('submit', function(event) {
+    //     event.preventDefault();
+    //     var formId = $(this).attr('id');
+    //     // console.log($(this).find('input[name=_token]').val());
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $(this).find('input[name=_token]').val()
+    //         }
+    //     })
+
+    //     $.ajax({
+    //         url: route('postSignUp'),
+    //         type: 'POST',
+    //         data: new FormData(this),
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false,
+    //         dataType: 'json',
+    //         success: function(data, status) {
+    //             refreshValidate(formId);
+    //             //Kiểm tra người dùng có nhập đầy đủ thông tin không.
+    //             if (data.errors) {
+    //                 checkValidate(data.errors, formId);
+    //             } 
+
+    //             if (data.success) {
+    //                 console.log(data.success)
+    //                 // $('#' + formId + ' #form_result').html(data.success);
+    //                 // $('#' + formId)[0].reset();
+    //             } else {
+    //                 console.log(123);
+                    
+    //                 // $('#' + formId + ' #form_result').html('');
+    //             }
+    //         }
+    //     });
+    // });
+
+  
 });
+
+
+function checkValidate(arrayError, formId) {
+    var arr = [];
+    
+    for (var i in arrayError) {
+       arr[i] = arrayError[i];
+       
+    }
+
+   for (var item in arr) {
+        if (arr[item] != '') {
+            $( '#' + formId  +' #'+ item +'_error').html(arr[item]);
+        } else {
+            $( '#' + formId  +' #'+ item +'_error').html(arr[item]);
+        }
+    }
+}
+
+function refreshValidate(formId) {
+    var span_error = $('#' + formId + ' .form-group label>span');
+    for (var index = 0; index < span_error.length; index++) {
+        span_error[index].innerHTML = '';
+     }
+}

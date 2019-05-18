@@ -26,6 +26,6 @@ class SendMailAfterNewUser
      */
     public function handle(NewUser $event)
     {
-        //
+        
     }
 }
