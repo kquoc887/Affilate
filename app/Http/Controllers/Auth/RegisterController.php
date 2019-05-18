@@ -26,6 +26,16 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    private $rules = [     
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:tbl_users'],
+        'password' => ['required', 'string', 'min:8'],
+        'repass' => ['required', 'string', 'min:8','same:password'],
+        'firstname' => ['required', 'string', 'max:255'],
+        'lastname' => ['required', 'string', 'max:255'],
+        'address' => ['required', 'string', 'max:255'],
+        'uri' => ['required', 'string', 'max:255'],
+        'phone' => ['required', 'min:10'],
+    ];
     /**
      * Where to redirect users after registration.
      *
@@ -51,16 +61,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'repass' => ['required', 'string', 'min:8','same:password'],
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-            'uri' => ['required', 'string', 'max:255'],
-        ]);
+        return Validator::make($data, $this->rules);
     }
 
     /**
@@ -71,10 +72,20 @@ class RegisterController extends Controller
      */
     protected function create(Request $data)
     {
-        $this->validator($data->all());
+
         $role = 0;
         if(isset($data['company_name']))
-        {
+
+
+        if(isset($data['company_name'])) {
+            
+            $this->rules = array_merge(array('company_name' => 'required'), $this->rules);
+            $validator = $this->validator($data->all());
+        
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()]);
+            }
+
             tbl_org::create([
                 'org_name'    => $data['company_name'],
                 'org_email'   => $data['email'],
@@ -83,10 +94,19 @@ class RegisterController extends Controller
                 'created_at'=> new DateTime(),
                 'updated_at'=> new DateTime(),
             ]);
+
              $role = 1;
         }
         
-            User::create([
+
+        $validator = $this->validator($data->all());
+        
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
+
+
+        User::create([
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'firstname' => $data['firstname'],
@@ -101,7 +121,6 @@ class RegisterController extends Controller
                 'updated_at'=> new DateTime(),
             ]);
         
-        
-        return redirect('login')->with('success','đăng kí thành công vui lòng kiểm tra mail kích hoạt!');
+        return response()->json(['success' => 'Đăng ký thành công vui lòng kiểm mail để kích hoạt']);
     }
 }

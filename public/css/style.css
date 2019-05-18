@@ -13,6 +13,7 @@ html, body {
 
 #frmRegisterAd, #frmRegisterPub {
     display: none;
+    /* visibility: hidden; */
 }
 
 .region-login {
