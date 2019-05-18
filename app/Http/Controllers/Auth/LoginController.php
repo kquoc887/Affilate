@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,20 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    public function postLogin(Request $request)
+    {
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
+        {
+            switch(Auth::user()->role){
+                case 0:
+                    return view('');
+                    break;
+                case 1:
+                    return view('affilate.web.home');
+                    break;
+            }   
+
+        }
     }
 }

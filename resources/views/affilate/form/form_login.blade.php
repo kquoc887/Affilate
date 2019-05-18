@@ -1,4 +1,9 @@
-<form action="#" method="POST" id='frmLogin'>
+<form action="postLogin" method="POST" id='frmLogin'>
+    @if(session('success'))
+    <div class="alert alert-success " role="alert">
+            {{session('success')}}
+    </div>
+    @endif
     @csrf
     <div class="card">
         <div class="card-header text-center">Vui lòng điền thông tin để đăng nhập</div>

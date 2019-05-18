@@ -72,6 +72,7 @@ class RegisterController extends Controller
     protected function create(Request $data)
     {
         $this->validator($data->all());
+        $role = 0;
         if(isset($data['company_name']))
         {
             tbl_org::create([
@@ -82,9 +83,10 @@ class RegisterController extends Controller
                 'created_at'=> new DateTime(),
                 'updated_at'=> new DateTime(),
             ]);
-    
-        }        
-        User::create([
+             $role = 1;
+        }
+        
+            User::create([
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'firstname' => $data['firstname'],
@@ -94,9 +96,12 @@ class RegisterController extends Controller
                 'phone'=>$data['phone'],
                 'uri' => $data['uri'],
                 'token' => $data['_token'],
+                'role' => $role,
                 'created_at'=> new DateTime(),
                 'updated_at'=> new DateTime(),
             ]);
-            return 'ok nha';
+        
+        
+        return redirect('login')->with('success','đăng kí thành công vui lòng kiểm tra mail kích hoạt!');
     }
 }
