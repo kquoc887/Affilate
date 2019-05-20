@@ -71,12 +71,12 @@
                                 <p>Sale-Profit</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="pages/charts/flot.html" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>Payment</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             </ul>

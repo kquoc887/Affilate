@@ -31,7 +31,7 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
-  @include('affilate.web.layout.header')
+  @include('affilate.layout.header')
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->

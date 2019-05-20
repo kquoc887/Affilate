@@ -27,6 +27,7 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    // regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
     private $rules = [     
         'email' => ['required', 'string', 'email', 'max:255', 'unique:tbl_users'],
         'password' => ['required', 'string', 'min:8'],
