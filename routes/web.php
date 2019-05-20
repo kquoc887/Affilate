@@ -18,29 +18,31 @@ Route::get('login', function() {
     return view('affilate.login');
 })->name('getlogin');
 
-
-Route::get('dashboard', function() {
-    return view('affilate.publisher.dashboard');
-})->name('dashboard');
-
-Route::get('sale-profit', function() {
-    return view('affilate.publisher.sale_profit');
-})->name('sale-profit');
-
-Route::get('advertiser', function() {
-    return view('affilate.publisher.advertisers');
-})->name('advertiser');
-
-
-// route of PhuocNguyen
-Route::get('/', function () {
-    return view('affilate.web.home');
-});
-Route::resource('home','TestController');
-Route::get('saleprofit','TestController@getSaleProfit');
 //route đăng kí PhuocNguyen
+Route::post("checkLogin",'Auth\LoginController@checkLogin')->name('checkLogin');
 Route::post("postSignUp",'Auth\RegisterController@create')->name('postSignUp');
 Route::post('postLogin','Auth\LoginController@postLogin')->name('postLogin');
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// route dùng để xác nhận đăng ký của user
+Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
+
+Route::group(['prefix' => 'app'], function () {
+    Route::group(['prefix' => 'publisher'], function () {
+        Route::get('/', 'PublisherController@index')->name('dashboard');
+        
+        Route::get('sale-profit', 'PublisherController@getSaleProfit')->name('sale-profit');
+        
+        Route::get('advertiser', 'PublisherController@getAdvertiser')->name('advertiser');
+    });
+
+    Route::group(['prefix' => 'advertiser'], function () {
+        Route::get('/', 'TestController@index');
+
+        Route::get('saleprofit','TestController@getSaleProfit');
+        
+    });
+});
+
+
+
+

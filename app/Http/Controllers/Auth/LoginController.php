@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -20,6 +21,10 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+    private $rules = [     
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'password' => ['required', 'string', 'min:8'],
+    ];
 
     use AuthenticatesUsers;
 
@@ -39,8 +44,35 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, $this->rules);
+    }
+
+
+    public function checkLogin(Request $request) {
+
+        if ($request->ajax()) {
+            $data = [
+                'email' => $request->post('email'),
+                'password' => $request->post('password'),
+            ];
+
+            $validator = $this->validator($data);
+           
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()]);
+            }
+            
+            return response()->json(['success' => 'ok']);
+        }
+      
+    }
+
     public function postLogin(Request $request)
     {
+
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
         {
             switch(Auth::user()->role){

@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use DateTime;
 use App\tbl_org;
+use App\Events\NewUser;
 
 class RegisterController extends Controller
 {
@@ -106,7 +107,7 @@ class RegisterController extends Controller
         }
 
 
-        User::create([
+        $user = User::create([
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'firstname' => $data['firstname'],
@@ -120,7 +121,10 @@ class RegisterController extends Controller
                 'created_at'=> new DateTime(),
                 'updated_at'=> new DateTime(),
             ]);
-        
+
+        // Bắt sự kiện gửi mail
+        event(new NewUser($user));
+
         return response()->json(['success' => 'Đăng ký thành công vui lòng kiểm mail để kích hoạt']);
     }
 }
