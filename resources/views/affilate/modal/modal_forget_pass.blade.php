@@ -10,7 +10,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{{route('create-link-reset')}}" method="POST" id="frmForgotPass">
+        <form action="" method="POST" id="frmForgotPass">
           <div class="bs-example-bg-classes">
               <p class="bg-secondary text-white">Nếu bạn quên mật khẩu, vui lòng nhập địa chỉ e-mail của bạn mà bạn đã đăng ký từ trước.
               <br/>
