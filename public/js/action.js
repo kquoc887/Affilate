@@ -51,13 +51,14 @@ $(document).ready(function () {
 
         $.ajax({
             url: route('postSignUp'),
-            type: 'POST',
+            type: 'post',
             data: new FormData(this),
             contentType: false,
             cache: false,
             processData: false,
             dataType: 'json',
             success: function(data, status) {
+                // console.log(data);
                 refreshValidate(formId);
                 //Kiểm tra người dùng có nhập đầy đủ thông tin không.
                 if (data.errors) {

@@ -18,7 +18,11 @@ class AppMiddleware
     {
 
         if (Auth::check()) {
-            return $next($request);
+           if (Auth::user()->active == 1) {
+                return $next($request);
+           } else {
+                return redirect()->route('getLogin')->with(['message' => 'Tài khoản chưa được kích hoạt', 'text-alert' => 'alert-danger']);
+           }
         }
 
         return redirect()->route('getLogin');

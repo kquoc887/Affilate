@@ -14,7 +14,7 @@ class SendMailAfterNewUser
      * @return void
      */
 
-    private $user;
+    protected $user;
 
     public function __construct()
     {

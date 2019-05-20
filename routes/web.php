@@ -18,6 +18,10 @@ Route::get('login', function() {
     return view('affilate.login');
 })->name('getLogin');
 
+// route dùng để xác nhận đăng ký của user
+Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
+
+
 Route::get('logout', 'Auth\LoginController@getLogout')->name('getLogout');
 
 
@@ -34,8 +38,7 @@ Route::post('reset-password','ResetPasswordController@sendMail')->name('reset-pa
 Route::get('reset-token/{token}', 'ResetPasswordController@getFormReset')->name('reset-token');
 Route::post('reset/{token}', 'ResetPasswordController@reset')->name('reset');
 
-// route dùng để xác nhận đăng ký của user
-Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
+
 
 Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
     Route::group(['prefix' => 'publisher'], function () {
