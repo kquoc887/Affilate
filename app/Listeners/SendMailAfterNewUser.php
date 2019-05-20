@@ -31,7 +31,7 @@ class SendMailAfterNewUser
     {
         $this->user = $event->user;
         $data = array(
-            'id' =>  $this->user->id,
+            'id' =>  $this->user->user_id,
         );
         Mail::send('affilate.emails.verify_user', $data, function ($message) {
             $message->to($this->user->email);
