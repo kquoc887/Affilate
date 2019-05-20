@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\NewUser;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use Mail;
 class SendMailAfterNewUser
 {
     /**
@@ -13,6 +13,9 @@ class SendMailAfterNewUser
      *
      * @return void
      */
+
+    private $user;
+
     public function __construct()
     {
         //
@@ -26,6 +29,13 @@ class SendMailAfterNewUser
      */
     public function handle(NewUser $event)
     {
-        
+        $this->user = $event->user;
+        $data = array(
+            'id' =>  $this->user->id,
+        );
+        Mail::send('affilate.emails.verify_user', $data, function ($message) {
+            $message->to($this->user->email);
+            $message->subject('Kích hoạt tài khoản Affilate');
+        });
     }
 }

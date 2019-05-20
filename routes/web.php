@@ -31,6 +31,7 @@ Route::get('advertiser', function() {
     return view('affilate.publisher.advertisers');
 })->name('advertiser');
 
+Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
 
 // route of PhuocNguyen
 Route::get('/', function () {
@@ -39,5 +40,10 @@ Route::get('/', function () {
 Route::resource('home','TestController');
 Route::get('saleprofit','TestController@getSaleProfit');
 //route đăng kí PhuocNguyen
+Route::post("checkLogin",'Auth\LoginController@checkLogin')->name('checkLogin');
 Route::post("postSignUp",'Auth\RegisterController@create')->name('postSignUp');
 Route::post('postLogin','Auth\LoginController@postLogin')->name('postLogin');
+
+
+//Route forget password
+
