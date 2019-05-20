@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>Đổi mật khẩu</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,23 +11,42 @@
   </head>
   <body>
     <div class="container">
-        <form action="" name="frmRePass" id="frmRePass">
+    <form action="{{route('reset',$token)}}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-md-5 offset-md-3">
                     <div class="card">
-                        <div class="card-header text-center">Nhập Email lấy lại mật khẩu</div>
+                        <div class="card-header text-center">Đổi mật khẩu mới</div>
+                            @if(count($errors) > 0)
+                              <div class="alert alert-danger">
+                                @foreach($errors->all() as $err)
+                                {{$err}}<br>
+                                @endforeach
+                              </div>
+                            @endif
+                            @if(session('success'))
+                                <div class="alert  alert-success">
+                                    {{session('success')}}
+                                </div>    
+                            @endif
+                            @if(session('message'))
+                              <div class="alert  alert-success">
+                                  {{session('message')}}
+                              </div>   
+                            @endif
                         <div class="card-body">
                             <div class="bs-example-bg-classes">
-                                <p class="bg-secondary text-white">Nếu bạn quên mật khẩu, vui lòng nhập địa chỉ e-mail của bạn mà bạn đã đăng ký từ trước.
-                                <br/>
-                                Đường link hướng dẫn thay đổi pass sẽ được gửi đến email của bạn !
+                                <p class="bg-secondary text-white">
+                                  Nhập mật khẩu mới cho tài khoản
                                 </p>
                             </div>
                             <div class="form-group">
-                              <input type="text" name="" id="" class="form-control" placeholder="Vui lòng điền vào Email của bạn" aria-describedby="helpId">
+                                <input type="password" name="password" id="" class="form-control" placeholder="Vui lòng điền mật khẩu mới" aria-describedby="helpId">
+                              </div>
+                            <div class="form-group">
+                              <input type="password" name="repeat-password" id="repeat_password" class="form-control" placeholder="Nhập lại mật khẩu" aria-describedby="helpId">
                             </div>
-                            <button type="submit" class="btn btn-danger offset-md-4">Lấy thông tin</button>
+                            <button type="submit" class="btn btn-danger offset-md-4">Đổi Mật Khẩu</button>
                         </div>
                     </div>
                 </div>

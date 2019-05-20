@@ -1,4 +1,9 @@
 <form action="postLogin" method="POST" id='frmLogin'>
+    @if(session('message'))
+    <div class="alert alert-success " role="alert">
+            {{session('message')}}
+    </div>
+    @endif
     @if(session('success'))
     <div class="alert alert-success " role="alert">
             {{session('success')}}

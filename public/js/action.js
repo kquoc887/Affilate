@@ -13,6 +13,8 @@ $(document).ready(function () {
         }
 
         $('#frmLogin').css('display', 'none');
+        //use ajax send form forgot to ResetPWController
+       
     });
 
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng nhập trên trang
@@ -39,6 +41,13 @@ $(document).ready(function () {
     $('#frmRegisterAd, #frmRegisterPub').on('submit', function(event) {
         event.preventDefault();
         var formId = $(this).attr('id');
+
+
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $(this).find('input[name=_token]').val()
+        //     }
+        // })
 
         $.ajax({
             url: route('postSignUp'),
