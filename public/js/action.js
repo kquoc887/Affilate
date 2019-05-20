@@ -32,7 +32,7 @@ $(document).ready(function () {
         $('ul.nav-treeview').css('display', 'none');
         $(this).find('ul.nav-treeview').css('display', 'block');
         nav_link = $(this).find('a.nav-link');
-        nav_link[0].classList.add('active');
+        nav_link[0].classList.toggle('active');
     });
 
     // Bắt sự kiện khi người dùng bấm đăng ký

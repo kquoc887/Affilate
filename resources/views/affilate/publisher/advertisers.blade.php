@@ -33,30 +33,12 @@
             <div class="col-12">
                 <h2>Danh sách các Advertiser</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="listAdvertiser">
                         <tr>
+                            <th>Stt</th>
                             <th>Tên công ty</th>
                             <th>Địa chỉ Email</th>
-                            <th>Phần trăm hoa hồng</th>
                             <th>Hành động</th>
-                        </tr>
-                        <tr>
-                            <td>Shoppe</td>
-                            <td>shoppe@gmail.com</td>
-                            <td>3%</td>
-                            <td><a href="#" class="btn btn-primary">Đăng ký</a></td>
-                        </tr>
-                        <tr>
-                            <td>Tiki</td>
-                            <td>tiki@gmail.com</td>
-                            <td>4%</td>
-                            <td><a href="#" class="btn btn-primary">Đăng ký</a></td>
-                        </tr>
-                        <tr>
-                            <td>Lazada</td>
-                            <td>lazada@gmail.com</td>
-                            <td>5%</td>
-                            <td><a href="#" class="btn btn-primary">Đăng ký</a></td>
                         </tr>
                     </table>
                 </div>

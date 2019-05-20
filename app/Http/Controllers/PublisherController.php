@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class PublisherController extends Controller
 {
@@ -23,7 +24,8 @@ class PublisherController extends Controller
 
     public function getAdvertiser()
     {
-        return view('affilate.publisher.advertisers');
+        
+        return view('affilate.publisher.advertisers', compact($data));
     }
 
     /**
