@@ -10,7 +10,11 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="" method="POST" id="frmForgotPass">
+      <div>
+
+      </div>
+      <form action='{{route('reset-password')}}' method="POST" id="frmForgotPass">
+          @csrf
           <div class="bs-example-bg-classes">
               <p class="bg-secondary text-white">Nếu bạn quên mật khẩu, vui lòng nhập địa chỉ e-mail của bạn mà bạn đã đăng ký từ trước.
               <br/>
@@ -21,14 +25,14 @@
           <label for="email">Nhập Email (*) <span class="text-danger" id="email_error"></span></label>
           <input type="email" name="email"  class="form-control" placeholder="Vui lòng nhập email" aria-describedby="helpId">
         </div>
-        </form>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Yêu cầu lấy lại</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </form>
       </div>
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-forgot">Yêu cầu lấy lại</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-
     </div>
   </div>
 </div>
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>

@@ -20,10 +20,19 @@ Route::get('login', function() {
 
 Route::get('logout', 'Auth\LoginController@getLogout')->name('getLogout');
 
+
+
 //route đăng kí PhuocNguyen
 Route::post("checkLogin",'Auth\LoginController@checkLogin')->name('checkLogin');
 Route::post("postSignUp",'Auth\RegisterController@create')->name('postSignUp');
 Route::post('postLogin','Auth\LoginController@postLogin')->name('postLogin');
+//route forgot password by Phuocnguyen
+Route::get('forgotPass',function(){
+    return view('affilate.forgetpass');
+})->name('forgotPass');
+Route::post('reset-password','ResetPasswordController@sendMail')->name('reset-password');
+Route::get('reset-token/{token}', 'ResetPasswordController@getFormReset')->name('reset-token');
+Route::post('reset/{token}', 'ResetPasswordController@reset')->name('reset');
 
 // route dùng để xác nhận đăng ký của user
 Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
