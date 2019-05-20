@@ -102,7 +102,19 @@ $(document).ready(function () {
         });
     });
 
+    // Thêm các giá trị cần search
+    $(document).on('click', '#addColumnSearch', function(event) {
+        var html = '<div class="form-inline offset-md-5 mb-2">';
+            html += '<select class="form-control"></select>';
+            html += '<input type="text" class="form-control"/>' 
+            html += '<button type="button" class="btn btn-flat btn-success ml-1" id="close-field">-</button></div>'
+        $(this).parents('div.region-search').append(html);
+    });
 
+    // Bỏ đi một giá search
+    $(document).on('click', '#close-field', function() {
+        $(this).parent().remove();
+    })
   
 });
 
