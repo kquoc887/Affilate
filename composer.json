@@ -13,6 +13,7 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8.0",
+        "nesbot/carbon": "^2.18",
         "tightenco/ziggy": "^0.7.1"
     },
     "require-dev": {

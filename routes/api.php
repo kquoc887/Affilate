@@ -17,3 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::post('reset-password','ResetPasswordController@sendMail');
+Route::get('reset-password/{token}','ResetPasswordController@reset');
+
