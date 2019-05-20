@@ -33,7 +33,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -42,7 +42,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // $this->middleware('guest')->except('logout');
     }
 
     protected function validator(array $data)
@@ -72,18 +72,23 @@ class LoginController extends Controller
 
     public function postLogin(Request $request)
     {
-
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
-        {
-            switch(Auth::user()->role){
+        $remember = (!empty($request->chkRemember)) ? true : false;
+        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password, 'active' => 1], $remember)) {
+            $user = Auth::user();
+            switch ($user->role) {
                 case 0:
-                    return view('affilate.publisher.dashboard');
+                    return redirect()->route('publisher.dashboard');
                     break;
                 case 1:
-                    return view('affilate.web.home');
+                    return redirect()->route('home');
                     break;
             }   
-
-        }
+        } 
+        return redirect()->route('getLogin')->with('message', 'Tài khoản không tồn tại hoặc chưa kích hoạt');
+    }
+    
+    public function getLogout() {
+        Auth::logout();
+        return redirect()->route('getLogin');
     }
 }

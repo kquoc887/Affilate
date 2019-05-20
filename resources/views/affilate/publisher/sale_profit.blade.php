@@ -18,10 +18,10 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        <div class="cotainer-fluid ">
+        <div class="cotainer-fluid region-search">
             <form action="#" method="POST" class="offset-md-9 form-inline">
                 <div class="form-group">
-                    <button type="button" class="btn btn-success btn-flat btn-search ">+</button>
+                    <button type="button" class="btn btn-success btn-flat btn-search" id="addColumnSearch">+</button>
                     <input type="text" class="form-control" placeholder="Vui lòng điền thông tin cần tìm">
                     <button type="button" class="btn btn-success btn-flat btn-search">Tìm kiếm</button>
                     <button type="submit" class="btn btn-success btn-flat btn-search" >Tất cả</button>
@@ -33,6 +33,7 @@
                 <div class="col-12">
                     <h2>Khách hàng đã mua hàng</h2>
                     <div class="table-responsive">
+                        {{-- Sau này sẽ dùng datatable của laravel để thay thế. --}}
                         <table class="table table-striped table-hover">
                             <tr>
                                 <th>Tên</th>

@@ -32,7 +32,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="dashboard" class="nav-link active">
+                            <a href="{{route('publisher.dashboard')}}" class="nav-link active">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>General infomation </p>
                             </a>
@@ -49,7 +49,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('advertiser')}}" class="nav-link">
+                                <a href="{{route('publisher.advertiser')}}" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>Advertisers</p>
                                 </a>
@@ -66,7 +66,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('sale-profit')}}" class="nav-link">
+                            <a href="{{route('publisher.sale-profit')}}" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>Sale-Profit</p>
                             </a>

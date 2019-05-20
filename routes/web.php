@@ -16,7 +16,9 @@
 //route of QuocKhanh
 Route::get('login', function() {
     return view('affilate.login');
-})->name('getlogin');
+})->name('getLogin');
+
+Route::get('logout', 'Auth\LoginController@getLogout')->name('getLogout');
 
 //route đăng kí PhuocNguyen
 Route::post("checkLogin",'Auth\LoginController@checkLogin')->name('checkLogin');
@@ -26,17 +28,17 @@ Route::post('postLogin','Auth\LoginController@postLogin')->name('postLogin');
 // route dùng để xác nhận đăng ký của user
 Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
 
-Route::group(['prefix' => 'app'], function () {
+Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
     Route::group(['prefix' => 'publisher'], function () {
-        Route::get('/', 'PublisherController@index')->name('dashboard');
+        Route::get('/', 'PublisherController@index')->name('publisher.dashboard');
         
-        Route::get('sale-profit', 'PublisherController@getSaleProfit')->name('sale-profit');
+        Route::get('sale-profit', 'PublisherController@getSaleProfit')->name('publisher.sale-profit');
         
-        Route::get('advertiser', 'PublisherController@getAdvertiser')->name('advertiser');
+        Route::get('advertiser', 'PublisherController@getAdvertiser')->name('publisher.advertiser');
     });
 
     Route::group(['prefix' => 'advertiser'], function () {
-        Route::get('/', 'TestController@index');
+        Route::get('/', 'TestController@index')->name('home');
 
         Route::get('saleprofit','TestController@getSaleProfit');
         

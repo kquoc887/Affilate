@@ -9,7 +9,5 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
-    public function signupPub(){
-        return view();
-    }
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
