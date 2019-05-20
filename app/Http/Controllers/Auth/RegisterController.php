@@ -116,7 +116,7 @@ class RegisterController extends Controller
                 'address' => $data['address'],
                 'phone'=>$data['phone'],
                 'uri' => $data['uri'],
-                'token' => $data['_token'],
+                'remember_token' => $data['_token'],
                 'role' => $role,
                 'created_at'=> new DateTime(),
                 'updated_at'=> new DateTime(),
@@ -124,7 +124,7 @@ class RegisterController extends Controller
 
         // Bắt sự kiện gửi mail
         event(new NewUser($user));
-
+    
         return response()->json(['success' => 'Đăng ký thành công vui lòng kiểm mail để kích hoạt']);
     }
 }

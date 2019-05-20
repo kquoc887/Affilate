@@ -4,7 +4,7 @@
         <div class="card-header text-center">Vui lòng điền thông tin để đăng nhập</div>
         <div class="card-body">
         @if (Session::has('message'))
-            <p class="alert alert-danger">
+            <p class="alert {{Session::get('text-alert')}}">
                 {{Session::get('message')}}
             </p>
         @endif

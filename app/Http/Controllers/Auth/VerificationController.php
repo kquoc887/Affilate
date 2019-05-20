@@ -43,6 +43,6 @@ class VerificationController extends Controller
     public function activeUser($id) {
         $user = User::where('user_id', $id);
         $user->update(['active' => '1']);
-        return redirect()->route('getlogin');
+        return redirect()->route('getLogin')->with(['message' => 'Bạn đã kích hoạt tài khoản thành công', 'text-alert' => 'alert-success']);
     }
 }

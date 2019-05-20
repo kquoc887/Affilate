@@ -73,7 +73,7 @@ class LoginController extends Controller
     public function postLogin(Request $request)
     {
         $remember = (!empty($request->chkRemember)) ? true : false;
-        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password, 'active' => 1], $remember)) {
+        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password], $remember)) {
             $user = Auth::user();
             switch ($user->role) {
                 case 0:
@@ -84,7 +84,7 @@ class LoginController extends Controller
                     break;
             }   
         } 
-        return redirect()->route('getLogin')->with('message', 'Tài khoản không tồn tại hoặc chưa kích hoạt');
+        return redirect()->route('getLogin')->with(['message' => 'Email hoặc password bị sai', 'text-alert' => 'alert-danger']);
     }
     
     public function getLogout() {

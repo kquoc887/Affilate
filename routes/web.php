@@ -18,6 +18,10 @@ Route::get('login', function() {
     return view('affilate.login');
 })->name('getLogin');
 
+// route dùng để xác nhận đăng ký của user
+Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
+
+
 Route::get('logout', 'Auth\LoginController@getLogout')->name('getLogout');
 
 //route đăng kí PhuocNguyen
@@ -25,8 +29,7 @@ Route::post("checkLogin",'Auth\LoginController@checkLogin')->name('checkLogin');
 Route::post("postSignUp",'Auth\RegisterController@create')->name('postSignUp');
 Route::post('postLogin','Auth\LoginController@postLogin')->name('postLogin');
 
-// route dùng để xác nhận đăng ký của user
-Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
+
 
 Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
     Route::group(['prefix' => 'publisher'], function () {
