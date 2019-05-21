@@ -61,7 +61,10 @@ class ResetPasswordController extends Controller
 
             
         }
-        public function getFormReset($token){
-            return view('affilate.forgetpass',['token'=>$token]);
+        public function getFormReset(Request $request){
+            if ($request->has('token')) {
+                 return view('affilate.forgetpass',['token'=>$request->token]);
+            }
+           
         }
 }

@@ -12,9 +12,9 @@ class User_linkTableSeeder extends Seeder
     public function run()
     {
         $i = 0;
-        for($i=0;$i<=10;$i++){
+        for($i=0;$i<=20;$i++){
             DB::table('tbl_user_link')->insert([
-                'user_id' => rand(1,11),
+                'user_id' => rand(1,12),
                 'org_id'  => rand(1,6),
                 'user_code'  => Str::random(15),
                 'created_at'  => new DateTime(),

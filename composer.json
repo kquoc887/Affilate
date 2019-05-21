@@ -14,7 +14,8 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8.0",
         "nesbot/carbon": "^2.18",
-        "tightenco/ziggy": "^0.7.1"
+        "tightenco/ziggy": "^0.7.1",
+        "yajra/laravel-datatables-oracle": "^9.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -35,7 +35,7 @@ Route::get('forgotPass',function(){
     return view('affilate.forgetpass');
 })->name('forgotPass');
 Route::post('reset-password','ResetPasswordController@sendMail')->name('reset-password');
-Route::get('reset-token/{token}', 'ResetPasswordController@getFormReset')->name('reset-token');
+Route::get('reset-token', 'ResetPasswordController@getFormReset')->name('reset-token');
 Route::post('reset/{token}', 'ResetPasswordController@reset')->name('reset');
 
 
@@ -53,6 +53,7 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('/', 'TestController@index')->name('home');
 
         Route::get('saleprofit','TestController@getSaleProfit');
+        Route::get('getDataUser','TestController@getDataUserLink')->name('getDataUser');
         
     });
 });

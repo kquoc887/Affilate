@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="../public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -52,7 +53,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="../public/plugins/jquery/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -67,8 +68,8 @@
 <!-- Sparkline -->
 <script src="../public/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
-<script src="../public/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="../public/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+{{-- <script src="../public/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="../public/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> --}}
 <!-- jQuery Knob Chart -->
 <script src="../public/plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
@@ -88,6 +89,8 @@
 <script src="../public/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../public/dist/js/demo.js"></script>
+{{-- datatables --}}
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <!-- My script -->
 @yield('script')
 </body>
