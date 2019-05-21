@@ -33,14 +33,13 @@
             <div class="col-12">
                 <h2>Danh sách các Advertiser</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="advertiser-table">
+                    <table class="table table-striped table-hover text-center" id="advertiser-table">
                         <thead>
                             <tr>
                                 <th>STT</th>
                                 <th>Tên công ty</th>
                                 <th>Email</th>
-                                <th>Hành động</th>
-                                
+                                <th>Hành động</th>    
                             </tr>
                         </thead>
                     </table>
@@ -57,8 +56,9 @@
             $('#advertiser-table').DataTable({
                 processing: true,
                 serverSide: true,
+                searching: false,
                 ajax: {
-                    url:route('publisher.getAdvertiser')
+                    url:"{{route('publisher.getAdvertiser')}}"
                 },
                 columns: [
                     { data: 'org_id' },

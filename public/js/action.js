@@ -40,7 +40,7 @@ $(document).ready(function () {
     $('#frmRegisterAd, #frmRegisterPub').on('submit', function(event) {
         event.preventDefault();
         var formId = $(this).attr('id');
-
+        
         $.ajax({
             url: route('postSignUp'),
             type: 'post',
@@ -58,7 +58,6 @@ $(document).ready(function () {
                 } 
 
                 if (data.success) {
-                   
                     $('#' + formId + ' #form_result').html(data.success);
                     $('#' + formId)[0].reset();
                 } else {
@@ -116,8 +115,23 @@ $(document).ready(function () {
     // Bỏ đi một giá search
     $(document).on('click', '#close-field', function() {
         $(this).parent().remove();
-    })
+    });
   
+    $(document).on('click', 'button[name=register-advertiser]' ,function(){
+        var org_id = $(this).attr('id');
+        $.ajax({
+            url: route('publisher.registerAdvertiser'),
+            type: 'get',
+            data: {
+                'org_id': org_id,
+            },
+            cache: false,
+            dataType: 'JSON',
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    });
 });
 
 

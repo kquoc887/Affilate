@@ -78,10 +78,11 @@
     <script src="{{asset('js/pages/dashboard.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('js/demo.js')}}"></script>
+    @routes
     <script src="{{asset('js/action.js')}}"></script>
     {{-- JS for Datatable --}}
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
-    @routes
+    {{-- @routes --}}
     @yield('scripts')
   </body>
 </html>

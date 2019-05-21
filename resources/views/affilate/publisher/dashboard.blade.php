@@ -130,23 +130,51 @@
             <div class="col-12">
                 <h2>Các công ty đã đăng ký tham gia</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <tr>
-                            <th>Tên</th>
-                            <th>Link referal</th>
-                        </tr>
-                        <tr>
-                            <td>Shoppe</td>
-                            <th>http://shoppe.vn/?ref=845858</th>
-                        </tr>
-                        <tr>
-                            <td>Lazada</td>
-                            <th>http://lazada.vn/?ref=148568</th>
-                        </tr>
+                    <table class="table table-striped table-hover" id="table-org">
+                       <thead>
+                            <tr>
+                                <th></th>
+                                <th>Tên</th>
+                                <th>Link giới thiệu</th>
+                                <th>Ngày đăng ký<th>
+                            </tr>
+                       </thead>
                     </table>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Dashboard -->    
+@endsection
+@section('scripts')
+<script>
+    $(function() {
+            var t = $('#table-org').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: false,
+                ajax: {
+                    url: "{{route('publisher.getDataOrg')}}"
+                },
+                columns: [
+                    { data: 'stt'},
+                    { data: 'org_name', name: 'org_name' },
+                    { data: 'user_code', name:'user_code' },
+                    { data:'created_at', name:'created_at' },
+                ],
+                columnDefs: [ {
+                    searchable: false,
+                    orderable: false,
+                    targets: 0
+                } ],
+                order: [[ 1, 'asc' ]]
+                  
+            });
+            t.on( 'order.dt search.dt', function () {
+                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    cell.innerHTML = i+1;
+                } );
+            } ).draw();
+        });
+</script>
 @endsection
