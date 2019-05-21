@@ -39,7 +39,6 @@ Route::get('reset-token', 'ResetPasswordController@getFormReset')->name('reset-t
 Route::post('reset/{token}', 'ResetPasswordController@reset')->name('reset');
 
 
-
 Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
     Route::group(['prefix' => 'publisher'], function () {
         Route::get('/', 'PublisherController@index')->name('publisher.dashboard');
@@ -47,6 +46,13 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('sale-profit', 'PublisherController@getSaleProfit')->name('publisher.sale-profit');
         
         Route::get('advertiser', 'PublisherController@getAdvertiser')->name('publisher.advertiser');
+
+        Route::get('getAdvertiser', 'PublisherController@getDataAdvertiser')->name('publisher.getAdvertiser');
+
+        Route::get('registerAdvertiser', 'PublisherController@registerAdvertiser')->name('publisher.registerAdvertiser');
+
+        Route::get('getDataOrg', 'PublisherController@getDataOrg')->name('publisher.getDataOrg');
+
     });
 
     Route::group(['prefix' => 'advertiser'], function () {

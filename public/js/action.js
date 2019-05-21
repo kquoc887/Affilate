@@ -29,12 +29,13 @@ $(document).ready(function () {
     });
 
     $(document).on('click', 'li.nav-item', function() {
+        $(this).next().find('a.nav-link').removeClass('active');
+        $(this).prev().find('a.nav-link').removeClass('active');
+        nav_link = $(this).find('a.nav-link');
         $('li.nav-item').removeClass('menu-open');
-        $('a.nav-link').removeClass('active');
+        $(this).find(nav_link[0]).toggleClass('active');
         $('ul.nav-treeview').css('display', 'none');
         $(this).find('ul.nav-treeview').css('display', 'block');
-        nav_link = $(this).find('a.nav-link');
-        nav_link[0].classList.add('active');
     });
 
     // Bắt sự kiện khi người dùng bấm đăng ký
@@ -43,11 +44,13 @@ $(document).ready(function () {
         var formId = $(this).attr('id');
 
 
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $(this).find('input[name=_token]').val()
-        //     }
-        // })
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $(this).find('input[name=_token]').val()
+            }
+        })
+
 
         $.ajax({
             url: route('postSignUp'),
@@ -66,7 +69,6 @@ $(document).ready(function () {
                 } 
 
                 if (data.success) {
-                   
                     $('#' + formId + ' #form_result').html(data.success);
                     $('#' + formId)[0].reset();
                 } else {
@@ -124,8 +126,23 @@ $(document).ready(function () {
     // Bỏ đi một giá search
     $(document).on('click', '#close-field', function() {
         $(this).parent().remove();
-    })
+    });
   
+    $(document).on('click', 'button[name=register-advertiser]' ,function(){
+        var org_id = $(this).attr('id');
+        $.ajax({
+            url: route('publisher.registerAdvertiser'),
+            type: 'get',
+            data: {
+                'org_id': org_id,
+            },
+            cache: false,
+            dataType: 'JSON',
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    });
 });
 
 

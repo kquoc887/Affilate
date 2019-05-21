@@ -17,6 +17,7 @@ class CreateOrgTable extends Migration
             $table->increments('org_id');
             $table->string('org_name');
             $table->string('org_email');
+            $table->string('org_uri')->default('');
             $table->string('org_address');
             $table->string('org_phone');
             $table->string('org_token')->default('');

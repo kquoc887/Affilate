@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use DateTime;
 use App\tbl_org;
 use App\Events\NewUser;
+use Dirape\Token\Token;
 
 class RegisterController extends Controller
 {
@@ -43,7 +44,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -52,7 +53,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // $this->middleware('guest');
     }
 
     /**
@@ -74,7 +75,6 @@ class RegisterController extends Controller
      */
     protected function create(Request $data)
     {
-
         $role = 0;
         if(isset($data['company_name']))
 
@@ -91,11 +91,13 @@ class RegisterController extends Controller
             tbl_org::create([
                 'org_name'    => $data['company_name'],
                 'org_email'   => $data['email'],
+                'org_uri'     => $data['uri'],
                 'org_address' => $data['address'],
                 'org_phone'   => $data['phone'],
-                'org_token'     => str_random(60),
-                'created_at'=> new DateTime(),
-                'updated_at'=> new DateTime(),
+                'org_token'   => (new Token())->Unique('tbl_org', 'org_token', 60),
+                'created_at'  => new DateTime(),
+                'updated_at'  => new DateTime(),
+
             ]);
 
              $role = 1;

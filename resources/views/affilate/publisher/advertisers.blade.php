@@ -33,35 +33,41 @@
             <div class="col-12">
                 <h2>Danh sách các Advertiser</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <tr>
-                            <th>Tên công ty</th>
-                            <th>Địa chỉ Email</th>
-                            <th>Phần trăm hoa hồng</th>
-                            <th>Hành động</th>
-                        </tr>
-                        <tr>
-                            <td>Shoppe</td>
-                            <td>shoppe@gmail.com</td>
-                            <td>3%</td>
-                            <td><a href="#" class="btn btn-primary">Đăng ký</a></td>
-                        </tr>
-                        <tr>
-                            <td>Tiki</td>
-                            <td>tiki@gmail.com</td>
-                            <td>4%</td>
-                            <td><a href="#" class="btn btn-primary">Đăng ký</a></td>
-                        </tr>
-                        <tr>
-                            <td>Lazada</td>
-                            <td>lazada@gmail.com</td>
-                            <td>5%</td>
-                            <td><a href="#" class="btn btn-primary">Đăng ký</a></td>
-                        </tr>
+                    <table class="table table-striped table-hover text-center" id="advertiser-table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên công ty</th>
+                                <th>Email</th>
+                                <th>Hành động</th>    
+                            </tr>
+                        </thead>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+       $(function() {
+            $('#advertiser-table').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: false,
+                ajax: {
+                    url:"{{route('publisher.getAdvertiser')}}"
+                },
+                columns: [
+                    { data: 'org_id' },
+                    { data: 'org_name' },
+                    { data: 'org_email' },
+                    { data:'action' }
+                
+                ]
+            });
+        });
+    </script>
 @endsection
