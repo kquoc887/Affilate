@@ -13,7 +13,7 @@ class Customer_actionTableSeeder extends Seeder
     {
         for($i=0;$i<=10;$i++)
             DB::table('tbl_customer_action')->insert([
-                'user_link_id' => rand(1,10),
+                'user_link_id' => rand(1,14),
                 'action' =>rand(0,3),
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),

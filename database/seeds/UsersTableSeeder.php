@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
                     'address' => Str::random(10),
                     'phone' => Arr::random($phone),
                     'uri' => 'google'.$i.'.com.vn',
-                    'token' => Str::random(20),
+                    'remember_token' => Str::random(20),
                     'role' => rand(0,1),
                     'created_at' => new DateTime(),
                     'updated_at' => new DateTime()
