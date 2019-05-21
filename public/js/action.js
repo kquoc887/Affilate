@@ -27,12 +27,13 @@ $(document).ready(function () {
     });
 
     $(document).on('click', 'li.nav-item', function() {
+        $(this).next().find('a.nav-link').removeClass('active');
+        $(this).prev().find('a.nav-link').removeClass('active');
+        nav_link = $(this).find('a.nav-link');
         $('li.nav-item').removeClass('menu-open');
-        $('a.nav-link').removeClass('active');
+        $(this).find(nav_link[0]).toggleClass('active');
         $('ul.nav-treeview').css('display', 'none');
         $(this).find('ul.nav-treeview').css('display', 'block');
-        nav_link = $(this).find('a.nav-link');
-        nav_link[0].classList.toggle('active');
     });
 
     // Bắt sự kiện khi người dùng bấm đăng ký

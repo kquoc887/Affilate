@@ -30,7 +30,6 @@ Route::post("postSignUp",'Auth\RegisterController@create')->name('postSignUp');
 Route::post('postLogin','Auth\LoginController@postLogin')->name('postLogin');
 
 
-
 Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
     Route::group(['prefix' => 'publisher'], function () {
         Route::get('/', 'PublisherController@index')->name('publisher.dashboard');
@@ -38,6 +37,8 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('sale-profit', 'PublisherController@getSaleProfit')->name('publisher.sale-profit');
         
         Route::get('advertiser', 'PublisherController@getAdvertiser')->name('publisher.advertiser');
+
+        Route::get('getAdvertiser', 'PublisherController@getDataAdvertiser')->name('publisher.getAdvertiser');
     });
 
     Route::group(['prefix' => 'advertiser'], function () {

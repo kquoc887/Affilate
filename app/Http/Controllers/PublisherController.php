@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use DB;
 
 class PublisherController extends Controller
 {
@@ -22,10 +23,20 @@ class PublisherController extends Controller
         return view('affilate.publisher.sale_profit');
     }
 
+
+    public function getDataAdvertiser() {
+        $orgs = DB::table('tbl_org')->get();
+        return Datatables::of($orgs)
+                        ->addColumn('action', function($org) {
+                            return '<a href="#" class="btn btn-primary btn-flat">Đăng ký</a>';
+                        })
+                        ->make(true);
+    }
+
     public function getAdvertiser()
     {
         
-        return view('affilate.publisher.advertisers', compact($data));
+        return view('affilate.publisher.advertisers');
     }
 
     /**
