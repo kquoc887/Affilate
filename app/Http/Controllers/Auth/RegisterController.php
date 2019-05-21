@@ -93,6 +93,7 @@ class RegisterController extends Controller
                 'org_email'   => $data['email'],
                 'org_address' => $data['address'],
                 'org_phone'   => $data['phone'],
+                'org_token'     => str_random(60),
                 'created_at'=> new DateTime(),
                 'updated_at'=> new DateTime(),
             ]);

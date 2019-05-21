@@ -15,7 +15,7 @@ class User_linkTableSeeder extends Seeder
         for($i=0;$i<=10;$i++){
             DB::table('tbl_user_link')->insert([
                 'user_id' => rand(1,11),
-                'org_id'  => rand(1,7),
+                'org_id'  => rand(1,6),
                 'user_code'  => Str::random(15),
                 'created_at'  => new DateTime(),
                 'updated_at' => new DateTime()
