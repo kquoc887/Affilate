@@ -1,4 +1,6 @@
 $(document).ready(function () {
+   
+
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng ký trên trang
     $(document).on('click', '.btn-register', function(event) {
         $(this).parents('div.region-action').find('h2').text('Đăng nhập');
@@ -46,7 +48,7 @@ $(document).ready(function () {
 
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $(this).find('input[name=_token]').val()
+                'X-CSRF-TOKEN': $(this).parents('#frmLogin').find('input[name=_token]').val()
             }
         })
 
@@ -80,16 +82,16 @@ $(document).ready(function () {
 
     // Bắt sự kiện khi người dùng đăng nhập
     $(document).on('click', '#login', function(event) {
+        event.preventDefault();
         var email = $(this).parents('#frmLogin').find('input[name=email]').val();
         var password = $(this).parents('#frmLogin').find('input[name=password]').val();
         var formId = $(this).parents('#frmLogin').attr('id');
-        
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $(this).parents('#frmLogin').find('input[name=_token]').val()
             }
         })
-
+      
         $.ajax({
             url: route('checkLogin'),
             type: 'post',
@@ -132,9 +134,9 @@ $(document).ready(function () {
         
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $(this).parents('#frmLogin').find('input[name=_token]').val()
             }
-        });
+        })
 
         $.ajax({
             url: route('publisher.registerAdvertiser'),

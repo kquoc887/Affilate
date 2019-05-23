@@ -24,7 +24,7 @@
             <a href="#" data-toggle="modal" data-target="#myModal">Bấm vào đây để lấy lại mật khẩu</a>
         </div>
         <div class="form-group text-center">
-            <button type="button" class="btn btn-primary" id="login">Đăng nhập</button>
+            <button type="submit" class="btn btn-primary" id="login">Đăng nhập</button>
         </div>
         </div>
     </div>

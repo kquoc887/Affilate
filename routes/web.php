@@ -17,6 +17,7 @@
 Route::get('login', function() {
     return view('affilate.login');
 })->name('getLogin')->middleware('guest');
+
 // route dùng để xác nhận đăng ký của user
 Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
 Route::get('logout', 'Auth\LoginController@getLogout')->name('getLogout');
