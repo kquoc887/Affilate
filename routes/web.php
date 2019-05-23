@@ -16,7 +16,7 @@
 //route of QuocKhanh
 Route::get('login', function() {
     return view('affilate.login');
-})->name('getLogin');
+})->name('getLogin')->middleware('guest');
 
 // route dùng để xác nhận đăng ký của user
 Route::get('active-user/{id}', 'Auth\VerificationController@activeUser')->name('verifyUser');
@@ -49,7 +49,7 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
 
         Route::get('getAdvertiser', 'PublisherController@getDataAdvertiser')->name('publisher.getAdvertiser');
 
-        Route::get('registerAdvertiser', 'PublisherController@registerAdvertiser')->name('publisher.registerAdvertiser');
+        Route::post('registerAdvertiser', 'PublisherController@registerAdvertiser')->name('publisher.registerAdvertiser');
 
         Route::get('getDataOrg', 'PublisherController@getDataOrg')->name('publisher.getDataOrg');
 
@@ -57,13 +57,20 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
 
     Route::group(['prefix' => 'advertiser'], function () {
         Route::get('/', 'TestController@index')->name('home');
-
         Route::get('saleprofit','TestController@getSaleProfit');
         Route::get('getDataUser','TestController@getDataUserLink')->name('getDataUser');
         
     });
 });
 
+
+Route::get('set-cookie', function() {
+    session(['test' => 'value1']);
+});
+
+Route::get('get-cookie', function() {
+    dd(cookie('__cfduid'));
+});
 
 
 

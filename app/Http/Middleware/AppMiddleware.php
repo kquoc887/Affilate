@@ -16,7 +16,6 @@ class AppMiddleware
      */
     public function handle($request, Closure $next)
     {
-
         if (Auth::check()) {
            if (Auth::user()->active == 1) {
                 return $next($request);

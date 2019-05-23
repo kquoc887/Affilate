@@ -30,14 +30,30 @@ class RegisterController extends Controller
 
     // regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
     private $rules = [     
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:tbl_users'],
-        'password' => ['required', 'string', 'min:8'],
-        'repass' => ['required', 'string', 'min:8','same:password'],
+        'email'     => ['required', 'string','email', 'max:255', 'unique:tbl_users'],
+        'password'  => ['required', 'string', 'min:8'],
+        'repass'    => ['required', 'string', 'min:8','same:password'],
         'firstname' => ['required', 'string', 'max:255'],
-        'lastname' => ['required', 'string', 'max:255'],
-        'address' => ['required', 'string', 'max:255'],
-        'uri' => ['required', 'string', 'max:255'],
-        'phone' => ['required', 'min:10'],
+        'lastname'  => ['required', 'string', 'max:255'],
+        'address'   => ['required', 'string', 'max:255'],
+        'uri'       => ['required', 'string', 'max:255'],
+        'phone'     => ['required', 'min:10'],
+    ];
+
+    private $message = [
+        'email.required'        => 'Vui lòng nhập email',
+        'password.required'     => 'Vui lòng nhập mật khẩu',
+        'password.min'          => 'Mật khẩu phải có tối thiểu 8 ký tự',
+        'repass.required'       => 'vui lòng nhập lại mật khẩu',
+        'repass.same'           => 'Mật khẩu nhập lại chưa khớp',
+        'firstname.required'    => 'Vui lòng nhập tên',
+        'lastname.required'     => 'Vui lòng nhập họ và tên đệm',
+        'address.required'      => 'Vui lòng nhập địa chỉ',
+        'uri.required'          => 'Vui lòng nhập vào đường dẫn web',
+        'phone.required'        => 'Vui lòng nhập vào điện thoại'
+        
+
+
     ];
     /**
      * Where to redirect users after registration.
@@ -64,7 +80,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, $this->rules);
+        return Validator::make($data, $this->rules, $this->message);
     }
 
     /**
@@ -82,6 +98,7 @@ class RegisterController extends Controller
         if(isset($data['company_name'])) {
             
             $this->rules = array_merge(array('company_name' => 'required'), $this->rules);
+            $this->message = array_merge(array('company_name.required' => 'Vui lòng nhập tên công ty'), $this->message);
             $validator = $this->validator($data->all());
         
             if ($validator->fails()) {

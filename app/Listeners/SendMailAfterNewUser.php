@@ -6,7 +6,7 @@ use App\Events\NewUser;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Mail;
-class SendMailAfterNewUser
+class SendMailAfterNewUser implements ShouldQueue
 {
     /**
      * Create the event listener.

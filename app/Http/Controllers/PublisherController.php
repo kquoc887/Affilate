@@ -48,9 +48,11 @@ class PublisherController extends Controller
 
     public function registerAdvertiser(Request $request) {
         if ($request->ajax()) {
-            $org_id     = $request->get('org_id');
+            $org_id     = $request->post('org_id');
+            $org        = DB::table('tbl_org')->where('org_id', $org_id)->first();
             $user_id    = Auth::user()->user_id;
-            $user_code  = DB::table('tbl_org')->where('org_id', $org_id)->value('org_uri') . '?uc=' . str_random(20);
+            $user_code  = $org->org_name . '?uc=' . str_random(20);
+        
             $data = [
                 'org_id' => $org_id,
                 'user_id' => $user_id,
@@ -58,9 +60,11 @@ class PublisherController extends Controller
                 'created_at'=> new DateTime(),
                 'updated_at'=> new DateTime(),
             ];
+
             $result = DB::table('tbl_user_link')->insert($data);   
+            
             if ($request == true) {
-                return response()->json(['user_code' => $user_code]);
+                return response()->json(['user_code' => $user_code, 'org_name' => $org->org_name]);
             }
         }
     }

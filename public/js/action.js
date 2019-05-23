@@ -44,7 +44,6 @@ $(document).ready(function () {
         var formId = $(this).attr('id');
 
 
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $(this).find('input[name=_token]').val()
@@ -130,17 +129,24 @@ $(document).ready(function () {
   
     $(document).on('click', 'button[name=register-advertiser]' ,function(){
         var org_id = $(this).attr('id');
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
             url: route('publisher.registerAdvertiser'),
-            type: 'get',
+            type: 'post',
             data: {
                 'org_id': org_id,
             },
             cache: false,
             dataType: 'JSON',
             success: function(data) {
-                console.log(data);
-            }
+                swal("Thông báo", "Bạn đã đăng ký làm công tác viên của công ty " + data.org_name, "success");
+            },
         });
     });
 });

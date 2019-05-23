@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class LoginController extends Controller
 {
@@ -73,6 +74,7 @@ class LoginController extends Controller
     public function postLogin(Request $request)
     {
         $remember = (!empty($request->chkRemember)) ? true : false;
+     
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password], $remember)) {
             $user = Auth::user();
             switch ($user->role) {
