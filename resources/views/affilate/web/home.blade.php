@@ -124,13 +124,36 @@
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
+    {{-- modal confirm --}}
+    <div class="modal" tabindex="-1" role="dialog" id="modal-confirm">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Khóa Cộng Tác Viên</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc chắn muốn khóa cộng tác viên này?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="ok_button" class="btn btn-primary">Đồng ý</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{-- end modal confirm --}}
     <!-- /.content -->
   </div>
   @endsection
+
 @section('script')
+@routes
   <script>
       $(document).ready(function(){
-          // alert(123);
+          
          var t = $('#dashboard_ad').DataTable({
             processing : true,
             severSide  : true,
@@ -159,6 +182,67 @@
                   cell.innerHTML = i+1;
               } );
           } ).draw();
+          
+      });
+      var  id_user;
+      var  action;
+      $(document).on('click','.btn_lock',function(){
+             
+                id_user = $(this).attr('id');
+                action = $(this).attr('name');
+                $('#modal-confirm').modal('show');
+                $('#ok_button').on('click',function(){             
+                $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+                $.ajax({
+                  url : route('lockPub'),  
+                  type : "post",
+                  dataType: 'json',
+                  data: {
+                        'id_user' : id_user,
+                        'action' : action
+                    },
+                    success: function(data){
+                      if (data.message == 'success') {
+                        $('#modal-confirm').modal('hide');
+                        $('#dashboard_ad').DataTable().ajax.reload();
+                      }
+                    },
+                })
+              })            
       })
+     
+      $(document).on('click','.btn_unlock',function(){
+             
+            id_user = $(this).attr('id');
+            action = $(this).attr('name');          
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
+            $.ajax({
+              url : route('lockPub'),  
+              type : "post",
+              dataType: 'json',
+              data: {
+                    'id_user' : id_user,
+                    'action' : action
+                },
+                success: function(data){
+                  
+                  if (data.message == 'success') {
+                    $('#dashboard_ad').DataTable().ajax.reload();
+                  }
+                },
+            })
+                    
+   })
   </script>
+ 
+    
+ 
 @endsection

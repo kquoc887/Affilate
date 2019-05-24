@@ -13,7 +13,6 @@ $(document).ready(function () {
         }
 
         $('#frmLogin').css('display', 'none');
-        //use ajax send form forgot to ResetPWController
        
     });
 
@@ -124,8 +123,40 @@ $(document).ready(function () {
     // Bỏ đi một giá search
     $(document).on('click', '#close-field', function() {
         $(this).parent().remove();
-    })
-  
+    });
+
+    $(document).on('click','#request',function(e){
+        e.preventDefault();
+       
+        var email =  $(this).parents('#frmForgotPass').find('input[name=email]').val();
+        var span_error = $(this).parents('#frmForgotPass').find('div.form-group label>span#email_error');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+        });
+        $.ajax({
+            url : route('check-email'),
+            type : "post",
+            data : {
+                postMail :email,
+            },
+            // contentType: false,
+            cache:false,
+            // processData:false,
+            dataType:"JSON",
+            success:function(data){
+               
+                
+                if (data.error) {
+                  span_error.html(data.error);
+                }
+                if (data.message) {
+                    $('#frmForgotPass').submit();
+                }
+            }
+        });
+    });
 });
 
 
@@ -150,6 +181,5 @@ function refreshValidate(formId) {
     var span_error = $('#' + formId + ' .form-group label>span');
     for (var index = 0; index < span_error.length; index++) {
         span_error[index].innerHTML = '';
-      
      }
 }

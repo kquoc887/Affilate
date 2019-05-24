@@ -40,7 +40,6 @@
               <i class="nav-icon fa fa-pie-chart"></i>
               <p>
                 Payment
-                <i class="right fa fa-angle-left"></i>
               </p>
             </a>
           </li>
