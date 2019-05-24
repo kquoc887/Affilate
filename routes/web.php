@@ -66,13 +66,7 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
 });
 
 
-Route::get('set-cookie', function() {
-    session(['test' => 'value1']);
-});
 
-Route::get('get-cookie', function() {
-    dd(cookie('__cfduid'));
-});
 
 
 

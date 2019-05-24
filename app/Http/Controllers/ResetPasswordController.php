@@ -33,7 +33,7 @@ class ResetPasswordController extends Controller
             $user->notify(new ResetPasswordRequest($passwordReset->token));
         }
         return redirect('login')->with([
-            'message' => 'We have emailed your password reset link please check your email', 
+            'message' => 'Chúng tôi đã gửi mail thay đổi mật khẩu, vui lòng kiểm tra mail', 
             'text-alert' => 'alert-success'
         ]);
     }
