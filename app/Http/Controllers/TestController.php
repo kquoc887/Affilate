@@ -64,6 +64,37 @@ class TestController extends Controller
 
         
     }
+    //lấy dữ liệu lợi nhuận của các user 
+    public function getDataSaleProfit(){
+        $customer = DB::table('tbl_user_link')
+                        ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+                        ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+                        ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+                        ->get();
+            return $customer;
+        // return datatables()->of($customer)
+        //     ->addColumn('active',function($data){
+        //         switch($data->active){
+        //             case 0:
+        //                 $input = '<label id="alert-status" class="alert alert-warning"> Đang chờ';
+        //                 return $input;
+        //                 break;
+        //             case 1:
+        //                 $input = '<label id="alert-status" class="alert alert-success"> Đã thanh toán';
+        //                 return $input;
+        //                 break;
+        //             case 2:
+        //                 $input = '<label id="alert-status" class="alert alert-danger"> Đã hủy đơn hàng';
+        //                 return $input;
+        //                 break;
+        //         }
+            
+        //     })
+        //     ->addColumn('STT','')
+        //     ->rawColumns(['STT'])
+        //     ->make(true);
+
+    }
     /**
      * Show the form for creating a new resource.
      *

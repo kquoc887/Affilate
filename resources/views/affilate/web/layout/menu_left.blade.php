@@ -27,7 +27,7 @@
 
           </li>
           <li class="nav-item has-treeview">
-            <a href="saleprofit" class="nav-link">
+          <a href="{{route('saleProFit')}}" class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
                Sale Profit
