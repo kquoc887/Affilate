@@ -12,26 +12,33 @@ use Hash;
 
 class ResetPasswordController extends Controller
 {
+    public function checkEmail(Request $request) {
+        $email = $_POST['postMail'];
+        $user = User::where('email',$email)->get();
+        if (count($user) == 0) {
+            return response()->json(['error' => 'Email không tồn tài']);
+        } 
+        return response()->json(['message' => 'success']);
     
+    }
     
     
 
     public function sendMail(Request $request){
-        
-            $user = User::where('email',$request->email)->firstOrFail();
-            $passwordReset = PassWordReset::updateOrCreate([
-                'email' => $user->email,
-            ],[
-                'token' => Str::random(60),
-            ]);
-            if($passwordReset){
-                $user->notify(new ResetPasswordRequest($passwordReset->token));
-            }
-            return redirect('login')->with([
-                'message' => 'We have emailed your password reset link please check your email', 
-                'text-alert' => 'alert-success'
-            ]);
+        $user = User::where('email',$request->email)->firstOrFail();
+        $passwordReset = PassWordReset::updateOrCreate([
+            'email' => $user->email,
+        ],[
+            'token' => Str::random(60),
+        ]);
+        if($passwordReset){
+            $user->notify(new ResetPasswordRequest($passwordReset->token));
         }
+        return redirect('login')->with([
+            'message' => 'Chúng tôi đã gửi mail thay đổi mật khẩu, vui lòng kiểm tra mail', 
+            'text-alert' => 'alert-success'
+        ]);
+    }
 
         public function reset(Request $request, $token)
         {

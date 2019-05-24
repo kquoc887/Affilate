@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../public/plugins/font-awesome/css/font-awesome.min.css">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
@@ -92,6 +93,7 @@
 {{-- datatables --}}
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <!-- My script -->
+<script src="js/action.js"></script> 
 @yield('script')
 </body>
 </html>

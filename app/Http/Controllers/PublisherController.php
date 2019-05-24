@@ -51,7 +51,7 @@ class PublisherController extends Controller
             $org_id     = $request->post('org_id');
             $org        = DB::table('tbl_org')->where('org_id', $org_id)->first();
             $user_id    = Auth::user()->user_id;
-            $user_code  = $org->org_name . '?uc=' . str_random(20);
+            $user_code  = $org->org_uri . '?uc=' . str_random(20);
         
             $data = [
                 'org_id' => $org_id,
