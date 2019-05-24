@@ -34,7 +34,7 @@ class PublisherController extends Controller
         $data = DB::table('tbl_user_link')
                     ->join('tbl_org', 'tbl_user_link.org_id', '=', 'tbl_org.org_id')
                     ->where('user_id', Auth::user()->user_id)
-                    ->select('tbl_user_link.user_code', 'tbl_org.org_name', 'tbl_user_link.created_at')
+                    ->select( DB::raw('concat(tbl_org.org_uri, "?uc=",  tbl_user_link.user_code) as link_referal'), 'tbl_org.org_name', 'tbl_user_link.created_at')
                     ->get();
         return Datatables::of($data)
                         ->addColumn('stt', '')
@@ -51,7 +51,7 @@ class PublisherController extends Controller
             $org_id     = $request->post('org_id');
             $org        = DB::table('tbl_org')->where('org_id', $org_id)->first();
             $user_id    = Auth::user()->user_id;
-            $user_code  = $org->org_uri . '?uc=' . str_random(20);
+            $user_code  = str_random(20);
         
             $data = [
                 'org_id' => $org_id,

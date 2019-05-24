@@ -59,21 +59,29 @@ $(document).ready(function () {
             cache: false,
             processData: false,
             dataType: 'json',
+            beforeSend: function() {
+                $('.loader').css('display', 'block');
+            },
             success: function(data, status) {
-                // console.log(data);
                 refreshValidate(formId);
-                //Kiểm tra người dùng có nhập đầy đủ thông tin không.
                 if (data.errors) {
                     checkValidate(data.errors, formId);
                 } 
 
                 if (data.success) {
-                    $('#' + formId + ' #form_result').html(data.success);
                     $('#' + formId)[0].reset();
-                } else {
-                    
-                    $('#' + formId + ' #form_result').html('');
-                }
+                } 
+            },
+            complete: function(data) {
+                $('.loader').css('display', 'none');
+                if (data.responseJSON.errors) {
+                        swal("Thông báo", "Bạn đã gặp một số lỗi vui lòng kiểm tra lại");
+                        return false;
+                } 
+                swal("Thông báo", "Bạn đã đăng ký thành công vui lòng kiểm tra mail để kích hoạt");
+              
+
+               
             }
         });
     });
@@ -110,7 +118,8 @@ $(document).ready(function () {
                 if (data.success) {
                     $('#frmLogin').submit();
                 }
-            }
+            },
+          
         });
     });
 
@@ -134,9 +143,9 @@ $(document).ready(function () {
         
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $(this).parents('#frmLogin').find('input[name=_token]').val()
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        })
+        });
 
         $.ajax({
             url: route('publisher.registerAdvertiser'),

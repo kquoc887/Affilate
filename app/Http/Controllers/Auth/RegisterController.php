@@ -146,6 +146,6 @@ class RegisterController extends Controller
         // Bắt sự kiện gửi mail
         event(new NewUser($user));
     
-        return response()->json(['success' => 'Đăng ký thành công vui lòng kiểm mail để kích hoạt']);
+        return response()->json(['success' => 'success'], 200);
     }
 }
