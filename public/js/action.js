@@ -5,7 +5,8 @@ $(document).ready(function () {
     $(document).on('click', '.btn-register', function(event) {
         $(this).parents('div.region-action').find('h2').text('Đăng nhập');
         $(this).parents('div.region-action').find('.btn-group').empty().append('<button id="btn-login">Đăng nhập</button>');
-        
+      
+        // refreshValidate($('#frmLogin').attr('id'));
         if ($(this).val() == 'Advertiser') {
             $('#frmRegisterAd').css('display', 'block');
         }

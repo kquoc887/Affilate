@@ -27,7 +27,7 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Yêu cầu lấy lại</button>
+          <button type="submit" id="request" class="btn btn-primary">Yêu cầu lấy lại</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </form>

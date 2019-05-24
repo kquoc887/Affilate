@@ -14,6 +14,8 @@ class ResetPasswordController extends Controller
 {
     
     
+    
+
     public function sendMail(Request $request){
         
             $user = User::where('email',$request->email)->firstOrFail();
