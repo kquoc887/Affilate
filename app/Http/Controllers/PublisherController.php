@@ -68,4 +68,15 @@ class PublisherController extends Controller
             }
         }
     }
+
+    // public function createRelationship(Request $request) {
+    //     $user_code = $request->get('user_code');
+    //     $user_link_id = DB::table('tbl_user_link')->where('user_code', $user_code)->value('user_link_id');
+    //     DB::table('tbl_customer_action')->insert([
+    //         'user_link_id' => $user_link_id,
+    //         'action' => 1,
+    //         'created_at'=> new DateTime(),
+    //         'updated_at'=> new DateTime(),
+    //     ]);
+    // }
 }

@@ -1,6 +1,4 @@
 $(document).ready(function () {
-   
-
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng ký trên trang
     $(document).on('click', '.btn-register', function(event) {
         $(this).parents('div.region-action').find('h2').text('Đăng nhập');
@@ -18,6 +16,7 @@ $(document).ready(function () {
         $('#frmLogin').css('display', 'none');
        
     });
+
 
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng nhập trên trang
     $(document).on('click', '#btn-login', function(event) {
@@ -196,7 +195,9 @@ $(document).ready(function () {
 
         });
     });
+
 });
+
 
 
 function checkValidate(arrayError, formId) {

@@ -92,8 +92,6 @@ class RegisterController extends Controller
     protected function create(Request $data)
     {
         $role = 0;
-        if(isset($data['company_name']))
-
 
         if(isset($data['company_name'])) {
             
@@ -118,6 +116,7 @@ class RegisterController extends Controller
             ]);
 
              $role = 1;
+
         }
         
 
@@ -145,7 +144,7 @@ class RegisterController extends Controller
 
         // Bắt sự kiện gửi mail
         event(new NewUser($user));
-    
+        
         return response()->json(['success' => 'success'], 200);
     }
 }
