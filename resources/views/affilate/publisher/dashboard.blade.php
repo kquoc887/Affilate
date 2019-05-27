@@ -159,7 +159,7 @@
                 columns: [
                     { data: 'stt'},
                     { data: 'org_name', name: 'org_name' },
-                    { data: 'user_code', name:'user_code' },
+                    { data: 'link_referal', name:'link_referal' },
                     { data:'created_at', name:'created_at' },
                 ],
                 columnDefs: [ {
