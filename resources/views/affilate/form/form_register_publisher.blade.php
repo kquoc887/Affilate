@@ -49,7 +49,7 @@
                         <input type="password" name="repass" class="form-control" placeholder="Vui lòng nhập password" aria-describedby="helpId">
                     </div>
                     <button type="submit" class="btn btn-primary offset-md-4 btn-signup">Đăng ký</button>
-                    <p class="text-success" id="form_result"></p>
+
                 </div>
             </div>
         </div>

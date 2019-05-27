@@ -23,8 +23,16 @@ class LoginController extends Controller
     |
     */
     private $rules = [     
-        'email' => ['required', 'string', 'email', 'max:255'],
-        'password' => ['required', 'string', 'min:8'],
+        'email'     => ['required', 'string', 'email', 'max:255'],
+        'password'  => ['required', 'string', 'min:8'],
+    ];
+
+    private $messages = [
+        'email.required'    => 'Vui lòng nhập email',
+        'email.email'       => 'Email nhập vào chưa đúng định dạng',
+        'password.required' => 'Vui lòng nhập mật khẩu',
+        'password.min' => 'Mật khẩu phải có thiểu 8 ký tự',
+
     ];
 
     use AuthenticatesUsers;
@@ -48,7 +56,7 @@ class LoginController extends Controller
 
     protected function validator(array $data)
     {
-        return Validator::make($data, $this->rules);
+        return Validator::make($data, $this->rules, $this->messages);
     }
 
 
@@ -73,8 +81,8 @@ class LoginController extends Controller
 
     public function postLogin(Request $request)
     {
-        $remember = (!empty($request->chkRemember)) ? true : false;
-     
+        $remember   = (!empty($request->chkRemember)) ? true : false;
+       
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password], $remember)) {
             $user = Auth::user();
             switch ($user->role) {

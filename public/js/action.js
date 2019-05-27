@@ -3,6 +3,7 @@ $(document).ready(function () {
     $(document).on('click', '.btn-register', function(event) {
         $(this).parents('div.region-action').find('h2').text('Đăng nhập');
         $(this).parents('div.region-action').find('.btn-group').empty().append('<button id="btn-login">Đăng nhập</button>');
+
         // refreshValidate($('#frmLogin').attr('id'));
         if ($(this).val() == 'Advertiser') {
             $('#frmRegisterAd').css('display', 'block');
@@ -15,6 +16,7 @@ $(document).ready(function () {
         $('#frmLogin').css('display', 'none');
        
     });
+
 
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng nhập trên trang
     $(document).on('click', '#btn-login', function(event) {
@@ -56,31 +58,40 @@ $(document).ready(function () {
             cache: false,
             processData: false,
             dataType: 'json',
+            beforeSend: function() {
+                $('.loader').css('display', 'block');
+            },
             success: function(data, status) {
-                // console.log(data);
                 refreshValidate(formId);
-                //Kiểm tra người dùng có nhập đầy đủ thông tin không.
                 if (data.errors) {
                     checkValidate(data.errors, formId);
                 } 
 
                 if (data.success) {
-                    $('#' + formId + ' #form_result').html(data.success);
                     $('#' + formId)[0].reset();
-                } else {
-                    
-                    $('#' + formId + ' #form_result').html('');
-                }
+                } 
+            },
+            complete: function(data) {
+                $('.loader').css('display', 'none');
+                if (data.responseJSON.errors) {
+                        swal("Thông báo", "Bạn đã gặp một số lỗi vui lòng kiểm tra lại");
+                        return false;
+                } 
+                swal("Thông báo", "Bạn đã đăng ký thành công vui lòng kiểm tra mail để kích hoạt");
+              
+
+               
             }
         });
     });
 
     // Bắt sự kiện khi người dùng đăng nhập
     $(document).on('click', '#login', function(event) {
+        event.preventDefault();
         var email = $(this).parents('#frmLogin').find('input[name=email]').val();
         var password = $(this).parents('#frmLogin').find('input[name=password]').val();
         var formId = $(this).parents('#frmLogin').attr('id');
-        
+       
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -106,7 +117,8 @@ $(document).ready(function () {
                 if (data.success) {
                     $('#frmLogin').submit();
                 }
-            }
+            },
+          
         });
     });
 
@@ -183,7 +195,9 @@ $(document).ready(function () {
 
         });
     });
+
 });
+
 
 
 function checkValidate(arrayError, formId) {
