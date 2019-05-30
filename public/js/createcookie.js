@@ -9,20 +9,21 @@ $(document).ready(function () {
         // Tạo cookie trên mấy client
         document.cookie = queryString[0] + '=' + queryString[1] + ';' + expires;
    }
-    // $(document).on('click', '#cash', function() {
-   //     $.ajax({
-   //         url: 'http://localhost:7000/Affilate/public/relation-action',
-   //         type: 'get',
-   //         cache: false,
-   //         dataType: 'JSON',
-   //         data: {
-   //             'user_code': getCookie('uc')
-   //         },
-   //         success: function(data) {
-   //             console.log(data);
-   //         }
-   //     });
-   // });
+
+//     $(document).on('click', '#cash', function() {
+//        $.ajax({
+//            url: 'http://localhost:7000/Affilate/public/relation-action',
+//            type: 'get',
+//            cache: false,
+//            dataType: 'JSON',
+//            data: {
+//                'user_code': getCookie('uc')
+//            },
+//            success: function(data) {
+//                console.log(data);
+//            }
+//        });
+//    });
 
 });
 
@@ -40,3 +41,4 @@ function getCookie(cname) {
     }
     return "";
 }
+

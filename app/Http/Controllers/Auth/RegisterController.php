@@ -109,12 +109,12 @@ class RegisterController extends Controller
                 'org_uri'     => $data['uri'],
                 'org_address' => $data['address'],
                 'org_phone'   => $data['phone'],
-                'org_token'   => (new Token())->Unique('tbl_org', 'org_token', 60),
+                'org_token'   => (new Token())->Unique('tbl_org', 'org_token', 32),
                 'created_at'  => new DateTime(),
                 'updated_at'  => new DateTime(),
 
             ]);
-
+            
              $role = 1;
 
         }
