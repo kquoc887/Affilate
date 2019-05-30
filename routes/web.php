@@ -56,14 +56,15 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
     });
     Route::group(['prefix' => 'advertiser'], function () {
         Route::get('/', 'TestController@index')->name('home');
-        Route::get('saleprofit','TestController@getSaleProfit');
+        Route::get('saleprofit','TestController@getSaleProfit')->name('saleProFit');
         Route::get('getDataUser','TestController@getDataUserLink')->name('getDataUser');
+        Route::get('getDataProfit','TestController@getDataSaleProfit')->name('getDataSaleProfit');
         Route::post('lockPublisher','TestController@lock_n_unlock_publisher')->name('lockPub');
         
     });
 });
 
 
-Route::get('relation-action', 'PublisherController@createRelationship');
+
 
 

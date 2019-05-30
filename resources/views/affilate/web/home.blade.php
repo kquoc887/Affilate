@@ -19,7 +19,7 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+    
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -95,7 +95,17 @@
                 <div class="card-header">
                   <h3 class="card-title">Bảng số lượng cộng tác viên</h3>
                 </div>
-                            <!-- /.card-header -->
+                <div class="cotainer-fluid region-search">
+                    <form action="#" method="POST" class="offset-md-9 form-inline">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success btn-flat btn-search" id="addColumnSearch">+</button>
+                            <input type="text" class="form-control" placeholder="Vui lòng điền thông tin cần tìm">
+                            <button type="button" class="btn btn-success btn-flat btn-search">Tìm kiếm</button>
+                            <button type="submit" class="btn btn-success btn-flat btn-search" >Tất cả</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card-header -->
                 <div class="card-body">
                     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">                          

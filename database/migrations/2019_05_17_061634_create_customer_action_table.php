@@ -17,7 +17,8 @@ class CreateCustomerActionTable extends Migration
             $table->increments('id');
             $table->integer('user_link_id')->unsigned();
             $table->foreign('user_link_id')->references('user_link_id')->on('tbl_user_link')->onDelete('cascade');
-            $table->integer('action');
+            $table->integer('order_id');
+            $table->double('total');
             $table->timestamps();
         });
     }
