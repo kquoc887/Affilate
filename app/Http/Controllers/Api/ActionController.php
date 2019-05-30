@@ -37,24 +37,27 @@ class ActionController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->post();
-        $user_code = $request->post('user_code');
-        $total = $request->post('total');
-        $order_id = $request->post('order_id');
-        $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
-        // return $user->toString();
-        $dataCustomer = [
-            'user_link_id' => $user->user_link_id,
-            'order_id' => $order_id,
-            'total' => $total,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
-        ];
-        $result = DB::table('tbl_customer_action')->insert($dataCustomer);
-        //Xử lý báo về khúc này
-        // if ($result == true) {
+        $org_token = $request->post('data_customer')['org_token'];
+        $order_id = $request->post('data_customer')['order_id'];
+        $order_total = $request->post('data_customer')['order_total'];
+       $org = DB::table('tbl_org')->where('org_token', $org_token)->get();
+       if (count($org) != 0) {
+            $user_code = $request->post('user_code');
+            $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
             
-        // }
+            $dataCustomer = [
+                'user_link_id' => $user->user_link_id,
+                'order_id' => $order_id,
+                'total' => $order_total,
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime(),
+            ];
+            DB::table('tbl_customer_action')->insert($dataCustomer);
+           
+       } else {
+           return response()->json(['message' => 'error']);
+       }
+        
     }
 
     /**

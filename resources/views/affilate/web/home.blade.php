@@ -1,4 +1,4 @@
-@extends('affilate.web.index')
+@extends('affilate.master')
 
 @section('content')
 <div class="content-wrapper">
@@ -110,7 +110,7 @@
                     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">                          
                             <div class="col-sm-12">
-                                <table id="dashboard_ad" class="display" width="100%" cellspacing="0">
+                                <table id="dashboard_ad" class="display table table-bordered" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>STT</th>
@@ -159,8 +159,7 @@
   </div>
   @endsection
 
-@section('script')
-@routes
+@section('scripts')
   <script>
       $(document).ready(function(){
           
