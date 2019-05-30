@@ -10,6 +10,7 @@ $(document).ready(function () {
         document.cookie = queryString[0] + '=' + queryString[1] + ';' + expires;
      
    }
+
 //    console.log(data);
 //     $(document).on('click', '#take_an_order', function(e) {
 //         // e.preventDefault();
@@ -30,12 +31,7 @@ $(document).ready(function () {
 //            data: {
 //                'user_code': getCookie('uc'),
 //             //    'total' : total
-//            },
-//            success: function(data) {
-//                console.log(data);
-//            }
-//        });
-//    });
+
 
 });
 
@@ -53,3 +49,4 @@ function getCookie(cname) {
     }
     return "";
 }
+
