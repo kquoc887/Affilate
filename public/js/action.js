@@ -79,8 +79,6 @@ $(document).ready(function () {
                 } 
                 swal("Thông báo", "Bạn đã đăng ký thành công vui lòng kiểm tra mail để kích hoạt");
               
-
-               
             }
         });
     });
