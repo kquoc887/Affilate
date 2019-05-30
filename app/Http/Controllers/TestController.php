@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\User_Link;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Auth;
-use App\tbl_org;
-use App\User;
 use DB;
 use Illuminate\Database\Eloquent\Collection;
+use DateTime;
+
+
 
 class TestController extends Controller
 {
@@ -64,6 +65,23 @@ class TestController extends Controller
 
         
     }
+    //lấy dữ liệu của CTV khi người dùng click vào link của ctv và thanh toán
+    // public function saveProfilePublisher(Request $request){
+    //     $user_code = $request->get('user_code');
+    //     $total = $request->get('total');
+    //     $order_id = $request->get('order_id');
+    //     $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
+       
+    //     $dataCustomer = [
+    //         'user_link_id' => $user->user_link_id,
+    //         'order_id' => $order_id,
+    //         'total' => $total,
+    //         'created_at' => new DateTime(),s
+    //         'updated_at' => new DateTime(),
+    //     ];
+    //     $result = DB::table('tbl_customer_action')->insert($dataCustomer);
+    //     return response()->json(['success' => 'everythings ok']);
+    // }
     //lấy dữ liệu lợi nhuận của các user 
     public function getDataSaleProfit(){
         $customer = DB::table('tbl_user_link')
@@ -71,28 +89,15 @@ class TestController extends Controller
                         ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
                         ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
                         ->get();
-            return $customer;
-        // return datatables()->of($customer)
-        //     ->addColumn('active',function($data){
-        //         switch($data->active){
-        //             case 0:
-        //                 $input = '<label id="alert-status" class="alert alert-warning"> Đang chờ';
-        //                 return $input;
-        //                 break;
-        //             case 1:
-        //                 $input = '<label id="alert-status" class="alert alert-success"> Đã thanh toán';
-        //                 return $input;
-        //                 break;
-        //             case 2:
-        //                 $input = '<label id="alert-status" class="alert alert-danger"> Đã hủy đơn hàng';
-        //                 return $input;
-        //                 break;
-        //         }
             
-        //     })
-        //     ->addColumn('STT','')
-        //     ->rawColumns(['STT'])
-        //     ->make(true);
+        return datatables()->of($customer)
+            ->addColumn('action',function($data){
+                    $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
+                    return $button;
+            })
+            ->addColumn('STT','')
+            ->rawColumns(['STT','action'])
+            ->make(true);
 
     }
     /**
@@ -100,12 +105,13 @@ class TestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //MỞ trang sale profit
     public function getSaleProfit(){
         return view('affilate.web.saleprofit');
     }
-    public function create()
+    public function alertToApp()
     {
-        //
+        return 123;
     }
 
     /**

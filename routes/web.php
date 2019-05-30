@@ -65,4 +65,4 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
 });
 
 
-Route::get('relation-action', 'PublisherController@createRelationship');
+Route::get('save-profile-publisher', 'TestController@saveProfilePublisher');

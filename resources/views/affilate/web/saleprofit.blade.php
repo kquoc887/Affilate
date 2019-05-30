@@ -23,26 +23,27 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Lợi nhuận của từng cộng tác viên</h3>
-            </div>
-            <!-- /.card-header -->
+                <div class="card-header">
+                  <h3 class="card-title">Lợi nhuận của từng cộng tác viên</h3>
+                </div>
+                <!-- /.card-header -->
 
-            <div class="row">
-                <div class="col-sm-12">
-                  <table id="sale_profit_ad" class="display" width="100%" cellspacing="0">
-                      <thead>
-                          <tr>
-                              <th>STT</th>
-                              <th>Tên cộng tác viên</th>
-                              <th>Số tiền</th>
-                              <th>Ngày thanh toán</th>
-                              <th>Trạng Thái</th>
-                          </tr>
-                        </thead>
-                  </table>
-              </div>
-            </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                      <table id="sale_profit_ad" class="display" width="100%" cellspacing="0">
+                          <thead>
+                              <tr>
+                                  <th>STT</th>
+                                  
+                                  <th>Tên cộng tác viên</th>
+                                  <th>Số tiền</th>
+                                  <th>Ngày thanh toán</th>
+                                  <th>Hành động</th>
+                              </tr>
+                          </thead>
+                      </table>
+                  </div>
+                </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
@@ -57,31 +58,32 @@
 @endsection
 @section('script')
 <script>
-  // $(document).ready(function(){
-  //    vart = $('#sale_id_profit_ad').DataTables({
-  //      processing : true,
-  //      severSide: true,
-  //      ajax({
-  //         url: "{{route('getDataSaleProfit')}}"
-  //      }),
-  //      columns: [
-  //           {data:'STT',name:'STT'},
-  //           {data:'fullname',name:'fullname'},
-  //           // {data:'sumconst',name:'sumconst'},
-  //           {data:'created_at',name : 'created_at'}
-  //           {data:'active',name:'active'},
-  //      ],
-  //      columnDefs: [ {
-  //                 "searchable": false,
-  //                 "orderable": false,
-  //                 "targets": 0
-  //         } ],
-  //    });
-  //    t.on( 'order.dt search.dt', function () {
-  //             t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-  //                 cell.innerHTML = i+1;
-  //             } );
-  //         } ).draw();
-  // })
+  $(document).ready(function(){
+     var t = $('#sale_profit_ad').DataTable({
+       processing : true,
+       severSide: true,
+       ajax:{
+          url: "{{route('getDataSaleProfit')}}"
+       },
+       columns: [
+            {data:'STT',name:'STT'},
+            
+            {data:'fullname',name:'fullname'},
+            {data:'total',name:'total'},
+            {data:'created_at',name : 'created_at'},
+            {data:'action',name:'action'},
+       ],
+       columnDefs: [ {
+                  "searchable": false,
+                  "orderable": false,
+                  "targets": 0
+          } ],
+     });
+     t.on( 'order.dt search.dt', function () {
+              t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                  cell.innerHTML = i+1;
+              } );
+          } ).draw();
+  })
 </script>
 @endsection
