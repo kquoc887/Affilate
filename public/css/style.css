@@ -71,3 +71,9 @@ span.xoay {
 .dropdown-menu {
     min-width: 20rem !important;
 }
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em !important;
+    font-size: 60% !important;
+}
