@@ -4,7 +4,6 @@ $(document).ready(function () {
         $(this).parents('div.region-action').find('h2').text('Đăng nhập');
         $(this).parents('div.region-action').find('.btn-group').empty().append('<button id="btn-login">Đăng nhập</button>');
 
-        // refreshValidate($('#frmLogin').attr('id'));
         if ($(this).val() == 'Advertiser') {
             $('#frmRegisterAd').css('display', 'block');
         }
@@ -127,7 +126,7 @@ $(document).ready(function () {
   
     $(document).on('click', 'button[name=register-advertiser]' ,function(){
         var org_id = $(this).attr('id');
-
+        var button_register = $(this);
         $.ajax({
             url: route('publisher.registerAdvertiser'),
             type: 'post',
@@ -139,6 +138,7 @@ $(document).ready(function () {
             dataType: 'JSON',
             success: function(data) {
                 swal("Thông báo", "Bạn đã đăng ký làm công tác viên của công ty " + data.org_name, "success");
+                button_register.attr('disabled', true);
             },
         });
     });
@@ -147,7 +147,6 @@ $(document).ready(function () {
 
     $(document).on('click','#request',function(e){
         e.preventDefault();
-       
         var email =  $(this).parents('#frmForgotPass').find('input[name=email]').val();
         var span_error = $(this).parents('#frmForgotPass').find('div.form-group label>span#email_error');
         $.ajax({
@@ -157,9 +156,7 @@ $(document).ready(function () {
             data : {
                 postMail :email,
             },
-            // contentType: false,
             cache:false,
-            // processData:false,
             dataType:"JSON",
             success:function(data){
                
@@ -176,8 +173,6 @@ $(document).ready(function () {
     });
 
 });
-
-
 
 function checkValidate(arrayError, formId) {
     var arr = [];

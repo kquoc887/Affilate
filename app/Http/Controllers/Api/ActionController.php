@@ -40,7 +40,7 @@ class ActionController extends Controller
         $org_token = $request->post('data_customer')['org_token'];
         $order_id = $request->post('data_customer')['order_id'];
         $order_total = $request->post('data_customer')['order_total'];
-       $org = DB::table('tbl_org')->where('org_token', $org_token)->get();
+        $org = DB::table('tbl_org')->where('org_token', $org_token)->get();
        if (count($org) != 0) {
             $user_code = $request->post('user_code');
             $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
@@ -52,11 +52,11 @@ class ActionController extends Controller
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
             ];
-            DB::table('tbl_customer_action')->insert($dataCustomer);
-           
-       } else {
-           return response()->json(['message' => 'error']);
-       }
+            $result  = DB::table('tbl_customer_action')->insert($dataCustomer);
+            if ($result == true) {
+                $user_admin = DB::table('tbl_users')->where('email',$org->email)->notify(new UserNotification());
+            }
+       } 
 
     }
 
@@ -71,17 +71,7 @@ class ActionController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
+   
     /**
      * Update the specified resource in storage.
      *
