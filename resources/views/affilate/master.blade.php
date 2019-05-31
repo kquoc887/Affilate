@@ -37,8 +37,12 @@
     <!-- end header -->
 
     <!-- begin sidebar -->
-    @include('affilate.layout.sidebar')
-     <!-- end sidebar -->
+    @if(Auth::user()->role == 1)
+      @include('affilate.web.layout.menu_left')
+    <!-- end sidebar -->
+    @else 
+      @include('affilate.layout.sidebar')
+    @endif
     @yield('content')
     </div>   
 
@@ -86,7 +90,7 @@
     <script src="{{asset('js/action.js')}}"></script>
     {{-- JS for Datatable --}}
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
-    {{-- @routes --}}
+
     @yield('scripts')
   </body>
 </html>

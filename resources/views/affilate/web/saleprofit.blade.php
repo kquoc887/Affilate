@@ -1,4 +1,4 @@
-@extends('affilate.web.index')
+@extends('affilate.master')
 @section('content')
 <div class="content-wrapper" style="min-height: 445px;">
     <!-- Content Header (Page header) -->
@@ -30,7 +30,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                      <table id="sale_profit_ad" class="display" width="100%" cellspacing="0">
+                      <table id="sale_profit_ad" class="table table-bordered" class="display" width="100%" cellspacing="0">
                           <thead>
                               <tr>
                                   <th>STT</th>
@@ -56,7 +56,7 @@
     <!-- /.content -->
 </div>
 @endsection
-@section('script')
+@section('scripts')
 <script>
   $(document).ready(function(){
      var t = $('#sale_profit_ad').DataTable({

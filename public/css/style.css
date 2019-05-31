@@ -64,3 +64,10 @@ span.xoay {
     }
 }
 
+.dropdown-menu-right {
+    right: -120px !important;
+}       
+
+.dropdown-menu {
+    min-width: 20rem !important;
+}

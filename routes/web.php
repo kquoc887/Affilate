@@ -63,8 +63,3 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         
     });
 });
-
-
-
-
-
