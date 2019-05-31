@@ -27,7 +27,16 @@
                   <h3 class="card-title">Lợi nhuận của từng cộng tác viên</h3>
                 </div>
                 <!-- /.card-header -->
-
+                <div class="cotainer-fluid region-search" style="padding-top:5%; padding-right:2%">
+                    <form action="#" method="POST" class="offset-md-9 form-inline">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success btn-flat btn-search" id="addColumnSearch">+</button>
+                            <input type="text" class="form-control" placeholder="Vui lòng điền thông tin cần tìm">
+                            <button type="button" class="btn btn-success btn-flat btn-search">Tìm kiếm</button>
+                            <button type="submit" class="btn btn-success btn-flat btn-search" >Tất cả</button>
+                        </div>
+                    </form>
+                </div>
                 <div class="row">
                     <div class="col-sm-12">
                       <table id="sale_profit_ad" class="table table-bordered" class="display" width="100%" cellspacing="0">
@@ -60,6 +69,10 @@
 <script>
   $(document).ready(function(){
      var t = $('#sale_profit_ad').DataTable({
+        searching: false,
+        language: {
+            "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+        },
        processing : true,
        severSide: true,
        ajax:{
