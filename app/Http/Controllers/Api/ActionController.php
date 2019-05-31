@@ -38,23 +38,21 @@ class ActionController extends Controller
     public function store(Request $request)
     {
         // return $request->post();
-        $user_code = $request->post('user_code');
-        $total = $request->post('total');
-        $order_id = $request->post('order_id');
-        $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
-        // return $user->toString();
-        $dataCustomer = [
-            'user_link_id' => $user->user_link_id,
-            'order_id' => $order_id,
-            'total' => $total,
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
-        ];
-        $result = DB::table('tbl_customer_action')->insert($dataCustomer);
-        //Xử lý báo về khúc này
-        // if ($result == true) {
-            
-        // }
+        if ($request->post['org_token']) {
+            $user_code = $request->post('user_code');
+            $total = $request->post('total');
+            $order_id = $request->post('order_id');
+            $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
+            // return $user->toString();
+            $dataCustomer = [
+                'user_link_id' => $user->user_link_id,
+                'order_id' => $order_id,
+                'total' => $total,
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime(),
+            ];
+            $result = DB::table('tbl_customer_action')->insert($dataCustomer);
+        }
     }
 
     /**

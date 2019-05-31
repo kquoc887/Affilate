@@ -11,26 +11,6 @@ $(document).ready(function () {
      
    }
 
-//    console.log(data);
-//     $(document).on('click', '#take_an_order', function(e) {
-//         // e.preventDefault();
-//         // var total = document.getElementById('total-price').value;
-//         // console.log(total);
-//         $.ajaxSetup({
-//             headers: {
-//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//             }
-//         });
-
-//        $.ajax({
-
-//            url: 'http://localhost:8080/Affilate/public/save-profile-publisher',
-//            type: 'POST',
-//            cache: false,
-//            dataType: 'JSON',
-//            data: {
-//                'user_code': getCookie('uc'),
-//             //    'total' : total
 
 
 });
