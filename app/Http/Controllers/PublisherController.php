@@ -25,7 +25,19 @@ class PublisherController extends Controller
         $orgs = DB::table('tbl_org')->get();
         return Datatables::of($orgs)
                         ->addColumn('action', function($org) {
-                            return '<button type="button" class="btn btn-primary btn-flat" id="' .$org->org_id .'" name="register-advertiser">Đăng ký </button>' ;
+                            $user_id = Auth::user()->user_id;
+
+                            //exists() trả về true false;
+                            $result = DB::table('tbl_user_link')->where('user_id', $user_id)
+                                                                ->where('org_id', $org->org_id)
+                                                                ->exists();
+                            if ($result) {
+                                $button_html = '<button type="button" class="btn btn-primary btn-flat" id="' .$org->org_id .'" name="register-advertiser" disabled>Đăng ký </button>' ;
+                            } else {
+                                $button_html = '<button type="button" class="btn btn-primary btn-flat" id="' .$org->org_id .'" name="register-advertiser">Đăng ký </button>' ;
+                            }
+                            return $button_html;
+                         
                         })
                         ->make(true);
     }
