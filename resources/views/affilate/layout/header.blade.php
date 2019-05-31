@@ -10,6 +10,7 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
+        <a href="">{{$new}}</a>
         </li>
         @if (isset($new_order))
         
