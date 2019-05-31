@@ -10,8 +10,8 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
-        <a href="">{{$new}}</a>
         </li>
+
         @if (isset($new_order))
         
         <li class="nav-item dropdown">
@@ -27,10 +27,7 @@
                     {{-- <i class="fa fa-envelope mr-2"></i>  --}}
                     <i>{{$item->fullname}}-{{'Mã đơn hàng:' .$item->order_id}}</i>
                     <span class="float-right text-muted text-sm">{{$item->created_at}}</span>
-                    </a>
-                   
-                   
-            
+                    </a>            
                     @endforeach
                 </div>
         </li>
