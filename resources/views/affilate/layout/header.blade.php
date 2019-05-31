@@ -12,31 +12,27 @@
             <a href="#" class="nav-link">Contact</a>
         </li>
 
-        @if (isset($new_order))
-        
         <li class="nav-item dropdown">
+
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                     <i class="fa fa-bell-o"></i>
-                <span class="badge badge-warning navbar-badge">{{count($new_order)}}</span>
+                <span class="badge badge-warning navbar-badge">{{count(Auth::user()->unreadNotifications)}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">{{count($new_order)}} Notifications</span>
-                    @foreach ($new_order as $item)
+                    <span class="dropdown-item dropdown-header">{{count(Auth::user()->unreadNotifications)}} Notifications</span>
+                    @foreach (Auth::user()->unreadNotifications as $notification)
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                    {{-- <i class="fa fa-envelope mr-2"></i>  --}}
-                    <i>{{$item->fullname}}-{{'Mã đơn hàng:' .$item->order_id}}</i>
-                    <span class="float-right text-muted text-sm">{{$item->created_at}}</span>
-                    </a>            
+                    <button type="button" id="clickNotifi" class="btn btn-default">
+                    <i>Đơn hàng mới-{{'Mã đơn hàng:' .$notification->data['Order_ID']}}</i>
+                    <span class="float-right text-muted text-sm">{{$notification->data['Created_at']}}</span>
+                    <input type="hidden" id="hidden-read" value="{{$notification->id}}">
+                    </button>            
                     @endforeach
                 </div>
-        </li>
-        @endif
-
+               
+        </li> 
     </ul>
     <ul class="navbar-nav ml-auto">
-        
         <li class="nav-item"><a href="{{route('getLogout')}}">Thoát</a></li>
-       
     </ul>
 </nav>

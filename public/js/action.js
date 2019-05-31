@@ -17,6 +17,23 @@ $(document).ready(function () {
        
     });
 
+    $(document).on('click', 'button#clickNotifi',function(){
+        
+        $.ajax({
+            url : route('saleProFit'),
+            type : 'get',
+            data : {
+                id : $('#hidden-read').val(),
+            },
+            dataType :"JSON",
+            success: function(data){
+                if(data.success){
+                    window.location.href = route('saleProFit');
+                }
+            }
+        })
+    })
+   
 
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng nhập trên trang
     $(document).on('click', '#btn-login', function(event) {
@@ -161,22 +178,26 @@ $(document).ready(function () {
             cache:false,
             // processData:false,
             dataType:"JSON",
+            beforeSend: function() {
+                $('.loader').css('display', 'block');
+            },
             success:function(data){
                
                 
                 if (data.error) {
                   span_error.html(data.error);
+                  $('.loader').css('display', 'none');
+                  swal("Thông báo", "Bạn đã gặp một số lỗi vui lòng kiểm tra lại");
                 }
                 if (data.message) {
                     $('#frmForgotPass').submit();
                 }
-            }
-
+            },
+            });
         });
+
     });
-
-});
-
+    
 
 
 function checkValidate(arrayError, formId) {

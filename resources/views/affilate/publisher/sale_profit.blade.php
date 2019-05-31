@@ -34,39 +34,50 @@
                     <h2>Khách hàng đã mua hàng</h2>
                     <div class="table-responsive">
                         {{-- Sau này sẽ dùng datatable của laravel để thay thế. --}}
-                        <table class="table table-striped table-hover">
-                            <tr>
-                                <th>Tên</th>
-                                <th>Địa chỉ Email</th>
-                                <th>Hành động</th>
-                                <th>Ngày thực hiện thao tác</th>
-                                <th>Phần trăm hoa hồng</th>
-                            </tr>
-                            <tr>
-                                <td>Maker lover</td>
-                                <td>marker@gmail.com</td>
-                                <td>Mua hàng</td>
-                                <td>16/05/2019</td>
-                                <td>3%</td>
-                            </tr>
+                        <table class="table table-striped table-hover" id="table-sale">
+                            <thead>
                                 <tr>
-                                <td>Stacky went</td>
-                                <td>stacky@gmail.com</td>
-                                <td>Mua hàng</td>
-                                <td>16/05/2019</td>
-                                <td>4%</td>
-                            </tr>
-                            <tr>
-                                <td>Movers men</td>
-                                <td>movers@gmail.com</td>
-                                <td>Mua hàng</td>
-                                <td>16/05/2019</td>
-                                <td>5%</td>
-                            </tr>
+                                    <th></th>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Ngày thành công</th>
+                                </tr>    
+                            </thead>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
 </div>
+@endsection
+@section('scripts')
+    <script>
+        $(function() {
+            var tableSale = $('#table-sale').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: false,
+                ajax: {
+                    url: "{{route('publisher.getDataOrder')}}"
+                },
+                columns: [
+                    { data: 'stt'},
+                    { data: 'order_id', name: 'order_id' },
+                    { data: 'total', name:'total' },
+                    { data:'created_at', name:'created_at' },
+                ],
+                columnDefs: [ {
+                    searchable: false,
+                    orderable: false,
+                    targets: 0
+                } ],
+                order: [[ 1, 'asc' ]]
+            });
+            tableSale.on( 'order.dt search.dt', function () {
+                tableSale.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    cell.innerHTML = i+1;
+                } );
+            } ).draw();
+        });
+    </script>
 @endsection

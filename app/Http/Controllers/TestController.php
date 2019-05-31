@@ -11,8 +11,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use DateTime;
 use Illuminate\Support\Facades\View;
-
-
+use App\Notification;
 
 
 
@@ -136,12 +135,17 @@ class TestController extends Controller
      * @return \Illuminate\Http\Response
      */
     //MỞ trang sale profit
-    public function getSaleProfit(){
+    public function getSaleProfit(Request $request){
+        $id = $request->get('id');
+        if($request->ajax()){
+           
+            $notification = Notification::find($id);
+            $notification->update(['read_at' => now()]);
+            // $notification->delete();
+            return response()->json(['success'=>'ok']);
+        }
         return view('affilate.web.saleprofit');
-    }
-    public function alertToApp()
-    {
-        return 123;
+        
     }
 
     /**

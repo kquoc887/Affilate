@@ -34,8 +34,8 @@
                           <thead>
                               <tr>
                                   <th>STT</th>
-                                  
                                   <th>Tên cộng tác viên</th>
+                                  <th>Mã đơn hàng</th>
                                   <th>Số tiền</th>
                                   <th>Ngày thanh toán</th>
                                   <th>Hành động</th>
@@ -67,8 +67,8 @@
        },
        columns: [
             {data:'STT',name:'STT'},
-            
             {data:'fullname',name:'fullname'},
+            {data:'order_id',name:'order_id'},
             {data:'total',name:'total'},
             {data:'created_at',name : 'created_at'},
             {data:'action',name:'action'},
