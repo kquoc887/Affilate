@@ -63,12 +63,3 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         
     });
 });
-
-
-<<<<<<< HEAD
-
-
-
-=======
-// Route::get('save-profile-publisher', 'TestController@saveProfilePublisher');
->>>>>>> phuocnguyen
