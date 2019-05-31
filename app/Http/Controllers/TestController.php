@@ -15,13 +15,16 @@ use Illuminate\Support\Facades\View;
 
 
 
+
+
 class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */public function __construct(){
+     */
+    public function __construct(){
         //  if(Auth::check()){
         //     $org_id = DB::table('tbl_org')->where('org_email', Auth::user()->email)->value('org_id');
         //     $new_order =  DB::table('tbl_user_link')
@@ -33,6 +36,7 @@ class TestController extends Controller
         //                             ->get();
         //     View::share('new_order',$new_order);
         //  }
+
      }
     public function index()
     {
@@ -42,10 +46,12 @@ class TestController extends Controller
                                 ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
                                 ->where('tbl_user_link.org_id', $org_id)->orderBy('tbl_customer_action.created_at','DESC')
                                 ->select(DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'),'tbl_customer_action.created_at','tbl_customer_action.order_id')
+
                                 ->take(2)
                                 ->get();
         
-        return view('affilate.web.home', ['new_order'=>$new_order]);
+        return view('affilate.web.home',['new_order'=>$new_order]);
+
     }
     public function getDataUserLink(){
 
