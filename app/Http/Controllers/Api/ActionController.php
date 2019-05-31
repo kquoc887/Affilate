@@ -57,7 +57,7 @@ class ActionController extends Controller
        } else {
            return response()->json(['message' => 'error']);
        }
-        
+
     }
 
     /**

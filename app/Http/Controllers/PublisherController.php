@@ -41,6 +41,18 @@ class PublisherController extends Controller
                         ->make(true);
     }
 
+    public function getDataOrder() {
+        $data = DB::table('tbl_customer_action')
+                    ->join('tbl_user_link', 'tbl_customer_action.user_link_id', '=', 'tbl_user_link.user_link_id')
+                    ->where('tbl_user_link.user_id', Auth::user()->user_id)
+                    ->select('tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_customer_action.created_at')
+                    ->get();
+        return Datatables::of($data)
+                        ->addColumn('stt', '')
+                        ->make(true);
+    }   
+    
+
     public function getAdvertiser(Request $request)
     {
         return view('affilate.publisher.advertisers');
