@@ -10,7 +10,8 @@ use DB;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use DateTime;
-use View;
+use Illuminate\Support\Facades\View;
+
 
 
 
@@ -21,17 +22,17 @@ class TestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */public function __construct(){
-         if(Auth::check()){
-            $org_id = DB::table('tbl_org')->where('org_email', Auth::user()->email)->value('org_id');
-            $new_order =  DB::table('tbl_user_link')
-                                    ->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
-                                    ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-                                    ->where('tbl_user_link.org_id', $org_id)->orderBy('tbl_customer_action.created_at','DESC')
-                                    ->select(DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'),'tbl_customer_action.created_at','tbl_customer_action.order_id')
-                                    ->take(2)
-                                    ->get();
-            View::share('new_order',$new_order);
-         }
+        //  if(Auth::check()){
+        //     $org_id = DB::table('tbl_org')->where('org_email', Auth::user()->email)->value('org_id');
+        //     $new_order =  DB::table('tbl_user_link')
+        //                             ->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
+        //                             ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+        //                             ->where('tbl_user_link.org_id', $org_id)->orderBy('tbl_customer_action.created_at','DESC')
+        //                             ->select(DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'),'tbl_customer_action.created_at','tbl_customer_action.order_id')
+        //                             ->take(2)
+        //                             ->get();
+        //     View::share('new_order',$new_order);
+        //  }
      }
     public function index()
     {
