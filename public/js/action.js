@@ -44,16 +44,11 @@ $(document).ready(function () {
         event.preventDefault();
         var formId = $(this).attr('id');
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             url: route('postSignUp'),
             type: 'post',
             data: new FormData(this),
+            headers: {   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             contentType: false,
             cache: false,
             processData: false,
@@ -89,17 +84,12 @@ $(document).ready(function () {
         var email = $(this).parents('#frmLogin').find('input[name=email]').val();
         var password = $(this).parents('#frmLogin').find('input[name=password]').val();
         var formId = $(this).parents('#frmLogin').attr('id');
-       
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: route('checkLogin'),
             type: 'post',
             cache: false,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             dataType: 'JSON',
             data: {
                 'email': email,
@@ -137,16 +127,11 @@ $(document).ready(function () {
   
     $(document).on('click', 'button[name=register-advertiser]' ,function(){
         var org_id = $(this).attr('id');
-        
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: route('publisher.registerAdvertiser'),
             type: 'post',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             data: {
                 'org_id': org_id,
             },
@@ -165,14 +150,10 @@ $(document).ready(function () {
        
         var email =  $(this).parents('#frmForgotPass').find('input[name=email]').val();
         var span_error = $(this).parents('#frmForgotPass').find('div.form-group label>span#email_error');
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-        });
         $.ajax({
             url : route('check-email'),
-            type : "post",
+            type : 'post',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             data : {
                 postMail :email,
             },
