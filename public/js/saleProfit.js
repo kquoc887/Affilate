@@ -46,7 +46,8 @@ $(document).on('click','#FromToDate',function(){
            processing : true,
            severSide: true,
            ajax:{
-              url: "{{route('getDataSaleProfit')}}",
+              url: "{{route('SaleProfitFromToDate')}}",
+              dataType : "JSON",
               data:{
                     fromdate: $('#from-date').val()
               }

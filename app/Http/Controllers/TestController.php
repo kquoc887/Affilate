@@ -94,63 +94,40 @@ class TestController extends Controller
         
     }
    
-    public function getDataSaleProfit(Request $request){
-        $fromdate = $request->get('fromdate');
-        if(isset($fromdate)){
-            $customer = DB::table('tbl_user_link')
-                        ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-                        ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
-                        ->where('tbl_customer_action.created_at',$fromdate)
-                        ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
-                        ->get();
-                return datatables()->of($customer)
-                    ->addColumn('action',function($data){
-                            $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
-                            return $button;
-                    })
-                    ->addColumn('STT','')
-                    ->rawColumns(['STT','action'])
-                    ->make(true);
-                    
-        }
-        else{
-            $customer1 = DB::table('tbl_user_link')
-                        ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-                        ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
-                        ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
-                        ->get();
-                    
-            return datatables()->of($customer1)
-            ->addColumn('action',function($data){
-                    $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
-                    return $button;
-            })
-            ->addColumn('STT','')
-            ->rawColumns(['STT','action'])
-            ->make(true);
-        }
-        
-        
-
-    }
-        // public function getSaleProfitFromToDate(Request $request){
-        //     $fromdate = $request->get('fromdate');
-        //     $customer = DB::table('tbl_user_link')
-        //                     ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-        //                     ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
-        //                     ->where('tbl_customer_action.created_at',$fromdate)
-        //                     ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
-        //                     ->get();
+    public function getDataSaleProfit(){
+        $customer1 = DB::table('tbl_user_link')
+                    ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+                    ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+                    ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+                    ->get();
                 
-        //     return datatables()->of($customer)
-        //         ->addColumn('action',function($data){
-        //                 $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
-        //                 return $button;
-        //         })
-        //         ->addColumn('STT','')
-        //         ->rawColumns(['STT','action'])
-        //         ->make(true);
-        // }
+        return datatables()->of($customer1)
+        ->addColumn('action',function($data){
+                $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
+                return $button;
+        })
+        ->addColumn('STT','')
+        ->rawColumns(['STT','action'])
+        ->make(true); 
+    }
+    public function getSaleProfitFromToDate(Request $request){
+            $fromdate = $request->get('fromdate');
+            $customer = DB::table('tbl_user_link')
+                            ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+                            ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+                            ->where('tbl_customer_action.created_at',$fromdate)
+                            ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+                            ->get();
+                
+            return datatables()->of($customer)
+                ->addColumn('action',function($data){
+                        $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
+                        return $button;
+                })
+                ->addColumn('STT','')
+                ->rawColumns(['STT','action'])
+                ->make(true);
+        }
     /**
      * Show the form for creating a new resource.
      *
