@@ -105,9 +105,8 @@
                                         <tr>
                                             <th>STT</th>
                                             <th>Tên cộng tác viên</th>
-                                            <th>Tên Công Ty</th>
+                                            <th>Email</th>
                                             <th>Ngày bắt đầu làm</th>
-                                            <th>user_code</th>
                                             <th>Trạng Thái</th>
                                             <th>Action</th>
                                         </tr>
@@ -155,8 +154,10 @@
           
          var t = $('#dashboard_ad').DataTable({
             language: {
-                "lengthMenu": "Hiển thị _MENU_ cộng tác viên"
-            },
+                "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "search" : "Tìm kiếm:",
+             },
             processing : true,
             severSide  : true,
             ajax: {
@@ -165,9 +166,8 @@
             columns:[
                 { data : 'STT' , name: 'STT'},
                 { data : 'fullname' , name: 'fullname'},
-                { data : 'org_name' , name: 'org_name'},
-                { data : 'created_at' , name: 'created_at'},
-                { data : 'user_code' , name: 'user_code'},
+                { data : 'email' , name: 'email'},
+                { data : 'created_at', name: 'created_at'},
                 { data:'active', name:'active'},
                 { data:'action',name:'action',orderable:false},
                
@@ -239,6 +239,7 @@
                   if (data.message == 'success') {
                     $('#dashboard_ad').DataTable().ajax.reload();
                   }
+                 
                 },
             })
                     
