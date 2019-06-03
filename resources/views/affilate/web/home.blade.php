@@ -7,13 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
-            </ol>
+            <h1 class="m-0 text-dark">Tình Hình Chung</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -29,8 +23,8 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
+                {{-- sử dụng bảng saleprofit --}}
                 <h3>150</h3>
-
                 <p>Số lượt thanh toán</p>
               </div>
               <div class="icon">
@@ -44,6 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
+                {{-- sử dụng bảng payment --}}
                 <h3>20<sup style="font-size: 20px">%</sup></h3>
 
                 <p>Phần trăm tăng trưởng</p>
@@ -59,6 +54,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
+                {{-- sử dụng dữ liệu bảng user_link --}}
                 <h3>44</h3>
 
                 <p>Số lượng cộng tác viên</p>
@@ -108,7 +104,7 @@
                                             <th>Email</th>
                                             <th>Ngày bắt đầu làm</th>
                                             <th>Trạng Thái</th>
-                                            <th>Action</th>
+                                            <th>Hành Động</th>
                                         </tr>
                                       </thead>
                                 </table>
