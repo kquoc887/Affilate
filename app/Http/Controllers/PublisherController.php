@@ -110,7 +110,7 @@ class PublisherController extends Controller
     
 
    
-
+    //Xử lý chức năng đăng ký trở thành CTV của một công ty
     public function registerAdvertiser(Request $request) {
         if ($request->ajax()) {
             $org_id     = $request->post('org_id');
