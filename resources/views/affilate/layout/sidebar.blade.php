@@ -13,7 +13,7 @@
                 <img src="{{asset('img/'. Auth::user()->avatar)}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-            <a href="#" class="d-block">{{Auth::user()->lastname . ' ' . Auth::user()->firstname}}</a>
+             <a href="#" class="d-block">{{Auth::user()->lastname . ' ' . Auth::user()->firstname}}</a>
             </div>
         </div>
     
@@ -88,23 +88,17 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('publisher.editProfile')}}" class="nav-link">
+                            <a href="{{route('publisher.geteditProfile')}}" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>Chỉnh sửa thông tin</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('publisher.infoUser')}}" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>Xem thông tin</p>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a href="pages/charts/flot.html" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
-                                <p>Payment</p>
-                            </a>
-                        </li> --}}
                     </ul>
                 </li>
             </ul>

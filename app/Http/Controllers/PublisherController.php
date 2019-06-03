@@ -110,4 +110,31 @@ class PublisherController extends Controller
         $user = Auth::user();
         return view('affilate.publisher.edit_profile', compact('user'));
     }
+
+    public function postEditProfile(Request $request) {    
+        $user = Auth::user();
+        if ($request->fileAvatar) {
+            $image              = $request->file('fileAvatar');
+            $fileName           = $image->getClientOriginalName();        
+            $image->move('img', $fileName);
+            $user->avatar       = $fileName;
+         }
+        
+        if ($request->has('password')) {
+            $user->password     = $request->password;
+        }
+
+        $user->email        = $request->email;
+        $user->lastname     = $request->lastname;
+        $user->firstname    = $request->firstname;
+        $user->address      = $request->address;
+        $user->phone        = $request->phone;
+        $user->uri          = $request->uri;
+        $user->save();
+        return redirect()->route('publisher.infoUser');
+    }
+
+    public function getInfoUser() {
+        return view('affilate.publisher.info_user');
+    }
 }

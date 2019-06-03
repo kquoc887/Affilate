@@ -195,10 +195,7 @@ $(document).ready(function () {
     });
 
    $(document).on('change', '#ckcChangePass', function() {
-      
-    // //    console.log(123);
         var isChangePass = $('#ckcChangePass').is(":checked");
-        console.log(isChangePass);
         if (isChangePass == true) {
             $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
             $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
@@ -207,6 +204,13 @@ $(document).ready(function () {
             $('#frmUpdateProfile input[name=repass]').removeAttr('disabled');
         }
    });
+
+   $(document).on('change', '#frmUpdateProfile input[name=fileAvatar]', function(event) {
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        $('#frmUpdateProfile img#img-avatar').fadeIn('fast').attr('src', tmppath);
+        
+   });
+
 });
     
 
