@@ -164,9 +164,8 @@
                 serverSide: true,
                 searching: false,
                 paging: false,
-                length: 5,
                 ajax: {
-                    url: "{{route('publisher.getDataOrder')}}"
+                    url: "{{route('publisher.getNearestOrder')}}"
                 },
                 columns: [
                     { data: 'rownum', name: 'rownum'},
@@ -174,7 +173,6 @@
                     { data: 'total', name:'total' },
                     { data:'created_at', name:'created_at' },
                 ],
-                order: [[ 1, 'asc' ]]
             });
            
         });

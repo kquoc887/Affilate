@@ -117,18 +117,6 @@ class TestController extends Controller
     }
     public function getSaleProfitFromToDate(Request $request){
             // return $request->get('todate');
-           
-
-            $fromdate = new Carbon($request->get('fromdate'));
-            $todate   = new Carbon($request->get('todate'));
-            $todate   = $todate->hour(23)->minute(32)->second(5);
-            $customer = DB::table('tbl_user_link')
-                            ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-                            ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
-                            ->whereBetween('tbl_customer_action.created_at',[$fromdate->toDateTimeString(),$todate->toDateTimeString()])
-                            ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
-                            ->get();
-            return response()->json(['customer' => $customer]);
             // if(!empty($request->get('todate'))){
             //     $todate = new Carbon($request->get('todate'));
             //     $day = $todate->day + 1;
