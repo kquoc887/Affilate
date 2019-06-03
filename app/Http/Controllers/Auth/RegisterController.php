@@ -138,6 +138,7 @@ class RegisterController extends Controller
                 'uri' => $data['uri'],
                 'remember_token' => $data['_token'],
                 'role' => $role,
+                'avatar' => 'default_avatar.png',
                 'created_at'=> new DateTime(),
                 'updated_at'=> new DateTime(),
             ]);

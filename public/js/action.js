@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng ký trên trang
     $(document).on('click', '.btn-register', function(event) {
         $(this).parents('div.region-action').find('h2').text('Đăng nhập');
@@ -192,6 +193,20 @@ $(document).ready(function () {
             },
         });
     });
+
+   $(document).on('change', '#ckcChangePass', function() {
+      
+    // //    console.log(123);
+        var isChangePass = $('#ckcChangePass').is(":checked");
+        console.log(isChangePass);
+        if (isChangePass == true) {
+            $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
+            $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
+        } else {
+            $('#frmUpdateProfile input[name=password]').removeAttr('disabled');
+            $('#frmUpdateProfile input[name=repass]').removeAttr('disabled');
+        }
+   });
 });
     
 

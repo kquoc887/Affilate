@@ -9,12 +9,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard</h1>
+                        <h1 class="m-0 text-dark">Thông tin tổng quan</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">General Infomation</li>
+                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Thông tin tổng quan</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -96,12 +96,12 @@
                 <div class="col-12">
                     <h2>Đơn hàng gần nhất</h2>
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover" id='table-order'>
+                        <table class="table table-striped table-hover text-center" id='table-order'>
                              <thead>
                                 <tr>
                                     <th></th>
                                     <th>Mã đơn hàng</th>
-                                    <th>Total</th>
+                                    <th>Tổng tiền đơn hàng</th>
                                     <th>Ngày được thực hiện</th>
                                 </tr>
                             </thead>
@@ -114,10 +114,10 @@
             <div class="col-12">
                 <h2>Các công ty đã đăng ký tham gia</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="table-org">
+                    <table class="table table-striped table-hover text-center"  id="table-org">
                        <thead>
                             <tr>
-                                <th></th>
+                                <th>STT</th>
                                 <th>Tên</th>
                                 <th>Link giới thiệu</th>
                                 <th>Ngày đăng ký<th>
@@ -137,11 +137,14 @@
                 processing: true,
                 serverSide: true,
                 searching: false,
+                paging: false,
+                length: 5,
+                // searching: true,
                 ajax: {
                     url: "{{route('publisher.getDataOrg')}}"
                 },
                 columns: [
-                    { data: 'stt'},
+                    {data: 'rownum', name: 'rownum'},
                     { data: 'org_name', name: 'org_name' },
                     { data: 'link_referal', name:'link_referal' },
                     { data:'created_at', name:'created_at' },
@@ -164,6 +167,8 @@
                 processing: true,
                 serverSide: true,
                 searching: false,
+                paging: false,
+                length: 5,
                 ajax: {
                     url: "{{route('publisher.getDataOrder')}}"
                 },

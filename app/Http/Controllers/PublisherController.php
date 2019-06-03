@@ -7,6 +7,7 @@ use DB;
 use Yajra\Datatables\Datatables;
 use Auth;
 use DateTime;
+use Carbon\Carbon;
 
 class PublisherController extends Controller
 {
@@ -22,7 +23,8 @@ class PublisherController extends Controller
 
 
     public function getDataAdvertiser() {
-        $orgs = DB::table('tbl_org')->get();
+        DB::statement(DB::raw('set @rownum=0'));
+        $orgs = DB::table('tbl_org')->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'org_name', 'org_uri', 'org_address', 'org_id')->get();
         return Datatables::of($orgs)
                         ->addColumn('action', function($org) {
                             $user_id = Auth::user()->user_id;
@@ -43,23 +45,34 @@ class PublisherController extends Controller
     }
 
     public function getDataOrg() {
+        DB::statement(DB::raw('set @rownum=0'));
         $data = DB::table('tbl_user_link')
                     ->join('tbl_org', 'tbl_user_link.org_id', '=', 'tbl_org.org_id')
                     ->where('user_id', Auth::user()->user_id)
-                    ->select( DB::raw('concat(tbl_org.org_uri, "?uc=",  tbl_user_link.user_code) as link_referal'), 'tbl_org.org_name', 'tbl_user_link.created_at')
+                    ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'), DB::raw('concat(tbl_org.org_uri, "?uc=",  tbl_user_link.user_code) as link_referal'), 'tbl_org.org_name', 'tbl_user_link.created_at')
                     ->get();
         return Datatables::of($data)
+                        ->editColumn('created_at', function($item) {
+                            return $item->created_at ? with(new Carbon($item->created_at))->format('d/m/Y') : '';
+                        })
                         ->addColumn('stt', '')
                         ->make(true);
     }
 
     public function getDataOrder() {
+        
         $data = DB::table('tbl_customer_action')
                     ->join('tbl_user_link', 'tbl_customer_action.user_link_id', '=', 'tbl_user_link.user_link_id')
                     ->where('tbl_user_link.user_id', Auth::user()->user_id)
                     ->select('tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_customer_action.created_at')
                     ->get();
         return Datatables::of($data)
+                        ->editColumn('created_at', function($item) {
+                            return $item->created_at ? with(new Carbon($item->created_at))->format('m/d/Y') : '';
+                        })
+                        // ->filterColumn('created_at', function ($query, $keyword) {
+                        //     $query->whereRaw("DATE_FORMAT(created_at,'%m/%d/%Y') like ?", ["%$keyword%"]);
+                        // })
                         ->addColumn('stt', '')
                         ->make(true);
     }   
@@ -93,4 +106,8 @@ class PublisherController extends Controller
         }
     }
 
+    public function getEditProfile() {
+        $user = Auth::user();
+        return view('affilate.publisher.edit_profile', compact('user'));
+    }
 }
