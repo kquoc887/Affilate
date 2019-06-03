@@ -197,12 +197,14 @@ $(document).ready(function () {
    $(document).on('change', '#ckcChangePass', function() {
         var isChangePass = $('#ckcChangePass').is(":checked");
         if (isChangePass == true) {
-            $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
-            $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
-        } else {
             $('#frmUpdateProfile input[name=password]').removeAttr('disabled');
             $('#frmUpdateProfile input[name=repass]').removeAttr('disabled');
+           
+        } else {
+            $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
+            $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
         }
+
    });
 
    $(document).on('change', '#frmUpdateProfile input[name=fileAvatar]', function(event) {
@@ -210,9 +212,9 @@ $(document).ready(function () {
         $('#frmUpdateProfile img#img-avatar').fadeIn('fast').attr('src', tmppath);
         
    });
-
+ 
 });
-    
+
 
 function checkValidate(arrayError, formId) {
     var arr = [];

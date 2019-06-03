@@ -1,5 +1,6 @@
 var  click = 0;
 var click_to_date = 0;
+//click mở form search theo ngày
 $(document).on('click','#addFieldSearch',function(){
     if(click == 0){
         var html = '<div id="FromDate" class="form-inline offset-md-5 mb-2" style="padding-top:2%">';
@@ -13,6 +14,7 @@ $(document).on('click','#addFieldSearch',function(){
     }
     return click;
 })
+// click mở form đến ngày
 $(document).on('click','#to-date',function(){
     if(click_to_date == 0)
     {
@@ -25,10 +27,32 @@ $(document).on('click','#to-date',function(){
     }
     return click_to_date;
 })
+// click đóng tất cả form search
 $(document).on('click', '#close-all-field', function() {
     $('#FromDate').remove();
     $('#ToDate').remove();
-    return click = 0,click_to_date = 0;
+    $('#sale_profit_ad').DataTable({
+        destroy: true,
+        searching: false,
+        language: {
+            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+        },
+       processing : true,
+       severSide: true,
+       ajax:{
+          url: route('getDataSaleProfit')
+       },
+       columns: [
+            {data:'STT',name:'STT'},
+            {data:'fullname',name:'fullname'},
+            {data:'order_id',name:'order_id'},
+            {data:'total',name:'total'},
+            {data:'created_at',name : 'created_at'},
+            {data:'action',name:'action'},
+       ]
+    });
+    click = 0;click_to_date = 0; 
 });
 $(document).on('click', '#close-field-todate', function() {
     $('#ToDate').remove();
@@ -38,12 +62,12 @@ $(document).on('click', '#close-field-todate', function() {
 $(document).on('click','#FromToDate',function(){
     if(click_to_date==0)
     {
-        
-        $('#sale_profit_ad').dataTable().fnDestroy();
         var t = $('#sale_profit_ad').DataTable({
+            destroy:true,
             searching: false,
             language: {
-                "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
             },
            processing : true,
            severSide: true,
@@ -75,53 +99,39 @@ $(document).on('click','#FromToDate',function(){
         
       }
     else{
-        $.ajax({
-            url: route('SaleProfitFromToDate'),
-            data:{
-                fromdate: $('#from-date').val(),
-                todate : $('#toDate').val()
+        var t = $('#sale_profit_ad').DataTable({
+            destroy: true,
+            searching: false,
+            language: {
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng"
             },
-            success:function(data){
-                console.log(data);
-            }
-        });
-        // $('#sale_profit_ad').dataTable().fnDestroy();
-        // var t = $('#sale_profit_ad').DataTable({
-        //     searching: false,
-        //     language: {
-        //         "lengthMenu": "Hiển thị _MENU_ đơn hàng"
-        //     },
-        //    processing : true,
-        //    severSide: true,
-        //    ajax:{
-        //       url: route('SaleProfitFromToDate'),
-        //       data:{
-        //             fromdate: $('#from-date').val(),
-        //             todate : todate,
-        //       },
-        //       success:function(data){
-        //           console.log(data);
-        //       }
-        //    },
-        //    columns: [
-        //         {data:'STT',name:'STT'},
-        //         {data:'fullname',name:'fullname'},
-        //         {data:'order_id',name:'order_id'},
-        //         {data:'total',name:'total'},
-        //         {data:'created_at',name : 'created_at'},
-        //         {data:'action',name:'action'},
-        //    ],
-        //    columnDefs: [ {
-        //               "searchable": false,
-        //               "orderable": false,
-        //               "targets": 0
-        //       } ],
-        //  });
-        //  t.on( 'order.dt search.dt', function () {
-        //           t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-        //               cell.innerHTML = i+1;
-        //           } );
-        //       } ).draw();
-        
+           processing : true,
+           severSide: true,
+           ajax:{
+              url: route('SaleProfitFromToDate'),
+              data:{
+                    fromdate: $('#from-date').val(),
+                    todate : $('#toDate').val(),
+              },
+           },
+           columns: [
+                {data:'STT',name:'STT'},
+                {data:'fullname',name:'fullname'},
+                {data:'order_id',name:'order_id'},
+                {data:'total',name:'total'},
+                {data:'created_at',name : 'created_at'},
+                {data:'action',name:'action'},
+           ],
+           columnDefs: [ {
+                      "searchable": false,
+                      "orderable": false,
+                      "targets": 0
+              } ],
+         });
+         t.on( 'order.dt search.dt', function () {
+                  t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                      cell.innerHTML = i+1;
+                  } );
+              } ).draw();
     }
 })

@@ -136,7 +136,11 @@ class PublisherController extends Controller
 
     public function getEditProfile() {
         $user = Auth::user();
-        return view('affilate.publisher.edit_profile', compact('user'));
+        if($user->role == 1)
+        {
+            $name_company = DB::table('tbl_org')->where('org_email',$user->email)->value('org_name');
+        }
+        return view('affilate.publisher.edit_profile', compact('user','name_company'));
     }
 
     public function postEditProfile(Request $request) {    
