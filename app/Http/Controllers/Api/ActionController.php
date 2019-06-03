@@ -44,7 +44,7 @@ class ActionController extends Controller
         $order_id = $request->post('data_customer')['order_id'];
         $order_total = $request->post('data_customer')['order_total'];
         $org = DB::table('tbl_org')->where('org_token', $org_token)->get();
-       if (!empty($org)) {
+        if (!empty($org)) {
             
             $user_code = $request->post('user_code');
             $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
