@@ -18,7 +18,7 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        <div class="cotainer-fluid region-search">
+        {{-- <div class="cotainer-fluid region-search">
             <form action="#" method="POST" class="offset-md-9 form-inline">
                 <div class="form-group">
                     <button type="button" class="btn btn-success btn-flat btn-search" id="addColumnSearch">+</button>
@@ -27,7 +27,7 @@
                     <button type="submit" class="btn btn-success btn-flat btn-search" >Tất cả</button>
                 </div>
             </form>
-        </div>
+        </div> --}}
         <div class="container-fluid mt-5">
             <div class="row">
                 <div class="col-12">
@@ -38,7 +38,7 @@
 
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>STT</th>
                                     <th>Mã đơn hàng</th>
                                     <th>Tổng tiền</th>
                                     <th>Ngày thành công</th>
@@ -60,12 +60,17 @@
 
                 processing: true,
                 serverSide: true,
-                searching: false,
+                searching: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "search" : "Tìm kiếm:",
+                },
                 ajax: {
                     url: "{{route('publisher.getDataOrder')}}"
                 },
                 columns: [
-                    { data: 'stt'},
+                    { data: 'rownum', name: 'rownum'},
                     { data: 'order_id', name: 'order_id' },
                     { data: 'total', name:'total' },
                     { data:'created_at', name:'created_at' },
@@ -78,11 +83,6 @@
                 order: [[ 1, 'asc' ]]
             });
 
-            tableSale.on( 'order.dt search.dt', function () {
-                tableSale.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                } );
-            } ).draw();
         });
     </script>
 @endsection

@@ -1,8 +1,6 @@
 @extends('affilate.master')
 @section('content')
     <!-- Dashboard -->
-
-    
     <div class="content-wrapper" style="min-height: 560px;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -27,7 +25,7 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    {{-- <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
@@ -40,14 +38,14 @@
                             </div>
                             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
-                    </div> --}}
+                    </div>
                     <!-- ./col -->
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
                                 <h5>Số đơn hàng thành công</h5>
-                                <h3>0<sup style="font-size: 20px"></sup></h3>
+                                <h3>{{$numberOrder}}<sup style="font-size: 20px"></sup></h3>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-check"></i>
@@ -55,28 +53,13 @@
                             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                        <!-- ./col -->
-                    <div class="col-lg-4 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h5>Tổng hoa hồng</h5>
-
-                                <h3>0</h3>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-money"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                        <!-- ./col -->
-                    <div class="col-lg-4 col-6">
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
                                 <h5>Tổng hoa hồng trong tháng</h5>
-                                <h3>0</h3>
+                                <h3>{{number_format($totalCommissionOfMonth, 0, ',', '.')}}</h3>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-credit-card"></i>
@@ -85,6 +68,22 @@
                         </div>
                     </div>
                     <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h5>Tổng hoa hồng</h5>
+
+                                <h3>{{number_format($totalCommission, 0, ',', '.')}}</h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                   
                 </div>
                 {{-- end small boxes --}}
             </div>
@@ -133,12 +132,15 @@
 <script>
     $(function() {
             var tableOrg = $('#table-org').DataTable({
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                },
                 processing: true,
                 serverSide: true,
                 searching: false,
                 paging: false,
                 length: 5,
-                // searching: true,
                 ajax: {
                     url: "{{route('publisher.getDataOrg')}}"
                 },
@@ -148,17 +150,16 @@
                     { data: 'link_referal', name:'link_referal' },
                     { data:'created_at', name:'created_at' },
                 ],
-                columnDefs: [ {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0
-                } ],
-                order: [[ 1, 'asc' ]]
+                order: [[ 1, 'desc' ]]
                   
             });
          
 
             var tableOrder = $('#table-order').DataTable({
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                },
                 processing: true,
                 serverSide: true,
                 searching: false,
@@ -173,13 +174,7 @@
                     { data: 'total', name:'total' },
                     { data:'created_at', name:'created_at' },
                 ],
-                columnDefs: [ {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0
-                } ],
                 order: [[ 1, 'asc' ]]
-                  
             });
            
         });
