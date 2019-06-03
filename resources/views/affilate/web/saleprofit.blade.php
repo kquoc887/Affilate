@@ -26,13 +26,12 @@
                   <h3 class="card-title">Lợi nhuận của từng cộng tác viên</h3>
                 </div>
                 <!-- /.card-header -->
-                <div class="cotainer-fluid region-search" style="padding-top:5%; padding-right:2%">
+                <div class="cotainer-fluid region-search" style="padding-top:5%; padding-right:20%">
                     <form action="#" method="POST" class="offset-md-9 form-inline">
                         <div class="form-group">
-                            <button type="button" class="btn btn-success btn-flat btn-search" id="addColumnSearch">+</button>
-                            <input type="text" class="form-control" placeholder="Vui lòng điền thông tin cần tìm">
-                            <button type="button" class="btn btn-success btn-flat btn-search">Tìm kiếm</button>
-                            <button type="submit" class="btn btn-success btn-flat btn-search" >Tất cả</button>
+                            <button type="button" class="btn btn-success btn-flat btn-search" id="addFieldSearch">Tìm theo ngày</button>
+                            <input type="text" class="form-control" placeholder="Thông tin cần tìm">
+                            <button type="button" id="btnSearch-normal" class="btn btn-success btn-flat btn-search">Tìm kiếm</button>
                         </div>
                     </form>
                 </div>
@@ -98,4 +97,5 @@
           } ).draw();
   })
 </script>
+<script src="{{asset('js/saleProfit.js')}}"></script>
 @endsection

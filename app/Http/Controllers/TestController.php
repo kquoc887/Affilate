@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 use DateTime;
 use Illuminate\Support\Facades\View;
 use App\Notification;
+use Carbon\Carbon;
 
 
 
@@ -46,15 +47,27 @@ class TestController extends Controller
                         ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
                         ->join('tbl_org','tbl_user_link.org_id','=','tbl_org.org_id')
                         ->where('tbl_user_link.org_id', $org_id)
-                        ->select('tbl_user_link.*','tbl_user_link.user_id','tbl_org.org_name','tbl_users.active', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+                        ->select('tbl_user_link.*','tbl_user_link.user_id','tbl_users.email','tbl_org.org_name','tbl_users.active', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
                         ->get();
         // return $user_link;
+
          return datatables()->of($user_link)
             ->addColumn('action',function($data){
-                $button = '<button type="button" name="unlock" id="'.$data->user_id.'" class="btn_unlock btn btn-primary btn -sm">Mở Khóa</button>';
-                $button .= '&nbsp;&nbsp;';
-                $button .= '<button  type="button" name="lock" id="'.$data->user_id.'" class="btn_lock btn btn-danger btn-sm">Khóa</button>';
-                return $button;
+                switch($data->active){
+                    case 1:
+                        $button = '<button type="button" name="unlock" id="'.$data->user_id.'" class="btn_unlock btn btn-primary btn -sm" disabled>Mở Khóa</button>';
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<button  type="button" name="lock" id="'.$data->user_id.'" class="btn_lock btn btn-danger btn-sm">Khóa</button>';
+                        return $button;
+                        break;
+                    case 2:
+                        $button = '<button type="button" name="unlock" id="'.$data->user_id.'" class="btn_unlock btn btn-primary btn -sm" >Mở Khóa</button>';
+                        $button .= '&nbsp;&nbsp;';
+                        $button .= '<button  type="button" name="lock" id="'.$data->user_id.'" class="btn_lock btn btn-danger btn-sm" disabled>Khóa</button>';
+                        return $button;
+                        break;
+                }
+               
             })
             ->addColumn('active',function($data){
                 switch($data->active){
@@ -71,28 +84,50 @@ class TestController extends Controller
             })
             ->addColumn('STT','')
             ->rawColumns(['STT','active','action'])
+            ->editColumn('created_at',function($data){
+                $dt = $data->created_at;
+                $dt2 = Carbon::parse($dt)->format('d/m/Y');
+                return $dt2;
+            })
             ->make(true);
 
         
     }
    
     public function getDataSaleProfit(){
-        $customer = DB::table('tbl_user_link')
-                        ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-                        ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
-                        ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
-                        ->get();
-            
-        return datatables()->of($customer)
-            ->addColumn('action',function($data){
-                    $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
-                    return $button;
-            })
-            ->addColumn('STT','')
-            ->rawColumns(['STT','action'])
-            ->make(true);
-
+        $customer1 = DB::table('tbl_user_link')
+                    ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+                    ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+                    ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+                    ->get();
+                
+        return datatables()->of($customer1)
+        ->addColumn('action',function($data){
+                $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
+                return $button;
+        })
+        ->addColumn('STT','')
+        ->rawColumns(['STT','action'])
+        ->make(true); 
     }
+    public function getSaleProfitFromToDate(Request $request){
+            $fromdate = $request->get('fromdate');
+            $customer = DB::table('tbl_user_link')
+                            ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+                            ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+                            ->where('tbl_customer_action.created_at',$fromdate)
+                            ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+                            ->get();
+                
+            return datatables()->of($customer)
+                ->addColumn('action',function($data){
+                        $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
+                        return $button;
+                })
+                ->addColumn('STT','')
+                ->rawColumns(['STT','action'])
+                ->make(true);
+        }
     /**
      * Show the form for creating a new resource.
      *
