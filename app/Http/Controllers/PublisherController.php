@@ -13,6 +13,11 @@ class PublisherController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        $numberOrder = DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
+                                  ->where('tbl_user_link.user_id', $user->user_id)
+                                  ->count();
+        
         return view('affilate.publisher.dashboard');
     }
 
@@ -50,6 +55,7 @@ class PublisherController extends Controller
                     ->join('tbl_org', 'tbl_user_link.org_id', '=', 'tbl_org.org_id')
                     ->where('user_id', Auth::user()->user_id)
                     ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'), DB::raw('concat(tbl_org.org_uri, "?uc=",  tbl_user_link.user_code) as link_referal'), 'tbl_org.org_name', 'tbl_user_link.created_at')
+                    ->take(5)
                     ->get();
         return Datatables::of($data)
                         ->editColumn('created_at', function($item) {
@@ -60,11 +66,12 @@ class PublisherController extends Controller
     }
 
     public function getDataOrder() {
-        
+        DB::statement(DB::raw('set @rownum=0'));
         $data = DB::table('tbl_customer_action')
                     ->join('tbl_user_link', 'tbl_customer_action.user_link_id', '=', 'tbl_user_link.user_link_id')
                     ->where('tbl_user_link.user_id', Auth::user()->user_id)
-                    ->select('tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_customer_action.created_at')
+                    ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_customer_action.created_at')
+                    ->take(5)
                     ->get();
         return Datatables::of($data)
                         ->editColumn('created_at', function($item) {
