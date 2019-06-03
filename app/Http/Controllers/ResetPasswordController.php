@@ -38,6 +38,7 @@ class ResetPasswordController extends Controller
             'message' => 'Chúng tôi đã gửi mail thay đổi mật khẩu, vui lòng kiểm tra mail', 
             'text-alert' => 'alert-success'
         ]);
+       
     }
 
         public function reset(Request $request, $token)

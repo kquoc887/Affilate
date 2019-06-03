@@ -53,6 +53,8 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('getAdvertiser', 'PublisherController@getDataAdvertiser')->name('publisher.getAdvertiser');
         Route::post('registerAdvertiser', 'PublisherController@registerAdvertiser')->name('publisher.registerAdvertiser');
         Route::get('getDataOrg', 'PublisherController@getDataOrg')->name('publisher.getDataOrg');
+        Route::get('getDataOrder', 'PublisherController@getDataOrder')->name('publisher.getDataOrder');
+        Route::get('editProfile', 'PublisherController@getEditProfile')->name('publisher.editProfile');
     });
     Route::group(['prefix' => 'advertiser'], function () {
         Route::get('/', 'TestController@index')->name('home');
@@ -63,6 +65,3 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         
     });
 });
-
-
-// Route::get('save-profile-publisher', 'TestController@saveProfilePublisher');

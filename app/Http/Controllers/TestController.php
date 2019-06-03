@@ -11,6 +11,9 @@ use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use DateTime;
 use Illuminate\Support\Facades\View;
+use App\Notification;
+
+
 
 
 class TestController extends Controller
@@ -20,20 +23,6 @@ class TestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct(){
-        //  if(Auth::check()){
-        //     // $org_id = DB::table('tbl_org')->where('org_email', Auth::user()->email)->value('org_id');
-        //     // $new_order =  DB::table('tbl_user_link')
-        //     //                         ->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
-        //     //                         ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-        //     //                         ->where('tbl_user_link.org_id', $org_id)->orderBy('tbl_customer_action.created_at','DESC')
-        //     //                         ->select(DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'),'tbl_customer_action.created_at','tbl_customer_action.order_id')
-        //     //                         ->get();
-        //     $email = Auth::user()->email;
-        //     View::share('email',$email);
-        //  }
-       
-     }
     public function index()
     {
         $org_id = DB::table('tbl_org')->where('org_email', Auth::user()->email)->value('org_id');
@@ -42,10 +31,12 @@ class TestController extends Controller
                                 ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
                                 ->where('tbl_user_link.org_id', $org_id)->orderBy('tbl_customer_action.created_at','DESC')
                                 ->select(DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'),'tbl_customer_action.created_at','tbl_customer_action.order_id')
-                                ->take(5)
+
+                                ->take(2)
                                 ->get();
         
         return view('affilate.web.home',['new_order'=>$new_order]);
+
     }
     public function getDataUserLink(){
 
@@ -66,11 +57,6 @@ class TestController extends Controller
                 return $button;
             })
             ->addColumn('active',function($data){
-                // if($data->active == 3)
-                // {
-                //     $input = '<label id="alert-status" class="alert alert-danger"> Tài Khoản đã khóa';
-                //     return $input;
-                // }
                 switch($data->active){
                     case 1:
                         $input = '<label id="alert-status" class="alert alert-success"> Đang hoạt động';
@@ -89,24 +75,7 @@ class TestController extends Controller
 
         
     }
-    //lấy dữ liệu của CTV khi người dùng click vào link của ctv và thanh toán
-    // public function saveProfilePublisher(Request $request){
-    //     $user_code = $request->get('user_code');
-    //     $total = $request->get('total');
-    //     $order_id = $request->get('order_id');
-    //     $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
-       
-    //     $dataCustomer = [
-    //         'user_link_id' => $user->user_link_id,
-    //         'order_id' => $order_id,
-    //         'total' => $total,
-    //         'created_at' => new DateTime(),s
-    //         'updated_at' => new DateTime(),
-    //     ];
-    //     $result = DB::table('tbl_customer_action')->insert($dataCustomer);
-    //     return response()->json(['success' => 'everythings ok']);
-    // }
-    //lấy dữ liệu lợi nhuận của các user 
+   
     public function getDataSaleProfit(){
         $customer = DB::table('tbl_user_link')
                         ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
@@ -130,12 +99,17 @@ class TestController extends Controller
      * @return \Illuminate\Http\Response
      */
     //MỞ trang sale profit
-    public function getSaleProfit(){
+    public function getSaleProfit(Request $request){
+        $id = $request->get('id');
+        if($request->ajax()){
+           
+            $notification = Notification::find($id);
+            $notification->update(['read_at' => now()]);
+            // $notification->delete();
+            return response()->json(['success'=>'ok']);
+        }
         return view('affilate.web.saleprofit');
-    }
-    public function alertToApp()
-    {
-        return 123;
+        
     }
 
     /**

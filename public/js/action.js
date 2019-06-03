@@ -1,10 +1,10 @@
 $(document).ready(function () {
+
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng ký trên trang
     $(document).on('click', '.btn-register', function(event) {
         $(this).parents('div.region-action').find('h2').text('Đăng nhập');
         $(this).parents('div.region-action').find('.btn-group').empty().append('<button id="btn-login">Đăng nhập</button>');
 
-        // refreshValidate($('#frmLogin').attr('id'));
         if ($(this).val() == 'Advertiser') {
             $('#frmRegisterAd').css('display', 'block');
         }
@@ -17,6 +17,23 @@ $(document).ready(function () {
        
     });
 
+    $(document).on('click', 'button#clickNotifi',function(){
+        
+        $.ajax({
+            url : route('saleProFit'),
+            type : 'get',
+            data : {
+                id : $('#hidden-read').val(),
+            },
+            dataType :"JSON",
+            success: function(data){
+                if(data.success){
+                    window.location.href = route('saleProFit');
+                }
+            }
+        })
+    })
+   
 
     // Bắt sự kiển đổi giao diện khi người dùng bấm vào nút đăng nhập trên trang
     $(document).on('click', '#btn-login', function(event) {
@@ -44,16 +61,11 @@ $(document).ready(function () {
         event.preventDefault();
         var formId = $(this).attr('id');
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             url: route('postSignUp'),
             type: 'post',
             data: new FormData(this),
+            headers: {   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             contentType: false,
             cache: false,
             processData: false,
@@ -79,8 +91,6 @@ $(document).ready(function () {
                 } 
                 swal("Thông báo", "Bạn đã đăng ký thành công vui lòng kiểm tra mail để kích hoạt");
               
-
-               
             }
         });
     });
@@ -91,17 +101,12 @@ $(document).ready(function () {
         var email = $(this).parents('#frmLogin').find('input[name=email]').val();
         var password = $(this).parents('#frmLogin').find('input[name=password]').val();
         var formId = $(this).parents('#frmLogin').attr('id');
-       
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
         $.ajax({
             url: route('checkLogin'),
             type: 'post',
             cache: false,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             dataType: 'JSON',
             data: {
                 'email': email,
@@ -139,16 +144,11 @@ $(document).ready(function () {
   
     $(document).on('click', 'button[name=register-advertiser]' ,function(){
         var org_id = $(this).attr('id');
-        
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
+        var button_register = $(this);
         $.ajax({
             url: route('publisher.registerAdvertiser'),
             type: 'post',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             data: {
                 'org_id': org_id,
             },
@@ -156,6 +156,7 @@ $(document).ready(function () {
             dataType: 'JSON',
             success: function(data) {
                 swal("Thông báo", "Bạn đã đăng ký làm công tác viên của công ty " + data.org_name, "success");
+                button_register.attr('disabled', true);
             },
         });
     });
@@ -164,41 +165,50 @@ $(document).ready(function () {
 
     $(document).on('click','#request',function(e){
         e.preventDefault();
-       
         var email =  $(this).parents('#frmForgotPass').find('input[name=email]').val();
         var span_error = $(this).parents('#frmForgotPass').find('div.form-group label>span#email_error');
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-        });
         $.ajax({
             url : route('check-email'),
-            type : "post",
+            type : 'post',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             data : {
                 postMail :email,
             },
-            // contentType: false,
             cache:false,
-            // processData:false,
             dataType:"JSON",
+            beforeSend: function() {
+                $('.loader').css('display', 'block');
+            },
             success:function(data){
                
                 
                 if (data.error) {
                   span_error.html(data.error);
+                  $('.loader').css('display', 'none');
+                  swal("Thông báo", "Bạn đã gặp một số lỗi vui lòng kiểm tra lại");
                 }
                 if (data.message) {
                     $('#frmForgotPass').submit();
                 }
-            }
-
+            },
         });
     });
 
+   $(document).on('change', '#ckcChangePass', function() {
+      
+    // //    console.log(123);
+        var isChangePass = $('#ckcChangePass').is(":checked");
+        console.log(isChangePass);
+        if (isChangePass == true) {
+            $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
+            $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
+        } else {
+            $('#frmUpdateProfile input[name=password]').removeAttr('disabled');
+            $('#frmUpdateProfile input[name=repass]').removeAttr('disabled');
+        }
+   });
 });
-
-
+    
 
 function checkValidate(arrayError, formId) {
     var arr = [];

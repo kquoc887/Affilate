@@ -11,8 +11,6 @@ $(document).ready(function () {
      
    }
 
-  
-
 });
 
 function getCookie(cname) {

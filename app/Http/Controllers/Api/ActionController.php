@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use DateTime;
+use App\Notifications\UserNotification;
+use App\User;
+use App\CustomerAction;
 
 class ActionController extends Controller
 {
@@ -40,8 +43,9 @@ class ActionController extends Controller
         $org_token = $request->post('data_customer')['org_token'];
         $order_id = $request->post('data_customer')['order_id'];
         $order_total = $request->post('data_customer')['order_total'];
-       $org = DB::table('tbl_org')->where('org_token', $org_token)->get();
-       if (count($org) != 0) {
+        $org = DB::table('tbl_org')->where('org_token', $org_token)->get();
+        if (!empty($org)) {
+            
             $user_code = $request->post('user_code');
             $user = DB::table('tbl_user_link')->where('user_code',$user_code)->first();
             
@@ -52,12 +56,17 @@ class ActionController extends Controller
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
             ];
-            DB::table('tbl_customer_action')->insert($dataCustomer);
-           
-       } else {
-           return response()->json(['message' => 'error']);
-       }
-        
+
+            $order = CustomerAction::create($dataCustomer);
+            
+            if ($order) {
+                $user_id = DB::table('tbl_users')->where('email',$org->org_email)->value('user_id');
+                $user_admin = User::find($user_id);
+                $user_admin->notify(new UserNotification($order));
+            }
+       } 
+
+
     }
 
     /**
@@ -71,17 +80,7 @@ class ActionController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
+   
     /**
      * Update the specified resource in storage.
      *
