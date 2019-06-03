@@ -200,15 +200,16 @@ $(document).ready(function () {
         var isChangePass = $('#ckcChangePass').is(":checked");
         console.log(isChangePass);
         if (isChangePass == true) {
-            $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
-            $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
-        } else {
             $('#frmUpdateProfile input[name=password]').removeAttr('disabled');
             $('#frmUpdateProfile input[name=repass]').removeAttr('disabled');
+           
+        } else {
+            $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
+            $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
         }
-   });
+   });   
 });
-    
+
 
 function checkValidate(arrayError, formId) {
     var arr = [];

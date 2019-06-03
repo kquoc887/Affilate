@@ -9,7 +9,14 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+            <img src="{{asset('img/'. Auth::user()->avatar)}}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+        <a href="#" class="d-block">{{Auth::user()->lastname . ' ' . Auth::user()->firstname}}</a>
+        </div>
+    </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -20,29 +27,42 @@
           <a href="{{route('home')}}" class="nav-link">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
-                Dashboard   
+                  Tình Hình Chung
               </p>
             </a>
 
           </li>
           <li class="nav-item has-treeview">
           <a href="{{route('saleProFit')}}" class="nav-link">
-              <i class="nav-icon fa fa-th"></i>
+            <i class="nav-icon fa fa-diamond"></i>
               <p>
-               Sale Profit
-              
+                  Lợi Nhuận              
               </p>
             </a>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-pie-chart"></i>
-              <p>
-                Payment
-              </p>
+              <i class="nav-icon fa fa-calculator"></i>
+                  <p>Hoa Hồng</p>
             </a>
           </li>
-          
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-user-secret"></i>
+                <p>
+                   Thông Tin Cá Nhân
+                    <i class="right fa fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('publisher.editProfile')}}" class="nav-link">
+                        <i class="fa fa-circle-o nav-icon"></i>
+                        <p>Chỉnh sửa thông tin</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

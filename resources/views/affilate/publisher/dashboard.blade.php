@@ -134,6 +134,10 @@
 <script>
     $(function() {
             var tableOrg = $('#table-org').DataTable({
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                },
                 processing: true,
                 serverSide: true,
                 searching: false,
@@ -164,6 +168,10 @@
             } ).draw();
 
             var tableOrder = $('#table-order').DataTable({
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                },
                 processing: true,
                 serverSide: true,
                 searching: false,

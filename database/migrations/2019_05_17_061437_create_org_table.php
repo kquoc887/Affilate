@@ -21,6 +21,7 @@ class CreateOrgTable extends Migration
             $table->string('org_address');
             $table->string('org_phone');
             $table->string('org_token')->default('');
+            $table->double('org_commision')->default('0.0');
             $table->timestamps();
         });
     }

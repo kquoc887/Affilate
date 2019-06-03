@@ -127,14 +127,11 @@ class TestController extends Controller
             //     ->get();
             if(!empty($request->get('todate'))){
                 $todate = new Carbon($request->get('todate'));
-                $day = $todate->day + 1;
-                $month = $todate->month;
-                $year = $todate->year;
-                $nowTodate = new Carbon($day."-".$month."-".$year);
+                $todate   = $todate->hour(23)->minute(59)->second(59);
                 $customer = DB::table('tbl_user_link')
                 ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
                 ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
-                ->whereBetween('tbl_customer_action.created_at',[$fromdate,$nowTodate])
+                ->whereBetween('tbl_customer_action.created_at',[$fromdate->toDateTimeString(),$todate->toDateTimeString()])
                 ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
                 ->get();
                 return datatables()->of($customer)

@@ -52,7 +52,7 @@ class ActionController extends Controller
             $dataCustomer = [
                 'user_link_id' => $user->user_link_id,
                 'order_id' => $order_id,
-                'total' => $order_total,
+                'total' => number_format($order_total),
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
             ];

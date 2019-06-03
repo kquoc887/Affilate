@@ -33,6 +33,27 @@
                 <label for="email">Email</label>
                 <input type="text" name="email" class="form-control" placeholder="Vui lòng nhập email" value={{$user->email}} aria-describedby="helpId">
             </div>
+            @if($user->role == 1)
+                <div class="form-group">
+                    <label>Tên Công Ty</label>
+                    <input type="text" class="form-control" value="{{$name_company}}" disabled aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                    <label >Phần trăm hoa hồng:</label>
+                    <select>
+                        <option value="0.1">1%</option>
+                        <option value="0.2">2%</option>
+                        <option value="0.3">3%</option>
+                        <option value="0.4">4%</option>
+                        <option value="0.5">5%</option>
+                        <option value="0.6">6%</option>
+                        <option value="0.7">7%</option>
+                        <option value="0.8">8%</option>
+                        <option value="0.9">9%</option>
+                        <option value="1">10%</option>
+                    </select>
+                </div>
+            @endif
             <div class="form-group">
                 <label for="password">Mật khẩu</label>
                 <input type="text" name="password"  class="form-control" placeholder="Vui lòng nhập mật khẩu" disabled aria-describedby="helpId">
@@ -43,7 +64,7 @@
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox"  id="ckcChangePass" checked> Bạn có muốn đổi mật khẩu
+                    <input class="form-check-input" type="checkbox"  id="ckcChangePass" > Đổi mật khẩu
                 </label>
             </div>
             <div class="form-group">
