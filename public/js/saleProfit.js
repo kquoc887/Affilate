@@ -38,6 +38,8 @@ $(document).on('click', '#close-field-todate', function() {
 $(document).on('click','#FromToDate',function(){
     if(click_to_date==0)
     {
+        
+        $('#sale_profit_ad').dataTable().fnDestroy();
         var t = $('#sale_profit_ad').DataTable({
             searching: false,
             language: {
@@ -46,8 +48,7 @@ $(document).on('click','#FromToDate',function(){
            processing : true,
            severSide: true,
            ajax:{
-              url: "{{route('SaleProfitFromToDate')}}",
-              dataType : "JSON",
+              url: route('SaleProfitFromToDate'),
               data:{
                     fromdate: $('#from-date').val()
               }
@@ -74,6 +75,53 @@ $(document).on('click','#FromToDate',function(){
         
       }
     else{
-        alert(456);
+        $.ajax({
+            url: route('SaleProfitFromToDate'),
+            data:{
+                fromdate: $('#from-date').val(),
+                todate : $('#toDate').val()
+            },
+            success:function(data){
+                console.log(data);
+            }
+        });
+        // $('#sale_profit_ad').dataTable().fnDestroy();
+        // var t = $('#sale_profit_ad').DataTable({
+        //     searching: false,
+        //     language: {
+        //         "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+        //     },
+        //    processing : true,
+        //    severSide: true,
+        //    ajax:{
+        //       url: route('SaleProfitFromToDate'),
+        //       data:{
+        //             fromdate: $('#from-date').val(),
+        //             todate : todate,
+        //       },
+        //       success:function(data){
+        //           console.log(data);
+        //       }
+        //    },
+        //    columns: [
+        //         {data:'STT',name:'STT'},
+        //         {data:'fullname',name:'fullname'},
+        //         {data:'order_id',name:'order_id'},
+        //         {data:'total',name:'total'},
+        //         {data:'created_at',name : 'created_at'},
+        //         {data:'action',name:'action'},
+        //    ],
+        //    columnDefs: [ {
+        //               "searchable": false,
+        //               "orderable": false,
+        //               "targets": 0
+        //       } ],
+        //  });
+        //  t.on( 'order.dt search.dt', function () {
+        //           t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+        //               cell.innerHTML = i+1;
+        //           } );
+        //       } ).draw();
+        
     }
 })

@@ -108,25 +108,61 @@ class TestController extends Controller
         })
         ->addColumn('STT','')
         ->rawColumns(['STT','action'])
+        ->editColumn('created_at',function($data){
+            $dt = $data->created_at;
+            $dt2 = Carbon::parse($dt)->format('d/m/Y');
+            return $dt2;
+        })
         ->make(true); 
     }
     public function getSaleProfitFromToDate(Request $request){
-            $fromdate = $request->get('fromdate');
+            // return $request->get('todate');
+            $fromdate = new Carbon($request->get('fromdate'));
+                   $todate = new Carbon($request->get('todate'));
             $customer = DB::table('tbl_user_link')
-                            ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-                            ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
-                            ->where('tbl_customer_action.created_at',$fromdate)
-                            ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
-                            ->get();
-                
-            return datatables()->of($customer)
-                ->addColumn('action',function($data){
-                        $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
-                        return $button;
-                })
-                ->addColumn('STT','')
-                ->rawColumns(['STT','action'])
-                ->make(true);
+                ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+                ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+                ->where(DB::raw('tbl_customer_action.created_at BETWEEN ' . $fromdate . ' AND ' . $todate))
+                ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+                ->get();
+            // if(!empty($request->get('todate'))){
+            //     $todate = new Carbon($request->get('todate'));
+            //     $day = $todate->day + 1;
+            //     $month = $todate->month;
+            //     $year = $todate->year;
+            //     $nowTodate = new Carbon($day."-".$month."-".$year);
+            //     $customer = DB::table('tbl_user_link')
+            //     ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+            //     ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+            //     ->whereBetween('tbl_customer_action.created_at',[$fromdate,$nowTodate])
+            //     ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+            //     ->get();
+            //     return datatables()->of($customer)
+            //         ->addColumn('action',function($data){
+            //                 $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
+            //                 return $button;
+            //         })
+            //         ->addColumn('STT','')
+            //         ->rawColumns(['STT','action'])
+            //         ->make(true);
+            // }
+            // else{
+            //     $customer = DB::table('tbl_user_link')
+            //     ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+            //     ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+            //     ->whereDate('tbl_customer_action.created_at',$fromdate)
+            //     ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+            //     ->get();
+            //     return datatables()->of($customer)
+            //         ->addColumn('action',function($data){
+            //                 $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
+            //                 return $button;
+            //         })
+            //         ->addColumn('STT','')
+            //         ->rawColumns(['STT','action'])
+            //         ->make(true);
+            // }
+           
         }
     /**
      * Show the form for creating a new resource.
