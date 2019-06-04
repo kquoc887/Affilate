@@ -117,7 +117,8 @@ class TestController extends Controller
     }
     public function getSaleProfitFromToDate(Request $request){
         $fromdate = new Carbon($request->get('fromdate'));
-        if(!empty($request->get('todate'))){
+        
+        if (!empty($request->get('todate'))){
             $todate = new Carbon($request->get('todate'));
             $todate   = $todate->hour(23)->minute(59)->second(59);
             $customer = DB::table('tbl_user_link')
@@ -135,7 +136,7 @@ class TestController extends Controller
                 ->rawColumns(['STT','action'])
                 ->make(true);
         }
-        else{
+        else {
             $customer = DB::table('tbl_user_link')
             ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
             ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')

@@ -18,8 +18,13 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        <div class="cotainer-fluid region-search" >
-            <button type="button" class="btn btn-success btn-flat btn-search pull-right mr-5" id="addFieldSearch">Tìm theo ngày</button>
+        <div class="cotainer-fluid region-search text-center" >
+            <label for="toDate">Từ ngày:</label>
+            <input type="date" id="inputFromdate">
+            <label for="toDate">Đến ngày:</label>
+            <input type="date" id="inputToDate">
+            <button type="button" class="btn btn-success btn-flat" id="btn-search">Tìm kiếm</button>
+            <button type="button" class="btn btn-success btn-flat" id="btn-search-all">Tìm Tất cả</button>
         </div>
         <div class="container-fluid mt-5">
             <div class="row">

@@ -141,34 +141,8 @@ $(document).ready(function () {
     });
 
     // Bắt đầu phần JS tìm kiếm theo ngày
-    //Bắt sự kiện tạo vùng search theo ngày
-    $(document).on('click','#addFieldSearch',function(){
-            var html = '<div id="FromDate" class="form-inline offset-md-5 mb-2" style="padding-top:2%">';
-            html += '<input type="text" style="width:70px;height:40px" disabled placeholder="Từ Ngày:">';
-            html += '<input type="Date" class="form-control" id="inputFromdate" />' ;
-            html += '<button type="button" class="btn btn-flat btn-success ml-1" id="btn-to-date">Đến Ngày</button>';
-            html += '<button type="button" class="btn btn-flat btn-success ml-1" id="btn-search">Tìm kiếm</button>';
-            html += '<button type="button" class="btn btn-flat btn-success ml-1" id="close-all-field">-</button></div>';
-            $(this).parents('div.region-search').append(html);
-            $(this).attr('disabled', true);
-     
-    })
-
-    // Bắt sự kiện tạo ra vùng search đến ngày nào
-    $(document).on('click','#btn-to-date',function(){
-            var html = '<div id="ToDate" class="form-inline offset-md-5 mb-2" style="padding-top:2%">';
-            html += '<input type="text" style="width:80px;height:40px" disabled placeholder="Đến Ngày:">';
-            html += '<input type="Date" class="form-control" id="inputToDate"/>' ;
-            html += '<button type="button" class="btn btn-flat btn-success ml-1" id="close-field-todate">-</button></div>';
-            $(this).parents('div.region-search').append(html);
-            $(this).attr('disabled', true);
-    });
-
-    // Đóng tất cả các vùng search
-    $(document).on('click', '#close-all-field', function() {
-        $('#FromDate').remove();
-        $('#ToDate').remove();
-        $('#addFieldSearch').attr('disabled', false);
+    $(document).on('click', '#btn-search-all', function() {
+      
         $('#table-sale').DataTable({
             destroy: true,
             searching: true,
@@ -188,41 +162,40 @@ $(document).ready(function () {
             ],
         });
     });
-
-    // Đòng vùng search đến ngày nào
-    $(document).on('click', '#close-field-todate', function() {
-        $('#ToDate').remove();
-        $('#btn-to-date').attr('disabled', false);
-    });
-
+  
     $(document).on('click', '#btn-search', function(event) {
-        var object = $('#btn-to-date').attr('disabled');
-        if (typeof object === "undefined") {
-            console.log(123);
-        } else {
-            $('#table-sale').DataTable({
-                destroy: true,
-                searching: false,
-                language: {
-                    "lengthMenu": "Hiển thị _MENU_ đơn hàng"
-                },
-               processing : true,
-               severSide: true,
-               ajax:{
-                  url: route('publisher.searchOrder'),
-                  data:{
-                        fromDate: $('#inputFromdate').val(),
-                        toDate : $('#inputToDate').val(),
-                  }
-               },
-               columns: [
-                    { data: 'rownum', name: 'rownum'},
-                    { data: 'order_id', name: 'order_id' },
-                    { data: 'total', name:'total' },
-                    { data:'created_at', name:'created_at' },
-                ],
-            });
+        if ( $('#inputFromdate').val() == '' ||  $('#inputToDate').val() == '') {
+            swal({
+                title: 'Lỗi',
+                text: 'Bạn chưa chọn ngày bắt đầu hoặc ngày kết thúc',
+                icon: 'error'
+              });
+            return false;
         }
+    
+        $('#table-sale').DataTable({
+            destroy: true,
+            searching: false,
+            language: {
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+            },
+            processing : true,
+            severSide: true,
+            ajax:{
+                url: route('publisher.searchOrder'),
+                data:{
+                    fromDate: $('#inputFromdate').val(),
+                    toDate : $('#inputToDate').val(),
+                }
+            },
+            columns: [
+                { data: 'rownum', name: 'rownum'},
+                { data: 'order_id', name: 'order_id' },
+                { data: 'total', name:'total' },
+                { data:'created_at', name:'created_at' },
+            ],
+        });
+        
     });
     // Kết thúc phần JS tìm kiếm theo ngày
 

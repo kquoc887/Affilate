@@ -32,7 +32,7 @@ $(document).on('click', '#close-all-field', function() {
     $('#ToDate').remove();
     click = 0;
     click_to_date = 0;
-    $('#sale_profit_ad').DataTable({
+    $('#sale_profit_ad').DataTable ({
         destroy: true,
         searching: false,
         language: {
