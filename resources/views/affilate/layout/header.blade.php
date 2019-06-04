@@ -27,7 +27,7 @@
                     <i>Đơn hàng mới-{{'Mã đơn hàng:' .$notification->data['Order_ID']}}</i>
                     <span class="float-right text-muted text-sm">{{$notification->data['Created_at']}}</span>
                     <input type="hidden" id="hidden-read" value="{{$notification->id}}">
-                    <input type="hidden" id="hidden-id" value="{{Auth::user()->user_id}}">
+                    {{-- <input type="hidden" id="hidden-id" value="{{Auth::user()->user_id}}"> --}}
                 </button>            
                 @endforeach
             </div> 
