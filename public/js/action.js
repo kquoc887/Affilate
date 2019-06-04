@@ -207,7 +207,20 @@ $(document).ready(function () {
             $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
             $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
         }
-   });   
+   }); 
+   //Tim hoa hong theo thang
+   $(document).on('change','select[name=selectMonth]',function(){
+       var option = $(this).val();
+       $.ajax({
+           url : route('getDataPayment'),
+           data:{
+               optionMonth : option,
+           },
+           success:function(data){
+                console.log(data)
+           }
+       })
+   })
 });
 
 

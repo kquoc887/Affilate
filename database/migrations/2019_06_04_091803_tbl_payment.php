@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomerActionTable extends Migration
+class TblPayment extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateCustomerActionTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_customer_action', function (Blueprint $table) {
-            $table->increments('customer_id');
-            $table->integer('user_link_id')->unsigned();
-            $table->foreign('user_link_id')->references('user_link_id')->on('tbl_user_link')->onDelete('cascade');
+        Schema::create('tbl_payment', function (Blueprint $table) {
+            $table->increments('payment_id');
+            $table->integer('customer_id');
             $table->integer('order_id');
-            $table->double('total', 8, 3);
+            $table->double('discount');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateCustomerActionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_customer_action');
+        Schema::dropIfExists('tbl_payment');
     }
 }
