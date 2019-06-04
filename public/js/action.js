@@ -142,12 +142,16 @@ $(document).ready(function () {
 
     // Bắt đầu phần JS tìm kiếm theo ngày
     $(document).on('click', '#btn-search-all', function() {
-      
+        $('#inputFromdate').val(''),
+        $('#inputToDate').val(''),
         $('#table-sale').DataTable({
             destroy: true,
             searching: true,
+            paging: true,
             language: {
-                "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+                "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "search" : "Tìm kiếm:",
             },
            processing : true,
            severSide: true,
@@ -158,8 +162,16 @@ $(document).ready(function () {
                 { data: 'rownum', name: 'rownum'},
                 { data: 'order_id', name: 'order_id' },
                 { data: 'total', name:'total' },
+                { data: 'discount', name: 'discount'},
                 { data:'created_at', name:'created_at' },
             ],
+            columnDefs: [ {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            } ],
+           
+            
         });
     });
   
@@ -175,9 +187,12 @@ $(document).ready(function () {
     
         $('#table-sale').DataTable({
             destroy: true,
-            searching: false,
+            searching: true,
+            paging: true,
             language: {
-                "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+                "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "search" : "Tìm kiếm:",
             },
             processing : true,
             severSide: true,
@@ -192,8 +207,14 @@ $(document).ready(function () {
                 { data: 'rownum', name: 'rownum'},
                 { data: 'order_id', name: 'order_id' },
                 { data: 'total', name:'total' },
+                { data: 'discount', name: 'discount'},
                 { data:'created_at', name:'created_at' },
             ],
+            columnDefs: [ {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+             } ],
         });
         
     });
@@ -270,7 +291,8 @@ $(document).ready(function () {
         $('#frmUpdateProfile img#img-avatar').fadeIn('fast').attr('src', tmppath);
         
    });
- 
+
+  
 });
 
 

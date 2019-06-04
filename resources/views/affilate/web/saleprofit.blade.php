@@ -99,5 +99,5 @@
   })
   
 </script>
-<script src="{{asset('js/saleProfit.js')}}"></script>
+
 @endsection

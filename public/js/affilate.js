@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(document).ready(function(){
         $.ajax({
-            url: 'http://192.168.1.30:8080/Affilate/public/api/action',
+            url: 'http://localhost:7000/Affilate/public/api/action',
             type: 'post',
             cache: false,
             dataType: 'JSON',
@@ -9,13 +9,6 @@ $(document).ready(function () {
                 'user_code': getCookie('uc'),
                 'data_customer': data_info
             }
-            // success: function(data) {
-            // //    console.log(data);
-            //     if (data.message == 'error') {
-            //         return false;
-            //     } 
-    
-            // }
         });
     })
 });

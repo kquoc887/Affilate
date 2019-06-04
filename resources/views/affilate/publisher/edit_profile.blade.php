@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label >Phần trăm hoa hồng:</label>
-                    <select>
+                    <select name="commission">
                         <option value="0.1">1%</option>
                         <option value="0.2">2%</option>
                         <option value="0.3">3%</option>

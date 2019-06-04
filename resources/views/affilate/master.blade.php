@@ -88,6 +88,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @routes
     <script src="{{asset('js/action.js')}}"></script>
+    <script src="{{asset('js/saleProfit.js')}}"></script>
     {{-- JS for Datatable --}}
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
 

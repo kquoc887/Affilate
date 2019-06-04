@@ -100,8 +100,6 @@ $(document).on('click','#FromToDate',function(){
       }
     else{
 
-       
-       
         var t = $('#sale_profit_ad').DataTable({
 
             destroy: true,
@@ -139,6 +137,8 @@ $(document).on('click','#FromToDate',function(){
                       cell.innerHTML = i+1;
                   } );
               } ).draw();
-
     }
+
+  
 })
+

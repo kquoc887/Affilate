@@ -20,15 +20,17 @@ class PublisherController extends Controller
         $numberOrder = DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
                                   ->where('tbl_user_link.user_id', $user->user_id)
                                   ->count();
-        // $org_id = DB::table('tbl_user_link')->where('user_id', $user->id)->value('org_id');
+        $org_id = DB::table('tbl_user_link')->where('user_id', $user->user_id)->value('org_id');
+        $commission = DB::table('tbl_org')->where('org_id', $org_id)->value('org_commision');
+      
         $totalCommission =  DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
                                 ->where('tbl_user_link.user_id', $user->user_id)
-                                ->sum('tbl_customer_action.total') * 0.2;
+                                ->sum('tbl_customer_action.total') * $commission;
 
         $totalCommissionOfMonth = DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
                                         ->where('tbl_user_link.user_id', $user->user_id)
                                         ->whereMonth('tbl_customer_action.created_at',  Carbon::now()->month)
-                                        ->sum('tbl_customer_action.total') * 0.2;
+                                        ->sum('tbl_customer_action.total') * $commission;
      
         return view('affilate.publisher.dashboard', compact('numberOrder', 'totalCommission', 'totalCommissionOfMonth'));
     }
@@ -82,6 +84,7 @@ class PublisherController extends Controller
                         ->editColumn('created_at', function($item) {
                             return $item->created_at ? with(new Carbon($item->created_at))->format('d/m/Y') : '';
                         })
+                        
                         ->make(true);
     }
 
@@ -98,36 +101,36 @@ class PublisherController extends Controller
                     ->get();
        
                     return Datatables::of($data)
-                        ->editColumn('created_at', function($item) {
-                            return $item->created_at ? with(new Carbon($item->created_at))->format('d/m/Y') : '';
-                        })
-                        // ->filterColumn('created_at', function ($query, $keyword) {
-                        //     $query->whereRaw("DATE_FORMAT(created_at,'%m/%d/%Y') like ?", ["%$keyword%"]);
-                        // })
-                       
-                        ->make(true);
+                                        ->editColumn('created_at', function($item) {
+                                            return $item->created_at ? with(new Carbon($item->created_at))->format('d/m/Y') : '';
+                                        })
+                                        ->editColumn('total', function($item) {
+                                            return number_format($item->total, 0, ',' , '.');
+                                        })
+                                        ->make(true);
     }
 
     // Lấy danh sách các đơn hàng thành công của CTV
     public function getDataOrder() {
         DB::statement(DB::raw('set @rownum=0'));
-        
         $data = DB::table('tbl_customer_action')
                     ->join('tbl_user_link', 'tbl_customer_action.user_link_id', '=', 'tbl_user_link.user_link_id')
+                    ->join('tbl_org','tbl_user_link.org_id', '=', 'tbl_org.org_id')
                     ->where('tbl_user_link.user_id', Auth::user()->user_id)
-                    ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_customer_action.created_at')
+                    ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total',DB::raw('tbl_org.org_commision * tbl_customer_action.total AS discount') ,'tbl_customer_action.created_at')
                     ->orderBy('tbl_customer_action.created_at', 'desc')
                     ->get();
        
-                    return Datatables::of($data)
-                        ->editColumn('created_at', function($item) {
-                            return $item->created_at ? with(new Carbon($item->created_at))->format('d/m/Y') : '';
-                        })
-                        // ->filterColumn('created_at', function ($query, $keyword) {
-                        //     $query->whereRaw("DATE_FORMAT(created_at,'%m/%d/%Y') like ?", ["%$keyword%"]);
-                        // })
-                       
-                        ->make(true);
+        return Datatables::of($data)->editColumn('created_at', function($item) {
+                                return $item->created_at ? with(new Carbon($item->created_at))->format('d/m/Y') : '';
+                            })
+                            ->editColumn('total', function($item) {
+                                return number_format($item->total, 0, ',' , '.');
+                            })
+                            ->editColumn('discount', function($item) {
+                                return number_format($item->discount, 0, ',' , '.');
+                            })
+                            ->make(true);
     }   
     
 
@@ -167,12 +170,17 @@ class PublisherController extends Controller
 
     public function postEditProfile(Request $request) {    
         $user = Auth::user();
+        
+        if ($user->role == 1) {
+            $org = DB::table('tbl_org')->where('org_email', $user->email)->update(['org_commision'=> $request->commission]);
+        }
+        
         if ($request->fileAvatar) {
             $image              = $request->file('fileAvatar');
             $fileName           = $image->getClientOriginalName();        
             $image->move('img', $fileName);
             $user->avatar       = $fileName;
-         }
+        }
         
         if ($request->has('password')) {
             $user->password     = $request->password;

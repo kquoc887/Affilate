@@ -32,17 +32,16 @@
                     <h2>Thông tin các đơn hàng</h2>
                     <div class="table-responsive">
                         {{-- Sau này sẽ dùng datatable của laravel để thay thế. --}}
-                        <table class="table table-striped  table-bordered table-hover" id="table-sale">
-
+                        <table class="table table-striped  table-bordered table-hover display"  id="table-sale">
                             <thead>
                                 <tr>
                                     <th>STT</th>
                                     <th>Mã đơn hàng</th>
                                     <th>Tổng tiền</th>
+                                    <th>Tiền hoa hồng</th>
                                     <th>Ngày thành công</th>
                                 </tr>    
                             </thead>
-
                         </table>
                     </div>
                 </div>
@@ -70,7 +69,8 @@
                     { data: 'rownum', name: 'rownum'},
                     { data: 'order_id', name: 'order_id' },
                     { data: 'total', name:'total' },
-                    { data:'created_at', name:'created_at' },
+                    { data: 'discount', name: 'discount'},
+                    { data: 'created_at', name:'created_at' },
                 ],
                 columnDefs: [ {
                     searchable: false,

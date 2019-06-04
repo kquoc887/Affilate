@@ -111,7 +111,7 @@
                 <div class="col-12">
                     <h2>Các công ty đã đăng ký tham gia</h2>
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover text-center" id='table-org'>
+                        <table class="table table-striped table-hover text-center"   id='table-org'>
                             <thead>
                                 <tr>
                                     <th>STT</th>
