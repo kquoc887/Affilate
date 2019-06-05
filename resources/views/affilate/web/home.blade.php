@@ -23,7 +23,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                {{-- sử dụng bảng saleprofit --}}
+                <!-- {{-- sử dụng bảng saleprofit --}} -->
                 <h3>150</h3>
                 <p>Số lượt thanh toán</p>
               </div>
@@ -38,7 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                {{-- sử dụng bảng payment --}}
+                <!-- {{-- sử dụng bảng payment --}} -->
                 <h3>20<sup style="font-size: 20px">%</sup></h3>
 
                 <p>Phần trăm tăng trưởng</p>
@@ -54,7 +54,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                {{-- sử dụng dữ liệu bảng user_link --}}
+                <!-- {{-- sử dụng dữ liệu bảng user_link --}} -->
                 <h3>44</h3>
 
                 <p>Số lượng cộng tác viên</p>

@@ -266,7 +266,10 @@ class TestController extends Controller
                                 ->where('user_link_id',$ctv->user_link_id)
                                 ->whereMonth('tbl_customer_action.created_at', $month)
                                 ->sum('discount');
-            $total_profit = DB::table('tbl_customer_action')->where('user_link_id',$ctv->user_link_id)->sum('total');
+            $total_profit = DB::table('tbl_customer_action')
+                                ->whereMonth('tbl_customer_action.created_at', $month)
+                                ->where('user_link_id',$ctv->user_link_id)
+                                ->sum('total');
             $user = DB::table('tbl_users')->where('user_id', $ctv->user_id)->select(DB::raw('concat(lastname, " ",  firstname) as fullname'))->first();
             $arr_record= array(
             
