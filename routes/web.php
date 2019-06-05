@@ -65,5 +65,8 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('getDataProfit','TestController@getDataSaleProfit')->name('getDataSaleProfit');
         Route::post('lockPublisher','TestController@lock_n_unlock_publisher')->name('lockPub');
         Route::get('SaleProfitFromToDate','TestController@getSaleProfitFromToDate')->name('SaleProfitFromToDate');
+        Route::get('Payment','TestController@getPaymentAllUser')->name('payment');
+        Route::get('postPayment','TestController@postPayment')->name('postPayment');
+        Route::get('getDataPayment','TestController@getDataPayment')->name('getDataPayment');
     });
 });
