@@ -49,7 +49,7 @@
                                   <th>Tổng doanh thu</th>
                                   <th>Phần trăm hoa hồng</th>
                                   <th>Thành tiền</th>
-                                  
+                                  <th>Hành Động</th>
                               </tr>
                           </thead>
                       </table>
@@ -86,7 +86,7 @@
             {data:'totalProfit',name:'totalProfit'},
             {data:'commision',name : 'commision'},
             {data:'total',name:'total'},
-           
+            {data:'action',name:'action'}
        ],
        columnDefs: [ {
                   "searchable": false,
