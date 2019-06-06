@@ -71,5 +71,6 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('postPayment','TestController@postPayment')->name('postPayment');
         Route::get('getDataPayment','TestController@getDataPayment')->name('getDataPayment');
         Route::post('pay', 'TestController@postPay')->name('postPay');
+        Route::get('getCustomFilterData','TestController@getCustomFilterData')->name('getCustomData');
     });
 });

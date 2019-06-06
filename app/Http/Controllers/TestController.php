@@ -356,8 +356,45 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function getCustomFilterData(Request $request)
     {
-        //
+        $customer1 = DB::table('tbl_user_link')
+                        ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+                        ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+                        ->select(['tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname')]);
+        // ->get();
+        // return $customer1;
+
+        return datatables()->of($customer1)
+                ->addColumn('action',function($data){
+                    $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
+                    if(!empty($have_payment)){
+                        $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
+                        return $button;
+                    }
+                    else{
+                        $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                        return $button;
+                    }
+                })
+                ->filter(function ($query) use ($request) {
+                    if ($request->has('dataSearch')) {
+                        $sql = "CONCAT(tbl_users.lastname,' ',tbl_users.firstname)  like ?";
+                        $query->whereRaw($sql, ["%{$request->get('dataSearch')}%"])
+                            ->orWhere('order_id','LIKE',"%{$request->get('dataSearch')}%");
+                    }
+                })
+                ->addColumn('STT','')
+                ->rawColumns(['STT','action'])
+                ->editColumn('created_at',function($data){
+                    $dt = $data->created_at;
+                    $dt2 = Carbon::parse($dt)->format('d/m/Y');
+                    return $dt2;
+                })
+                ->editColumn('total',function($data){
+                    
+                    return number_format($data->total, 0, ',', '.' );
+                })
+                ->make(true); 
     }
 }

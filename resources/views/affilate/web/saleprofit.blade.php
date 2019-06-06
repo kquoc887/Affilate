@@ -24,7 +24,7 @@
                     <form action="#" method="POST" class="offset-md-9 form-inline">
                         <div class="form-group">
                             <button type="button" class="btn btn-success btn-flat btn-search" id="addFieldSearch">Tìm theo ngày</button>
-                            <input type="text" id="from-dateTest" class="form-control" placeholder="Thông tin cần tìm">
+                            <input type="text" id="dataSearch" class="form-control" placeholder="Thông tin cần tìm">
                             <button type="button" id="btnSearch-normal" class="btn btn-success btn-flat btn-search">Tìm kiếm</button>
                         </div>
                     </form>

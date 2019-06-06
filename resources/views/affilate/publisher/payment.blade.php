@@ -27,6 +27,7 @@
                                 <th>STT</th>
                                 <th>Mã đơn hàng</th>
                                 <th>Tổng tiền đơn hàng</th>
+                                <th>Phần trăm hoa hồng</th>
                                 <th>Tiền được thưởng</th>
                                 <th>Ngày được duyệt</th>
                                 <th>Trạng thái</th>
@@ -57,7 +58,8 @@
                 columns: [
                     { data: 'rownum', name: 'rownum'},
                     { data: 'order_id', name: 'order_id' },
-                    { data: 'total', name:'total' },
+                    { data: 'total', name: 'total' },
+                    { data: 'org_commision', name: 'org_commision'},
                     { data: 'discount', name: 'discount'},
                     { data: 'created_at', name:'created_at' },
                     { data: 'status', name: 'status'},

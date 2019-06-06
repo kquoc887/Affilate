@@ -162,8 +162,9 @@ $(document).ready(function () {
                 { data: 'rownum', name: 'rownum'},
                 { data: 'order_id', name: 'order_id' },
                 { data: 'total', name:'total' },
+                { data: 'org_commision', name:'org_commision' },
                 { data: 'discount', name: 'discount'},
-                { data:'created_at', name:'created_at' },
+                { data: 'created_at', name:'created_at' },
             ],
             columnDefs: [ {
                 "searchable": false,
@@ -207,8 +208,9 @@ $(document).ready(function () {
                 { data: 'rownum', name: 'rownum'},
                 { data: 'order_id', name: 'order_id' },
                 { data: 'total', name:'total' },
+                { data: 'org_commision', name:'org_commision' },
                 { data: 'discount', name: 'discount'},
-                { data:'created_at', name:'created_at' },
+                { data: 'created_at', name:'created_at' },
             ],
             columnDefs: [ {
                 "searchable": false,
@@ -348,6 +350,7 @@ $(document).ready(function () {
                     if (data.message == 'success'){
                         swal("Thông báo", "Thanh toán thành công").then(() => {
                             btnPayment.attr('disabled', true);
+                            $('#payment_ad').DataTable().ajax.reload();
                         });
                     
                     }

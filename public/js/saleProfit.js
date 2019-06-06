@@ -33,7 +33,7 @@ $(document).on('click', '#close-all-field', function() {
     $('#ToDate').remove();
     $('#sale_profit_ad').DataTable({
         destroy: true,
-        searching: false,
+        searching: true,
         language: {
             "lengthMenu": "Hiển thị _MENU_ đơn hàng",
             "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
@@ -62,6 +62,14 @@ $(document).on('click', '#close-field-todate', function() {
 $(document).on('click','#FromToDate',function(){
     if(click_to_date==0)
     {
+        if ( $('#from-date').val() == '' ) {
+            swal({
+                title: 'Lỗi',
+                text: 'Bạn chưa chọn ngày bắt đầu hoặc ngày kết thúc',
+                icon: 'error'
+              });
+            return false;
+        }
         var t = $('#sale_profit_ad').DataTable({
             destroy:true,
             searching: false,
@@ -99,6 +107,14 @@ $(document).on('click','#FromToDate',function(){
         
       }
     else{
+        if ( $('#toDate').val() == '' ) {
+            swal({
+                title: 'Lỗi',
+                text: 'Bạn chưa chọn ngày bắt đầu hoặc ngày kết thúc',
+                icon: 'error'
+              });
+            return false;
+        }
         var t = $('#sale_profit_ad').DataTable({
             destroy: true,
             searching: false,
@@ -177,4 +193,40 @@ $(document).on('click', '.btn_calc_commission',function(){
             }
         }
     })
+})
+$(document).on('click','#btnSearch-normal',function(){
+    var t = $('#sale_profit_ad').DataTable({
+        destroy: true,
+        searching: false,
+        language: {
+            "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+        },
+       processing : true,
+       severSide: true,
+       ajax:{
+          url: route('getCustomData'),
+          data:{
+                dataSearch : $('#dataSearch').val(),
+          },
+       },
+       columns: [
+            {data:'STT',name:'STT'},
+            {data:'fullname',name:'fullname'},
+            {data:'order_id',name:'order_id'},
+            {data:'total',name:'total'},
+            {data:'created_at',name : 'created_at'},
+            {data:'action',name:'action'},
+       ],
+       columnDefs: [ {
+                  "searchable": false,
+                  "orderable": false,
+                  "targets": 0
+          } ],
+     });
+     t.on( 'order.dt search.dt', function () {
+              t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                  cell.innerHTML = i+1;
+              } );
+          } ).draw();
+
 })

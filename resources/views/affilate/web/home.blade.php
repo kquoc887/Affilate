@@ -56,13 +56,11 @@
               <div class="inner">
                 <!-- {{-- sử dụng dữ liệu bảng user_link --}} -->
               <h3>{{$total_pub}}</h3>
-
                 <p>Số lượng cộng tác viên</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-            
             </div>
           </div>
           <!-- ./col -->
@@ -71,13 +69,11 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 <h3>0</h3>
-
                 <p>Lượt Khách xem website</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-            
             </div>
           </div>
           <!-- ./col -->
@@ -237,8 +233,7 @@
                   }
                  
                 },
-            })
-                    
+            })       
    })
   </script>
 @endsection

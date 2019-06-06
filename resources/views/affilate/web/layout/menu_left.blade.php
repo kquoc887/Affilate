@@ -14,7 +14,7 @@
             <img src="{{asset('img/'. Auth::user()->avatar)}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-        <a href="#" class="d-block">{{Auth::user()->lastname . ' ' . Auth::user()->firstname}}</a>
+        <a href="{{route('publisher.infoUser')}}" class="d-block">{{Auth::user()->lastname . ' ' . Auth::user()->firstname}}</a>
         </div>
     </div>
 
