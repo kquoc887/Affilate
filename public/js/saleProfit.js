@@ -138,9 +138,9 @@ $(document).on('click','#FromToDate',function(){
                   } );
               } ).draw();
     }
-
 })
 //Gửi dữ liệu tính hoa hồng cho từng cộng tác viên
+
 $(document).on('click', '.btn_calc_commission',function(){
     var customer_id = $(this).attr('id');
     var btnPayment = $(this);
@@ -153,15 +153,11 @@ $(document).on('click', '.btn_calc_commission',function(){
         },
         success:function(data){  
             if(data.success){
-               
                 swal("thông báo", data.success).then(() => {
                     $('#sale_profit_ad').DataTable().ajax.reload();
                     btnPayment.attr('disabled',true);
                 });
-              
-
             }
         }
     })
 })
-

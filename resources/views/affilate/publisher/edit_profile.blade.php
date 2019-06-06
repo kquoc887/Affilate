@@ -40,15 +40,12 @@
                     <input type="text" class="form-control" value="{{$name_company}}" disabled aria-describedby="helpId">
                 </div>
                 <div class="form-group">
-
+                   
                     <label >Chia sẻ hoa hồng:</label>
-
                     <select>
-                      
                       @for($i = 1;$i<=10;$i++)
                           {!!'<option value="'. $i/100 . '">'.$i."%</option>"!!}
                       @endfor
-
                     </select>
                 </div>
             @endif

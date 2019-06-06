@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Hoa Hồng Cần Trả Theo Tháng Hiện Tại</h1>
+            <h1>Hoa Hồng Cần Trả Theo Tháng</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -49,7 +49,7 @@
                                   <th>Tổng doanh thu</th>
                                   <th>Phần trăm hoa hồng</th>
                                   <th>Thành tiền</th>
-                                  
+                                  <th>Hành động</th>
                               </tr>
                           </thead>
                       </table>
@@ -69,36 +69,39 @@
 @endsection
 @section('scripts')
 <script>  
-     var t = $('#payment_ad').DataTable({
-        searching: false,
-        language: {
-            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-        },
-       processing : true,
-       severSide: true,
-       ajax:{
-          url: route('getDataPayment')
-       },
-       columns: [
-            {data:'STT',name:'STT'},
-            {data:'fullname',name:'fullname'},
-            {data:'totalProfit',name:'totalProfit'},
-            {data:'commision',name : 'commision'},
-            {data:'total',name:'total'},
-           
-       ],
-       columnDefs: [ {
-                  "searchable": false,
-                  "orderable": false,
-                  "targets": 0
-          } ],
+  $(document).ready(function(){
+        var t = $('#payment_ad').DataTable({
+            searching: false,
+            language: {
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+            },
+          processing : true,
+          severSide: true,
+          ajax:{
+              url: route('getDataPayment')
+          },
+          columns: [
+                {data:'STT',name:'STT'},
+                {data:'fullname',name:'fullname'},
+                {data:'totalProfit',name:'totalProfit'},
+                {data:'commision',name : 'commision'},
+                {data:'total',name:'total'},
+                {data:'action',name:'action'},
+              
+          ],
+          columnDefs: [ {
+                      "searchable": false,
+                      "orderable": false,
+                      "targets": 0
+              } ],
+      })
+      t.on( 'order.dt search.dt', function () {
+                  t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                      cell.innerHTML = i+1;
+                  } );
+              } ).draw();
   })
-  t.on( 'order.dt search.dt', function () {
-              t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                  cell.innerHTML = i+1;
-              } );
-          } ).draw();
 </script>
 
 @endsection

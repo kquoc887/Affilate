@@ -117,7 +117,7 @@ class PublisherController extends Controller
                     ->join('tbl_user_link', 'tbl_customer_action.user_link_id', '=', 'tbl_user_link.user_link_id')
                     ->join('tbl_org','tbl_user_link.org_id', '=', 'tbl_org.org_id')
                     ->where('tbl_user_link.user_id', Auth::user()->user_id)
-                    ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total',DB::raw('tbl_org.org_commision * tbl_customer_action.total AS discount') ,'tbl_customer_action.created_at')
+                    ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_org.org_commision' ,'tbl_customer_action.total',DB::raw('tbl_org.org_commision * tbl_customer_action.total AS discount') ,'tbl_customer_action.created_at')
                     ->orderBy('tbl_customer_action.created_at', 'desc')
                     ->get();
        
@@ -220,5 +220,35 @@ class PublisherController extends Controller
                                     })
                                     ->make(true);
             }
+    }
+
+    public function getPayment() {
+        return view('affilate.publisher.payment');
+    }
+
+    public function getOrderSuccess() {
+        DB::statement(DB::raw('set @rownum=0'));
+        $orders = DB::table('tbl_payment')
+                        ->join('tbl_customer_action', 'tbl_payment.customer_id', '=', 'tbl_customer_action.customer_id')
+                        ->join('tbl_user_link', 'tbl_customer_action.user_link_id', '=', 'tbl_user_link.user_link_id')
+                        ->where('tbl_user_link.user_id', Auth::user()->user_id)
+                        ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_payment.discount', 'tbl_payment.action' ,'tbl_payment.created_at')
+                        ->get();
+                       
+        return Datatables::of($orders)
+                            ->addColumn('status', function($order) {
+                                $status = '<label class="alert alert-danger">Đơn hàng đã được duyệt chờ thanh toán</label>';
+                                if ($order->action == 1) {
+                                 $status = '<label class="alert alert-success">Đơn hàng đã được thanh toán</label>';
+                                }
+                               return $status;
+                            
+                            })
+                            ->editColumn('created_at', function($order) {
+                                return $order->created_at ? with(new Carbon($order->created_at))->format('d/m/Y') : '';
+                            })
+                            ->rawColumns(['status'])
+                            ->make(true);
+
     }
 }

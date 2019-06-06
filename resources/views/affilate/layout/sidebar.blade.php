@@ -70,12 +70,12 @@
                                 <p>Lợi nhuận bán hàng</p>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a href="pages/charts/flot.html" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{route('publisher.payment')}}" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
-                                <p>Payment</p>
+                                <p>Hoa hồng</p>
                             </a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">

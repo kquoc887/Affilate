@@ -18,6 +18,7 @@ class TblPayment extends Migration
             $table->integer('customer_id');
             $table->integer('order_id');
             $table->double('discount');
+            $table->integer('action')->default(0);
             $table->timestamps();
         });
     }
