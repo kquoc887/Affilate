@@ -238,7 +238,7 @@ class PublisherController extends Controller
         return Datatables::of($orders)
                             ->addColumn('status', function($order) {
                                 $status = '<label class="alert alert-danger">Đơn hàng đã được duyệt chờ thanh toán</label>';
-                                if ($order->action == 1) {
+                                if ($order->action == 2) {
                                  $status = '<label class="alert alert-success">Đơn hàng đã được thanh toán</label>';
                                 }
                                return $status;

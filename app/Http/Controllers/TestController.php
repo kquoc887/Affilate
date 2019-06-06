@@ -335,7 +335,7 @@ class TestController extends Controller
         $user_link_id = $request->post('user_link_id');
         $arr_customer_action = DB::table('tbl_customer_action')->where('user_link_id', $user_link_id)->get();
         foreach ($arr_customer_action as $item) {
-            DB::table('tbl_payment')->where('customer_id', $item->customer_id)->update(['action' => 1]);
+            DB::table('tbl_payment')->where('customer_id', $item->customer_id)->update(['action' => 2]);
         }
         return response()->json(['message' => 'success']);
     }
