@@ -49,11 +49,9 @@
                                   <th>Tổng doanh thu</th>
                                   <th>Phần trăm hoa hồng</th>
                                   <th>Thành tiền</th>
-<<<<<<< HEAD
+
                                   <th>Hành Động</th>
-=======
-                                  <th>Hành động</th>
->>>>>>> 85771be03b46f208c875e1961c675212cfcdc72e
+
                               </tr>
                           </thead>
                       </table>
@@ -73,32 +71,7 @@
 @endsection
 @section('scripts')
 <script>  
-<<<<<<< HEAD
-     var t = $('#payment_ad').DataTable({
-        searching: false,
-        language: {
-            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-        },
-       processing : true,
-       severSide: true,
-       ajax:{
-          url: route('getDataPayment')
-       },
-       columns: [
-            {data:'STT',name:'STT'},
-            {data:'fullname',name:'fullname'},
-            {data:'totalProfit',name:'totalProfit'},
-            {data:'commision',name : 'commision'},
-            {data:'total',name:'total'},
-            {data:'action',name:'action'}
-       ],
-       columnDefs: [ {
-                  "searchable": false,
-                  "orderable": false,
-                  "targets": 0
-          } ],
-=======
+
   $(document).ready(function(){
         var t = $('#payment_ad').DataTable({
             searching: false,
@@ -131,7 +104,7 @@
                       cell.innerHTML = i+1;
                   } );
               } ).draw();
->>>>>>> 85771be03b46f208c875e1961c675212cfcdc72e
+
   })
 </script>
 
