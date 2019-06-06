@@ -57,6 +57,8 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::post('posteditProfile', 'PublisherController@postEditProfile')->name('publisher.postEditProfile');
         Route::get('infoUser','PublisherController@getInfoUser')->name('publisher.infoUser');
         Route::get('searchOrder', 'PublisherController@searchOrder')->name('publisher.searchOrder');
+        Route::get('payment', 'PublisherController@getPayment')->name('publisher.payment');
+        Route::get('OrderSuccess','PublisherController@getOrderSuccess' )->name('publisher.getOrderSuccess');
     });
     Route::group(['prefix' => 'advertiser'], function () {
         Route::get('/', 'TestController@index')->name('home');
@@ -68,5 +70,6 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('Payment','TestController@getPaymentAllUser')->name('payment');
         Route::get('postPayment','TestController@postPayment')->name('postPayment');
         Route::get('getDataPayment','TestController@getDataPayment')->name('getDataPayment');
+        Route::post('pay', 'TestController@postPay')->name('postPay');
     });
 });

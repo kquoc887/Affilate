@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Payment</h1>
+                    <h1 class="m-0 text-dark">Hoa hồng</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Payment</li>
+                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                        <li class="breadcrumb-item active">Hoa hồng</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -21,19 +21,49 @@
             <div class="col-12">
                 <h2></h2>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        {{-- <tr>
-                            <th>Tên</th>
-                            <th>Địa chỉ Email</th>
-                            <th>Hành động</th>
-                            <th>Ngày thực hiện thao tác</th>
-                            <th>Phần trăm hoa hồng</th>
-                        </tr> --}}
-                      
+                    <table class="table table-striped table-hover" id="table-payment">
+                       <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã đơn hàng</th>
+                                <th>Tổng tiền đơn hàng</th>
+                                <th>Tiền được thưởng</th>
+                                <th>Ngày được duyệt</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                       </thead>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            var tablePayment = $('#table-payment').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "search" : "Tìm kiếm:",
+                },
+                ajax: {
+                    url: route('publisher.getOrderSuccess')
+                },
+                columns: [
+                    { data: 'rownum', name: 'rownum'},
+                    { data: 'order_id', name: 'order_id' },
+                    { data: 'total', name:'total' },
+                    { data: 'discount', name: 'discount'},
+                    { data: 'created_at', name:'created_at' },
+                    { data: 'status', name: 'status'},
+                ],
+                order: [[ 1, 'asc' ]]
+            });
+        });
+    </script>
 @endsection

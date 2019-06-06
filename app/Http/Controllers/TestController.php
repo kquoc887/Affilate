@@ -99,8 +99,15 @@ class TestController extends Controller
        
         return datatables()->of($customer1)
                             ->addColumn('action',function($data){
-                                    $button = '<button type="button" name="calc_commission" id="'.$data->user_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tính Hoa Hồng</button>';
+                                $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
+                                if(!empty($have_payment)){
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
                                     return $button;
+                                }
+                                else{
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                                    return $button;
+                                }
                             })
                             ->addColumn('STT','')
                             ->rawColumns(['STT','action'])
@@ -108,6 +115,10 @@ class TestController extends Controller
                                 $dt = $data->created_at;
                                 $dt2 = Carbon::parse($dt)->format('d/m/Y');
                                 return $dt2;
+                            })
+                            ->editColumn('total',function($data){
+                                
+                                return number_format($data->total, 0, ',', '.' );
                             })
                             ->make(true); 
     }
@@ -284,7 +295,7 @@ class TestController extends Controller
                                 ->sum('total');
             $user = DB::table('tbl_users')->where('user_id', $ctv->user_id)->select(DB::raw('concat(lastname, " ",  firstname) as fullname'))->first();
             $arr_record= array(
-            
+                    'user_link_id' => $ctv->user_link_id,
                     'fullname' => $user->fullname,
                     'totalProfit'=> $total_profit,
                     'commision' => $org->org_commision,
@@ -294,13 +305,22 @@ class TestController extends Controller
         }
         return datatables()->of($arr)
         ->addColumn('action',function($data){
-            $button = '<button type="button" name="calc_commission" id="btn_calc_commission" class=" btn btn-primary btn -sm">Thanh Toán</button>';
+            $button = '<button type="button" name="calc_commission" id="btn_calc_commission" data-content="'. $data['user_link_id'] .'" class=" btn btn-primary btn -sm">Thanh Toán</button>';
             return $button;
         })
         ->addColumn('STT','')
         ->rawColumns(['STT','action'])
         ->make(true);
 
+    }
+
+    public function postPay(Request $request) {
+        $user_link_id = $request->post('user_link_id');
+        $arr_customer_action = DB::table('tbl_customer_action')->where('user_link_id', $user_link_id)->get();
+        foreach ($arr_customer_action as $item) {
+            DB::table('tbl_payment')->where('customer_id', $item->customer_id)->update(['action' => 1]);
+        }
+        return response()->json(['message' => 'success']);
     }
 
     /**

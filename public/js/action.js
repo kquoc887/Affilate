@@ -290,46 +290,70 @@ $(document).ready(function () {
         $('#frmUpdateProfile img#img-avatar').fadeIn('fast').attr('src', tmppath);
         
    });
-
-}); 
-   //Tim hoa hong theo thang
-   $(document).on('change','select[name=selectMonth]',function(){
-       var option = $(this).val();
-       var t = $('#payment_ad').DataTable({
+     //Tim hoa hong theo thang
+     $(document).on('change','select[name=selectMonth]',function(){
+        var option = $(this).val();
+        var t = $('#payment_ad').DataTable({
         destroy:true,
         searching: false,
         language: {
             "lengthMenu": "Hiển thị _MENU_ đơn hàng",
             "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
         },
-       processing : true,
-       severSide: true,
-       ajax:{
-          url: route('getDataPayment'),
-          data:{
-             optionMonth: option
-          }
-       },
-       columns: [
+        processing : true,
+        severSide: true,
+        ajax:{
+            url: route('getDataPayment'),
+            data:{
+                optionMonth: option
+            }
+        },
+        columns: [
             {data:'STT',name:'STT'},
             {data:'fullname',name:'fullname'},
             {data:'totalProfit',name:'totalProfit'},
             {data:'commision',name : 'commision'},
             {data:'total',name:'total'},
             {data:'action',name:'action'},
-       ],
-       columnDefs: [ {
-                  "searchable": false,
-                  "orderable": false,
-                  "targets": 0
-          } ],
-     });
-     t.on( 'order.dt search.dt', function () {
-              t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                  cell.innerHTML = i+1;
-              } );
-          } ).draw();
-});
+        ],
+        columnDefs: [ {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+            } ],
+        });
+        t.on( 'order.dt search.dt', function () {
+                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    cell.innerHTML = i+1;
+                } );
+            } ).draw();
+
+    });
+
+    $(document).on('click', '#btn_calc_commission', function(event) {
+        var btnPayment = $(this);
+        // console.log($(this).attr('data-content'));
+       $.ajax({
+            url : route('postPay'),
+            type : 'post',
+            headers: {   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data : {
+                user_link_id : $(this).attr('data-content'),
+            },
+            dataType :"JSON",
+            success: function(data){
+                // console.log(data);
+                if (data.message == 'success'){
+                    swal("Thông báo", "Thanh toán thành công").then(() => {
+                        btnPayment.attr('disabled', true);
+                    });
+                  
+                }
+            } 
+       })
+    });
+}); 
+  
 
 
 function checkValidate(arrayError, formId) {

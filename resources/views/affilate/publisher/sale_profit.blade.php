@@ -37,7 +37,8 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Mã đơn hàng</th>
-                                    <th>Tổng tiền</th>
+                                    <th>Tổng tiền hàng</th>
+                                    <th>Phần trăm hoa hồng</th>
                                     <th>Tiền hoa hồng</th>
                                     <th>Ngày thành công</th>
                                 </tr>    
@@ -53,7 +54,6 @@
     <script>
         $(function() {
             var tableSale = $('#table-sale').DataTable({
-
                 processing: true,
                 serverSide: true,
                 searching: true,
@@ -69,6 +69,7 @@
                     { data: 'rownum', name: 'rownum'},
                     { data: 'order_id', name: 'order_id' },
                     { data: 'total', name:'total' },
+                    { data: 'org_commision', name:'org_commision' },
                     { data: 'discount', name: 'discount'},
                     { data: 'created_at', name:'created_at' },
                 ],
