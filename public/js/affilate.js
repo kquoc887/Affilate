@@ -9,13 +9,6 @@ $(document).ready(function () {
                 'user_code': getCookie('uc'),
                 'data_customer': data_info
             }
-            // success: function(data) {
-            // //    console.log(data);
-            //     if (data.message == 'error') {
-            //         return false;
-            //     } 
-    
-            // }
         });
     })
 });

@@ -32,7 +32,6 @@ class TestController extends Controller
                                 ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
                                 ->where('tbl_user_link.org_id', $org_id)->orderBy('tbl_customer_action.created_at','DESC')
                                 ->select(DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'),'tbl_customer_action.created_at','tbl_customer_action.order_id')
-
                                 ->take(2)
                                 ->get();
         
@@ -55,15 +54,11 @@ class TestController extends Controller
             ->addColumn('action',function($data){
                 switch($data->active){
                     case 1:
-                        $button = '<button type="button" name="unlock" id="'.$data->user_id.'" class="btn_unlock btn btn-primary btn -sm" disabled>Mở Khóa</button>';
-                        $button .= '&nbsp;&nbsp;';
-                        $button .= '<button  type="button" name="lock" id="'.$data->user_id.'" class="btn_lock btn btn-danger btn-sm">Khóa</button>';
+                        $button = '<button  type="button" name="lock" id="'.$data->user_id.'" class="btn_lock btn btn-danger btn-sm col-sm-5">Khóa</button>';
                         return $button;
                         break;
                     case 2:
-                        $button = '<button type="button" name="unlock" id="'.$data->user_id.'" class="btn_unlock btn btn-primary btn -sm" >Mở Khóa</button>';
-                        $button .= '&nbsp;&nbsp;';
-                        $button .= '<button  type="button" name="lock" id="'.$data->user_id.'" class="btn_lock btn btn-danger btn-sm" disabled>Khóa</button>';
+                        $button = '<button type="button" name="unlock" id="'.$data->user_id.'" class="btn_unlock btn btn-primary btn-sm col-sm-5" >Mở Khóa</button>';
                         return $button;
                         break;
                 }
@@ -72,11 +67,11 @@ class TestController extends Controller
             ->addColumn('active',function($data){
                 switch($data->active){
                     case 1:
-                        $input = '<label id="alert-status" class="alert alert-success"> Đang hoạt động';
+                        $input = '<label id="alert-status" class="alert alert-success col-sm-7"> Đang hoạt động';
                         return $input;
                         break;
                     case 2:
-                        $input = '<label id="alert-status" class="alert alert-danger"> Tài khoản đã khóa';
+                        $input = '<label id="alert-status" class="alert alert-danger  col-sm-7"> Tài khoản đã khóa';
                         return $input;
                         break;
                 }
@@ -102,51 +97,70 @@ class TestController extends Controller
                     ->get();
        
         return datatables()->of($customer1)
-        ->addColumn('action',function($data){
-            $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
-            if(!empty($have_payment)){
-                $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
-                return $button;
-            }
-            else{
-                $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
-                return $button;
-            }
-        })
-        ->addColumn('STT','')
-        ->rawColumns(['STT','action'])
-        ->editColumn('created_at',function($data){
-            $dt = $data->created_at;
-            $dt2 = Carbon::parse($dt)->format('d/m/Y');
-            return $dt2;
-        })
-        ->editColumn('total',function($data){
-               
-            return number_format($data->total, 0, ',', '.' );
-        })
-        ->make(true); 
+                            ->addColumn('action',function($data){
+                                $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
+                                if(!empty($have_payment)){
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
+                                    return $button;
+                                }
+                                else{
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                                    return $button;
+                                }
+                            })
+                            ->addColumn('STT','')
+                            ->rawColumns(['STT','action'])
+                            ->editColumn('created_at',function($data){
+                                $dt = $data->created_at;
+                                $dt2 = Carbon::parse($dt)->format('d/m/Y');
+                                return $dt2;
+                            })
+                            ->editColumn('total',function($data){
+                                
+                                return number_format($data->total, 0, ',', '.' );
+                            })
+                            ->make(true); 
     }
     public function getSaleProfitFromToDate(Request $request){
-            $fromdate = new Carbon($request->get('fromdate'));
-            if(!empty($request->get('todate'))){
-                $todate = new Carbon($request->get('todate'));
-                $todate   = $todate->hour(23)->minute(59)->second(59);
-                $customer = DB::table('tbl_user_link')
-                ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
-                ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
-                ->whereBetween('tbl_customer_action.created_at',[$fromdate->toDateTimeString(),$todate->toDateTimeString()])
-                ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
-                ->get();
-                return datatables()->of($customer)
+        $fromdate = new Carbon($request->get('fromdate'));
+        
+        if (!empty($request->get('todate'))){
+            $todate = new Carbon($request->get('todate'));
+            $todate   = $todate->hour(23)->minute(59)->second(59);
+            $customer = DB::table('tbl_user_link')
+                            ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
+                            ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
+                            ->whereBetween('tbl_customer_action.created_at',[$fromdate->toDateTimeString(),$todate->toDateTimeString()])
+                            ->select('tbl_user_link.*','tbl_customer_action.*', DB::raw('concat(tbl_users.lastname, " ",  tbl_users.firstname) as fullname'))
+                            ->get();
+            
+
+            return datatables()->of($customer)                               
                     ->addColumn('action',function($data){
-                        $button = '<button type="button" name="calc_commission" id="btn_calc_commission" value="'.$data->order_id.'" class=" btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                    $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
+                    if(!empty($have_payment)){
+                        $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
                         return $button;
+                    }
+                    else{
+                        $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                        return $button;
+                    }
                     })
                     ->addColumn('STT','')
                     ->rawColumns(['STT','action'])
-                    ->make(true);
-            }
-            else{
+                    ->editColumn('created_at',function($data){
+                        $dt = $data->created_at;
+                        $dt2 = Carbon::parse($dt)->format('d/m/Y');
+                        return $dt2;
+                    })
+                    ->editColumn('total',function($data){
+                        
+                        return number_format($data->total, 0, ',', '.' );
+                    })
+                    ->make(true); 
+        }
+        else{
                 $customer = DB::table('tbl_user_link')
                 ->join('tbl_users','tbl_user_link.user_id','=','tbl_users.user_id')
                 ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
@@ -155,15 +169,22 @@ class TestController extends Controller
                 ->get();
                 return datatables()->of($customer)
                     ->addColumn('action',function($data){
-                        $button = '<button type="button" name="calc_commission" id="btn_calc_commission" value="'.$data->order_id.'" class=" btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
-                        return $button;
+                        $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
+                        if(!empty($have_payment)){
+                            $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
+                            return $button;
+                        }
+                        else{
+                            $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                            return $button;
+                        }
                     })
                     ->addColumn('STT','')
                     ->rawColumns(['STT','action'])
                     ->make(true);
             }
-           
-        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -172,16 +193,19 @@ class TestController extends Controller
     //MỞ trang sale profit
     public function getSaleProfit(Request $request){
         $id = $request->get('id');
-        if($request->ajax()){
-           
+        
+        if($request->ajax()){   
             $notification = Notification::find($id);
             $notification->update(['read_at' => now()]);
             // $notification->delete();
             return response()->json(['success'=>'ok']);
         }
+
         return view('affilate.web.saleprofit');
         
     }
+
+   
 
     /**
      * Store a newly created resource in storage.
@@ -266,7 +290,6 @@ class TestController extends Controller
                                 ->where('user_link_id',$ctv->user_link_id)
                                 ->whereMonth('tbl_customer_action.created_at', $month)
                                 ->sum('discount');
-
             if($total > 0){
                 $total_profit = DB::table('tbl_customer_action')
                         ->where('user_link_id',$ctv->user_link_id)
@@ -291,6 +314,16 @@ class TestController extends Controller
                             ->rawColumns(['STT','action'])
                             ->make(true);
 
+
+    }
+
+    public function postPay(Request $request) {
+        $user_link_id = $request->post('user_link_id');
+        $arr_customer_action = DB::table('tbl_customer_action')->where('user_link_id', $user_link_id)->get();
+        foreach ($arr_customer_action as $item) {
+            DB::table('tbl_payment')->where('customer_id', $item->customer_id)->update(['action' => 1]);
+        }
+        return response()->json(['message' => 'success']);
     }
 
     /**

@@ -20,10 +20,11 @@
     <!-- /.content-header -->
     <div class="container-fluid">
        <div class="row">
-        <form action="" class="col-4 ml-3" method="POST" id="frmUpdateProfile">
+        <form action="{{route('publisher.postEditProfile')}}" class="col-4 ml-3" method="POST" id="frmUpdateProfile" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
               {{-- <label for="avatar-old">Ảnh đại điện</label> --}}
-                <img src="{{asset('img/'. Auth::user()->avatar)}}" class="img-circle elevation-2 ml-5" alt="avatar-old">
+                <img src="{{asset('img/'. Auth::user()->avatar)}}" id="img-avatar" class="img-circle elevation-2 ml-5" alt="avatar-old">
             </div>
             <div class="form-group">
               <label for="avater-new">Thay đổi ảnh đại diện</label>
@@ -39,10 +40,9 @@
                     <input type="text" class="form-control" value="{{$name_company}}" disabled aria-describedby="helpId">
                 </div>
                 <div class="form-group">
+                   
                     <label >Chia sẻ hoa hồng:</label>
-
                     <select>
-                      
                       @for($i = 1;$i<=10;$i++)
                           {!!'<option value="'. $i/100 . '">'.$i."%</option>"!!}
                       @endfor
@@ -51,11 +51,11 @@
             @endif
             <div class="form-group">
                 <label for="password">Mật khẩu</label>
-                <input type="text" name="password"  class="form-control" placeholder="Vui lòng nhập mật khẩu" disabled aria-describedby="helpId">
+                <input type="password" name="password"  class="form-control" placeholder="Vui lòng nhập mật khẩu" disabled aria-describedby="helpId">
             </div>
             <div class="form-group">
                 <label for="repass">Nhập lại mật khẩu</label>
-                <input type="text" name="repass"  class="form-control" placeholder="Vui lòng nhập lại mật khẩu" disabled aria-describedby="helpId">
+                <input type="password" name="repass"  class="form-control" placeholder="Vui lòng nhập lại mật khẩu" disabled aria-describedby="helpId">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label">

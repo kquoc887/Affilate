@@ -135,11 +135,90 @@ $(document).ready(function () {
             html += '<button type="button" class="btn btn-flat btn-success ml-1" id="close-field">-</button></div>'
         $(this).parents('div.region-search').append(html);
     });
-
-    // Bỏ đi một giá search
-    $(document).on('click', '#close-field', function() {
+     // Bỏ đi một giá search
+     $(document).on('click', '#close-field', function() {
         $(this).parent().remove();
     });
+
+    // Bắt đầu phần JS tìm kiếm theo ngày
+    $(document).on('click', '#btn-search-all', function() {
+        $('#inputFromdate').val(''),
+        $('#inputToDate').val(''),
+        $('#table-sale').DataTable({
+            destroy: true,
+            searching: true,
+            paging: true,
+            language: {
+                "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "search" : "Tìm kiếm:",
+            },
+           processing : true,
+           severSide: true,
+           ajax:{
+              url: route('publisher.getDataOrder'),
+           },
+           columns: [
+                { data: 'rownum', name: 'rownum'},
+                { data: 'order_id', name: 'order_id' },
+                { data: 'total', name:'total' },
+                { data: 'discount', name: 'discount'},
+                { data:'created_at', name:'created_at' },
+            ],
+            columnDefs: [ {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            } ],
+           
+            
+        });
+    });
+  
+    $(document).on('click', '#btn-search', function(event) {
+        if ( $('#inputFromdate').val() == '' ||  $('#inputToDate').val() == '') {
+            swal({
+                title: 'Lỗi',
+                text: 'Bạn chưa chọn ngày bắt đầu hoặc ngày kết thúc',
+                icon: 'error'
+              });
+            return false;
+        }
+    
+        $('#table-sale').DataTable({
+            destroy: true,
+            searching: true,
+            paging: true,
+            language: {
+                "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "search" : "Tìm kiếm:",
+            },
+            processing : true,
+            severSide: true,
+            ajax:{
+                url: route('publisher.searchOrder'),
+                data:{
+                    fromDate: $('#inputFromdate').val(),
+                    toDate : $('#inputToDate').val(),
+                }
+            },
+            columns: [
+                { data: 'rownum', name: 'rownum'},
+                { data: 'order_id', name: 'order_id' },
+                { data: 'total', name:'total' },
+                { data: 'discount', name: 'discount'},
+                { data:'created_at', name:'created_at' },
+            ],
+            columnDefs: [ {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+             } ],
+        });
+        
+    });
+    // Kết thúc phần JS tìm kiếm theo ngày
 
   
     $(document).on('click', 'button[name=register-advertiser]' ,function(){
@@ -195,10 +274,7 @@ $(document).ready(function () {
     });
 
    $(document).on('change', '#ckcChangePass', function() {
-      
-    // //    console.log(123);
         var isChangePass = $('#ckcChangePass').is(":checked");
-        console.log(isChangePass);
         if (isChangePass == true) {
             $('#frmUpdateProfile input[name=password]').removeAttr('disabled');
             $('#frmUpdateProfile input[name=repass]').removeAttr('disabled');
@@ -207,46 +283,82 @@ $(document).ready(function () {
             $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
             $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
         }
-   }); 
-   //Tim hoa hong theo thang
-   $(document).on('change','select[name=selectMonth]',function(){
+
+
+   $(document).on('change', '#frmUpdateProfile input[name=fileAvatar]', function(event) {
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        $('#frmUpdateProfile img#img-avatar').fadeIn('fast').attr('src', tmppath);
+        
+   });
+     //Tim hoa hong theo thang
+     $(document).on('change','select[name=selectMonth]',function(){
+
         var option = $(this).val();
         var t = $('#payment_ad').DataTable({
-        destroy:true,
-        searching: false,
-        language: {
-            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-        },
-        processing : true,
-        severSide: true,
-        ajax:{
-        url: route('getDataPayment'),
-        data:{
-            optionMonth: option
-        }
-        },
-        columns: [
-            {data:'STT',name:'STT'},
-            {data:'fullname',name:'fullname'},
-            {data:'totalProfit',name:'totalProfit'},
-            {data:'commision',name : 'commision'},
-            {data:'total',name:'total'},
-            {data:'action',name:'action'},
-        ],
-        columnDefs: [ {
-                "searchable": false,
-                "orderable": false,
-                "targets": 0
-        } ],
-    });
-    t.on( 'order.dt search.dt', function () {
-            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                cell.innerHTML = i+1;
-            } );
-        } ).draw();
+            destroy:true,
+            searching: false,
+            language: {
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+            },
+            processing : true,
+            severSide: true,
+            ajax:{
+                url: route('getDataPayment'),
+                data:{
+                    optionMonth: option
+                }
+            },
+            columns: [
+                {data:'STT',name:'STT'},
+                {data:'fullname',name:'fullname'},
+                {data:'totalProfit',name:'totalProfit'},
+                {data:'commision',name : 'commision'},
+                {data:'total',name:'total'},
+                {data:'action',name:'action'},
+            ],
+            columnDefs: [ {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+            } ],
+        });
+        t.on( 'order.dt search.dt', function () {
+                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    cell.innerHTML = i+1;
+                } );
+            }).draw();
+        })
     })
-});
+
+    $(document).on('click', '#btn_calc_commission', function(event) {
+        var btnPayment = $(this);
+        // console.log($(this).attr('data-content'));
+       $.ajax({
+            url : route('postPay'),
+            type : 'post',
+            headers: {   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data : {
+                user_link_id : $(this).attr('data-content'),
+            },
+            dataType :"JSON",
+            success: function(data){
+                // console.log(data);
+                if (data.message == 'success'){
+                    swal("Thông báo", "Thanh toán thành công").then(() => {
+                        btnPayment.attr('disabled', true);
+                    });
+                  
+                }
+            } 
+       })
+
+    });
+
+}); 
+  
+
+
 
 
 function checkValidate(arrayError, formId) {

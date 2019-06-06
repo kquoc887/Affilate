@@ -46,15 +46,19 @@ Route::post('reset/{token}', 'ResetPasswordController@reset')->name('reset');
 Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
     Route::group(['prefix' => 'publisher'], function () {
         Route::get('/', 'PublisherController@index')->name('publisher.dashboard');
-        
         Route::get('sale-profit', 'PublisherController@getSaleProfit')->name('publisher.sale-profit');
-        
         Route::get('advertiser', 'PublisherController@getAdvertiser')->name('publisher.advertiser');
         Route::get('getAdvertiser', 'PublisherController@getDataAdvertiser')->name('publisher.getAdvertiser');
         Route::post('registerAdvertiser', 'PublisherController@registerAdvertiser')->name('publisher.registerAdvertiser');
         Route::get('getDataOrg', 'PublisherController@getDataOrg')->name('publisher.getDataOrg');
         Route::get('getDataOrder', 'PublisherController@getDataOrder')->name('publisher.getDataOrder');
-        Route::get('editProfile', 'PublisherController@getEditProfile')->name('publisher.editProfile');
+        Route::get('getNearestOrder', 'PublisherController@getNearestOrder')->name('publisher.getNearestOrder');
+        Route::get('editProfile', 'PublisherController@getEditProfile')->name('publisher.geteditProfile');
+        Route::post('posteditProfile', 'PublisherController@postEditProfile')->name('publisher.postEditProfile');
+        Route::get('infoUser','PublisherController@getInfoUser')->name('publisher.infoUser');
+        Route::get('searchOrder', 'PublisherController@searchOrder')->name('publisher.searchOrder');
+        Route::get('payment', 'PublisherController@getPayment')->name('publisher.payment');
+        Route::get('OrderSuccess','PublisherController@getOrderSuccess' )->name('publisher.getOrderSuccess');
     });
     Route::group(['prefix' => 'advertiser'], function () {
         Route::get('/', 'TestController@index')->name('home');
@@ -66,5 +70,6 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('Payment','TestController@getPaymentAllUser')->name('payment');
         Route::get('postPayment','TestController@postPayment')->name('postPayment');
         Route::get('getDataPayment','TestController@getDataPayment')->name('getDataPayment');
+        Route::post('pay', 'TestController@postPay')->name('postPay');
     });
 });

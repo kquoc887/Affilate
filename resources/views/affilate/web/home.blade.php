@@ -95,8 +95,8 @@
                 <div class="card-body">
                     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">                          
-                            <div class="col-sm-12">
-                                <table id="dashboard_ad" class="display table table-bordered" width="100%" cellspacing="0">
+                            <div class="table-responsive ">
+                                <table id="dashboard_ad" class="display table table-bordered text-center" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>STT</th>
@@ -241,7 +241,4 @@
                     
    })
   </script>
- 
-    
- 
 @endsection

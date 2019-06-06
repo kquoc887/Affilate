@@ -18,15 +18,13 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        <div class="cotainer-fluid region-search">
-            <form action="#" method="POST" class="offset-md-9 form-inline">
-                <div class="form-group">
-                    <button type="button" class="btn btn-success btn-flat btn-search" id="addColumnSearch">+</button>
-                    <input type="text" class="form-control" placeholder="Vui lòng điền thông tin cần tìm">
-                    <button type="button" class="btn btn-success btn-flat btn-search">Tìm kiếm</button>
-                    <button type="submit" class="btn btn-success btn-flat btn-search" >Tất cả</button>
-                </div>
-            </form>
+        <div class="cotainer-fluid region-search text-center" >
+            <label for="toDate">Từ ngày:</label>
+            <input type="date" id="inputFromdate">
+            <label for="toDate">Đến ngày:</label>
+            <input type="date" id="inputToDate">
+            <button type="button" class="btn btn-success btn-flat" id="btn-search">Tìm kiếm</button>
+            <button type="button" class="btn btn-success btn-flat" id="btn-search-all">Tìm Tất cả</button>
         </div>
         <div class="container-fluid mt-5">
             <div class="row">
@@ -34,17 +32,17 @@
                     <h2>Thông tin các đơn hàng</h2>
                     <div class="table-responsive">
                         {{-- Sau này sẽ dùng datatable của laravel để thay thế. --}}
-                        <table class="table table-striped table-hover" id="table-sale">
-
+                        <table class="table table-striped  table-bordered table-hover display"  id="table-sale">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>STT</th>
                                     <th>Mã đơn hàng</th>
-                                    <th>Tổng tiền</th>
+                                    <th>Tổng tiền hàng</th>
+                                    <th>Phần trăm hoa hồng</th>
+                                    <th>Tiền hoa hồng</th>
                                     <th>Ngày thành công</th>
                                 </tr>    
                             </thead>
-
                         </table>
                     </div>
                 </div>
@@ -55,20 +53,25 @@
 @section('scripts')
     <script>
         $(function() {
-
             var tableSale = $('#table-sale').DataTable({
-
                 processing: true,
                 serverSide: true,
-                searching: false,
+                searching: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "search" : "Tìm kiếm:",
+                },
                 ajax: {
                     url: "{{route('publisher.getDataOrder')}}"
                 },
                 columns: [
-                    { data: 'stt'},
+                    { data: 'rownum', name: 'rownum'},
                     { data: 'order_id', name: 'order_id' },
                     { data: 'total', name:'total' },
-                    { data:'created_at', name:'created_at' },
+                    { data: 'org_commision', name:'org_commision' },
+                    { data: 'discount', name: 'discount'},
+                    { data: 'created_at', name:'created_at' },
                 ],
                 columnDefs: [ {
                     searchable: false,
@@ -78,11 +81,6 @@
                 order: [[ 1, 'asc' ]]
             });
 
-            tableSale.on( 'order.dt search.dt', function () {
-                tableSale.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                } );
-            } ).draw();
         });
     </script>
 @endsection

@@ -56,7 +56,13 @@
             $('#advertiser-table').DataTable({
                 processing: true,
                 serverSide: true,
-                searching: false,
+                searching: true,
+                info: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ công ty",
+                    "info": "Trang hiện tại _PAGE_ Trong _PAGES_",
+                    "search" : "Tìm kiếm:",
+                },
                 ajax: {
                     url:"{{route('publisher.getAdvertiser')}}"
                 },
@@ -66,7 +72,6 @@
                     { data: 'org_address' },
                     { data: 'org_uri'},
                     { data:'action' }
-                
                 ]
             });
         });
