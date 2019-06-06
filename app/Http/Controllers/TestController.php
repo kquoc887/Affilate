@@ -266,6 +266,7 @@ class TestController extends Controller
                                 ->where('user_link_id',$ctv->user_link_id)
                                 ->whereMonth('tbl_customer_action.created_at', $month)
                                 ->sum('discount');
+
             if($total > 0){
                 $total_profit = DB::table('tbl_customer_action')
                         ->where('user_link_id',$ctv->user_link_id)
@@ -282,13 +283,13 @@ class TestController extends Controller
             }
         }
         return datatables()->of($arr)
-        ->addColumn('action',function($data){
-            $button = '<button type="button" name="calc_commission" id="btn_calc_commission" class=" btn btn-primary btn -sm">Thanh Toán</button>';
-            return $button;
-        })
-        ->addColumn('STT','')
-        ->rawColumns(['STT','action'])
-        ->make(true);
+                            ->addColumn('action',function($data){
+                                $button = '<button type="button" name="calc_commission" id="btn_calc_commission" class=" btn btn-primary btn -sm">Thanh Toán</button>';
+                                return $button;
+                            })
+                            ->addColumn('STT','')
+                            ->rawColumns(['STT','action'])
+                            ->make(true);
 
     }
 

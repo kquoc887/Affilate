@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(document).ready(function(){
         $.ajax({
-            url: 'http://192.168.1.30:8080/Affilate/public/api/action',
+            url: 'http://localhost/Affilate/public/api/action',
             type: 'post',
             cache: false,
             dataType: 'JSON',
