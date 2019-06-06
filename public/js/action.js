@@ -283,9 +283,11 @@ $(document).ready(function () {
             $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
             $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
         }
+   });
 
 
    $(document).on('change', '#frmUpdateProfile input[name=fileAvatar]', function(event) {
+       console.log(123);
         var tmppath = URL.createObjectURL(event.target.files[0]);
         $('#frmUpdateProfile img#img-avatar').fadeIn('fast').attr('src', tmppath);
         
@@ -328,31 +330,28 @@ $(document).ready(function () {
                     cell.innerHTML = i+1;
                 } );
             }).draw();
-        })
-    })
+    });
 
-    $(document).on('click', '#btn_calc_commission', function(event) {
+    $(document).on('click', '.btn_payment', function(event) {
+
         var btnPayment = $(this);
-        // console.log($(this).attr('data-content'));
-       $.ajax({
-            url : route('postPay'),
-            type : 'post',
-            headers: {   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data : {
-                user_link_id : $(this).attr('data-content'),
-            },
-            dataType :"JSON",
-            success: function(data){
-                // console.log(data);
-                if (data.message == 'success'){
-                    swal("Thông báo", "Thanh toán thành công").then(() => {
-                        btnPayment.attr('disabled', true);
-                    });
-                  
-                }
-            } 
-       })
-
+        $.ajax({
+                url : route('postPay'),
+                type : 'post',
+                headers: {   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data : {
+                    user_link_id : $(this).attr('data-content'),
+                },
+                dataType :"JSON",
+                success: function(data){
+                    if (data.message == 'success'){
+                        swal("Thông báo", "Thanh toán thành công").then(() => {
+                            btnPayment.attr('disabled', true);
+                        });
+                    
+                    }
+                } 
+        });
     });
 
 }); 

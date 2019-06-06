@@ -100,11 +100,11 @@ class TestController extends Controller
                             ->addColumn('action',function($data){
                                 $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
                                 if(!empty($have_payment)){
-                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
                                     return $button;
                                 }
                                 else{
-                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
                                     return $button;
                                 }
                             })
@@ -226,6 +226,7 @@ class TestController extends Controller
             'customer_id' => $payment->customer_id,
             'order_id' => $payment->order_id,
             'discount' => $payment->total*$payment->org_commision,
+            'action' => 1,
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ];
@@ -287,9 +288,9 @@ class TestController extends Controller
         foreach ($table_ctv as $ctv) {
             $totalOrder = DB::table('tbl_customer_action')
                                 ->join('tbl_payment', 'tbl_customer_action.customer_id', '=', 'tbl_payment.customer_id')
-                                ->whereMonth('tbl_customer_action.created_at', $month)
                                 ->where('user_link_id',$ctv->user_link_id)
-                                ->where('action', 1)
+                                ->where('tbl_payment.action', 1)
+                                ->whereMonth('tbl_customer_action.created_at', $month)
                                 ->sum('total');
             if ($totalOrder > 0) {
                 $user = DB::table('tbl_users')->where('user_id', $ctv->user_id)->select(DB::raw('concat(lastname, " ",  firstname) as fullname'))->first();
@@ -304,14 +305,29 @@ class TestController extends Controller
             }
         }
         return datatables()->of($arr)
-                            ->addColumn('action',function($data){
-                                $button = '<button type="button" name="calc_commission" id="btn_calc_commission" class=" btn btn-primary btn -sm">Thanh Toán</button>';
-                                return $button;
-                            })
-                            ->addColumn('STT','')
-                            ->rawColumns(['STT','action'])
-                            ->make(true);
+            ->addColumn('action',function($data){
+                $paid = false;
+            
+                $arrCustomerID = DB::table('tbl_customer_action')->where('user_link_id', $data['user_link_id'])->get();
+                foreach ($arrCustomerID as $item) {
+                    $action = DB::table('tbl_payment')->where('customer_id', $item->customer_id)->value('action');
+                    if ($action == 1) {
+                        $paid = true;
+                    }
+                    $paid = false;
+                }
 
+                if ($paid == true) {
+                    $button = '<button type="button" name="calc_commission"  data-content="'. $data['user_link_id'] .'" class="btn_payment btn btn-primary btn -sm" disabled>Đã thanh toán</button>';
+                    
+                } else {
+                    $button = '<button type="button" name="calc_commission"  data-content="'. $data['user_link_id'] .'" class="btn_payment btn btn-primary btn -sm" >Thanh Toán</button>';
+                }
+                return $button;
+            })
+            ->addColumn('STT','')
+            ->rawColumns(['STT','action'])
+            ->make(true);
 
     }
 

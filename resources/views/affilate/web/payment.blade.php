@@ -46,12 +46,10 @@
                               <tr>
                                   <th>STT</th>
                                   <th>Tên cộng tác viên</th>
-                                  <th>Tổng doanh thu</th>
+                                  <th>Tổng doanh thu tháng hiện tại</th>
                                   <th>Phần trăm hoa hồng</th>
                                   <th>Thành tiền</th>
-
                                   <th>Hành Động</th>
-
                               </tr>
                           </thead>
                       </table>
