@@ -40,18 +40,15 @@
                     <input type="text" class="form-control" value="{{$name_company}}" disabled aria-describedby="helpId">
                 </div>
                 <div class="form-group">
-                    <label >Phần trăm hoa hồng:</label>
-                    <select name="commission">
-                        <option value="0.1">1%</option>
-                        <option value="0.2">2%</option>
-                        <option value="0.3">3%</option>
-                        <option value="0.4">4%</option>
-                        <option value="0.5">5%</option>
-                        <option value="0.6">6%</option>
-                        <option value="0.7">7%</option>
-                        <option value="0.8">8%</option>
-                        <option value="0.9">9%</option>
-                        <option value="1">10%</option>
+
+                    <label >Chia sẻ hoa hồng:</label>
+
+                    <select>
+                      
+                      @for($i = 1;$i<=10;$i++)
+                          {!!'<option value="'. $i/100 . '">'.$i."%</option>"!!}
+                      @endfor
+
                     </select>
                 </div>
             @endif

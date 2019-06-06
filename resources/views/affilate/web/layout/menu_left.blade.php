@@ -41,7 +41,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <a href="{{route('payment')}}" class="nav-link">
               <i class="nav-icon fa fa-calculator"></i>
                   <p>Hoa Hồng</p>
             </a>
