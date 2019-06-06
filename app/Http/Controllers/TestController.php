@@ -285,24 +285,20 @@ class TestController extends Controller
         $table_ctv = DB::table('tbl_user_link')->where('org_id', $org->org_id)->get();
         $arr = array();
         foreach ($table_ctv as $ctv) {
-            $total = DB::table('tbl_customer_action')
+            $totalOrder = DB::table('tbl_customer_action')
                                 ->join('tbl_payment', 'tbl_customer_action.customer_id', '=', 'tbl_payment.customer_id')
-                                ->where('user_link_id',$ctv->user_link_id)
                                 ->whereMonth('tbl_customer_action.created_at', $month)
-                                ->sum('discount');
-            if($total > 0){
-                $total_profit = DB::table('tbl_customer_action')
-                        ->where('user_link_id',$ctv->user_link_id)
-                        ->whereMonth('tbl_customer_action.created_at', $month)
-                        ->sum('total');
+                                ->where('user_link_id',$ctv->user_link_id)
+                                ->where('action', 1)
+                                ->sum('total');
+            if ($totalOrder > 0) {
                 $user = DB::table('tbl_users')->where('user_id', $ctv->user_id)->select(DB::raw('concat(lastname, " ",  firstname) as fullname'))->first();
-                $customer_id = DB::table('tbl_customer_action')->where('user_link_id',$ctv->user_link_id)->value('customer_id');
-                $arr_record= array(
+                $arr_record = array(
+                    'user_link_id' => $ctv->user_link_id,
                     'fullname' => $user->fullname,
-                    'totalProfit'=> $total_profit,
+                    'totalOrder'=> $totalOrder,
                     'commision' => $org->org_commision,
-                    'total' => $total,
-                    '$customer_id'=>$customer_id,
+                    'moneyCommission' => $totalOrder * $org->org_commision
                 );
                 array_push($arr,$arr_record);
             }
