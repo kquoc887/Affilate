@@ -49,7 +49,9 @@
                                   <th>Tổng doanh thu</th>
                                   <th>Phần trăm hoa hồng</th>
                                   <th>Thành tiền</th>
-                                  <th>Hành động</th>
+
+                                  <th>Hành Động</th>
+
                               </tr>
                           </thead>
                       </table>
@@ -69,6 +71,7 @@
 @endsection
 @section('scripts')
 <script>  
+
   $(document).ready(function(){
         var t = $('#payment_ad').DataTable({
             searching: false,
@@ -101,6 +104,7 @@
                       cell.innerHTML = i+1;
                   } );
               } ).draw();
+
   })
 </script>
 

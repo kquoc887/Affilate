@@ -25,14 +25,13 @@ $(document).on('click','#to-date',function(){
         $(this).parents('div.region-search').append(html);
         click_to_date+=1;
     }
+    return click_to_date;
 })
 // click đóng tất cả form search
 $(document).on('click', '#close-all-field', function() {
     $('#FromDate').remove();
     $('#ToDate').remove();
-    click = 0;
-    click_to_date = 0;
-    $('#sale_profit_ad').DataTable ({
+    $('#sale_profit_ad').DataTable({
         destroy: true,
         searching: false,
         language: {
@@ -53,10 +52,11 @@ $(document).on('click', '#close-all-field', function() {
             {data:'action',name:'action'},
        ]
     });
+    click = 0;click_to_date = 0; 
 });
 $(document).on('click', '#close-field-todate', function() {
     $('#ToDate').remove();
-    click_to_date = 0;
+    return click_to_date = 0;
 });
 
 $(document).on('click','#FromToDate',function(){
@@ -99,11 +99,8 @@ $(document).on('click','#FromToDate',function(){
         
       }
     else{
-
         var t = $('#sale_profit_ad').DataTable({
-
             destroy: true,
-
             searching: false,
             language: {
                 "lengthMenu": "Hiển thị _MENU_ đơn hàng"
@@ -116,7 +113,6 @@ $(document).on('click','#FromToDate',function(){
                     fromdate: $('#from-date').val(),
                     todate : $('#toDate').val(),
               },
-
            },
            columns: [
                 {data:'STT',name:'STT'},
@@ -140,26 +136,27 @@ $(document).on('click','#FromToDate',function(){
     }
 })
 //Gửi dữ liệu tính hoa hồng cho từng cộng tác viên
-$(document).on('click', '#btnSearch-normal',function(){
-    var customer_id = $(this).attr('id');
-    var btnPayment = $(this);
-    $.ajax({
-        url : route('postPayment'),
-        dataType:"JSON",
-        type: 'get',
-        data:{
-            customer_id : customer_id,
-        },
-        success:function(data){  
-            if(data.success){
-                swal("thông báo", data.success).then(() => {
-                    $('#sale_profit_ad').DataTable().ajax.reload();
-                    btnPayment.attr('disabled',true);
-                });
-            }
-        }
-    })
-})
+// <<<<<<< HEAD
+// $(document).on('click', '#btnSearch-normal',function(){
+//     var customer_id = $(this).attr('id');
+//     var btnPayment = $(this);
+//     $.ajax({
+//         url : route('postPayment'),
+//         dataType:"JSON",
+//         type: 'get',
+//         data:{
+//             customer_id : customer_id,
+//         },
+//         success:function(data){  
+//             if(data.success){
+//                 swal("thông báo", data.success).then(() => {
+//                     $('#sale_profit_ad').DataTable().ajax.reload();
+//                     btnPayment.attr('disabled',true);
+//                 });
+//             }
+//         }
+//     })
+// })
 
 $(document).on('click', '.btn_calc_commission',function(){
     var customer_id = $(this).attr('id');

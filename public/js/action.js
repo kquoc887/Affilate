@@ -283,7 +283,7 @@ $(document).ready(function () {
             $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
             $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
         }
-   });
+
 
    $(document).on('change', '#frmUpdateProfile input[name=fileAvatar]', function(event) {
         var tmppath = URL.createObjectURL(event.target.files[0]);
@@ -292,31 +292,32 @@ $(document).ready(function () {
    });
      //Tim hoa hong theo thang
      $(document).on('change','select[name=selectMonth]',function(){
+
         var option = $(this).val();
         var t = $('#payment_ad').DataTable({
-        destroy:true,
-        searching: false,
-        language: {
-            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-        },
-        processing : true,
-        severSide: true,
-        ajax:{
-            url: route('getDataPayment'),
-            data:{
-                optionMonth: option
-            }
-        },
-        columns: [
-            {data:'STT',name:'STT'},
-            {data:'fullname',name:'fullname'},
-            {data:'totalProfit',name:'totalProfit'},
-            {data:'commision',name : 'commision'},
-            {data:'total',name:'total'},
-            {data:'action',name:'action'},
-        ],
-        columnDefs: [ {
+            destroy:true,
+            searching: false,
+            language: {
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+            },
+            processing : true,
+            severSide: true,
+            ajax:{
+                url: route('getDataPayment'),
+                data:{
+                    optionMonth: option
+                }
+            },
+            columns: [
+                {data:'STT',name:'STT'},
+                {data:'fullname',name:'fullname'},
+                {data:'totalProfit',name:'totalProfit'},
+                {data:'commision',name : 'commision'},
+                {data:'total',name:'total'},
+                {data:'action',name:'action'},
+            ],
+            columnDefs: [ {
                     "searchable": false,
                     "orderable": false,
                     "targets": 0
@@ -326,12 +327,11 @@ $(document).ready(function () {
                 t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                     cell.innerHTML = i+1;
                 } );
-            } ).draw();
+            }).draw();
+        })
+    })
 
-
-    });
-
-    $(document).on('click', '#btn_calc_commission', function(event) {
+    $(document).on('click', '.btn_payment', function(event) {
 
         var btnPayment = $(this);
         $.ajax({
@@ -355,6 +355,7 @@ $(document).ready(function () {
 
 }); 
   
+
 
 
 

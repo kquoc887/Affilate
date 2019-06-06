@@ -100,11 +100,11 @@ class TestController extends Controller
                             ->addColumn('action',function($data){
                                 $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
                                 if(!empty($have_payment)){
-                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
                                     return $button;
                                 }
                                 else{
-                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
                                     return $button;
                                 }
                             })
@@ -290,45 +290,46 @@ class TestController extends Controller
                                 ->where('user_link_id',$ctv->user_link_id)
                                 ->whereMonth('tbl_customer_action.created_at', $month)
                                 ->sum('discount');
-           if ($total != 0) {
-            $total_profit = DB::table('tbl_customer_action')
-                                ->whereMonth('tbl_customer_action.created_at', $month)
-                                ->where('user_link_id',$ctv->user_link_id)
-                                ->sum('total');
-            $user = DB::table('tbl_users')->where('user_id', $ctv->user_id)->select(DB::raw('concat(lastname, " ",  firstname) as fullname'))->first();
-            $arr_record = array(
-                'user_link_id' => $ctv->user_link_id,
-                'fullname' => $user->fullname,
-                'totalProfit'=> $total_profit,
-                'commision' => $org->org_commision,
-                'total' => $total
-            );
-            array_push($arr,$arr_record);
-           }
+            if($total > 0){
+                $total_profit = DB::table('tbl_customer_action')
+                        ->where('user_link_id',$ctv->user_link_id)
+                        ->whereMonth('tbl_customer_action.created_at', $month)
+                        ->sum('total');
+                $user = DB::table('tbl_users')->where('user_id', $ctv->user_id)->select(DB::raw('concat(lastname, " ",  firstname) as fullname'))->first();
+                $customer_id = DB::table('tbl_customer_action')->where('user_link_id',$ctv->user_link_id)->value('customer_id');
+                $arr_record= array(
+                    'fullname' => $user->fullname,
+                    'totalProfit'=> $total_profit,
+                    'commision' => $org->org_commision,
+                    'total' => $total,
+                    '$customer_id'=>$customer_id,
+                );
+                array_push($arr,$arr_record);
+            }
         }
         return datatables()->of($arr)
-        ->addColumn('action',function($data){
-            $paid = false;
-           
-            $arrCustomerAction = DB::table('tbl_customer_action')->where('user_link_id', $data['user_link_id'])->select([''])->get();
-            foreach ($arrCustomerID as $item) {
-                $action = DB::table('tbl_payment')->where('customer_id', $item->customer_id)->value('action');
-                if ($action == 1) {
-                    $paid = true;
+            ->addColumn('action',function($data){
+                $paid = false;
+            
+                $arrCustomerAction = DB::table('tbl_customer_action')->where('user_link_id', $data['user_link_id'])->select([''])->get();
+                foreach ($arrCustomerID as $item) {
+                    $action = DB::table('tbl_payment')->where('customer_id', $item->customer_id)->value('action');
+                    if ($action == 1) {
+                        $paid = true;
+                    }
                 }
-            }
 
-            if ($paid == true) {
-                $button = '<button type="button" name="calc_commission" id="btn_calc_commission" data-content="'. $data['user_link_id'] .'" class=" btn btn-primary btn -sm" disabled>Đã thanh toán</button>';
-                
-            } else {
-                $button = '<button type="button" name="calc_commission" id="btn_calc_commission" data-content="'. $data['user_link_id'] .'" class=" btn btn-primary btn -sm" >Thanh Toán</button>';
-            }
-            return $button;
-        })
-        ->addColumn('STT','')
-        ->rawColumns(['STT','action'])
-        ->make(true);
+                if ($paid == true) {
+                    $button = '<button type="button" name="calc_commission"  data-content="'. $data['user_link_id'] .'" class="btn_payment btn btn-primary btn -sm" disabled>Đã thanh toán</button>';
+                    
+                } else {
+                    $button = '<button type="button" name="calc_commission"  data-content="'. $data['user_link_id'] .'" class="btn_payment btn btn-primary btn -sm" >Thanh Toán</button>';
+                }
+                return $button;
+            })
+            ->addColumn('STT','')
+            ->rawColumns(['STT','action'])
+            ->make(true);
 
     }
 

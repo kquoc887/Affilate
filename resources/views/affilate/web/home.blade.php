@@ -55,7 +55,7 @@
             <div class="small-box bg-warning">
               <div class="inner">
                 <!-- {{-- sử dụng dữ liệu bảng user_link --}} -->
-                <h3>44</h3>
+                <h3></h3>
 
                 <p>Số lượng cộng tác viên</p>
               </div>
