@@ -331,26 +331,25 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#btn_calc_commission', function(event) {
-        var btnPayment = $(this);
-        // console.log($(this).attr('data-content'));
-       $.ajax({
-            url : route('postPay'),
-            type : 'post',
-            headers: {   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data : {
-                user_link_id : $(this).attr('data-content'),
-            },
-            dataType :"JSON",
-            success: function(data){
-                // console.log(data);
-                if (data.message == 'success'){
-                    swal("Thông báo", "Thanh toán thành công").then(() => {
-                        btnPayment.attr('disabled', true);
-                    });
-                  
-                }
-            } 
-       })
+            var btnPayment = $(this);
+            $.ajax({
+                    url : route('postPay'),
+                    type : 'post',
+                    headers: {   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    data : {
+                        user_link_id : $(this).attr('data-content'),
+                    },
+                    dataType :"JSON",
+                    success: function(data){
+                        // console.log(data);
+                        if (data.message == 'success'){
+                            swal("Thông báo", "Thanh toán thành công").then(() => {
+                                btnPayment.attr('disabled', true);
+                            });
+                        
+                        }
+                    } 
+            })
     });
 }); 
   

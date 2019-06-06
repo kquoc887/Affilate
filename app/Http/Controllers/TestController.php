@@ -305,7 +305,22 @@ class TestController extends Controller
         }
         return datatables()->of($arr)
         ->addColumn('action',function($data){
-            $button = '<button type="button" name="calc_commission" id="btn_calc_commission" data-content="'. $data['user_link_id'] .'" class=" btn btn-primary btn -sm">Thanh Toán</button>';
+            $paid = false;
+           
+            $arrCustomerAction = DB::table('tbl_customer_action')->where('user_link_id', $data['user_link_id'])->select([''])->get();
+            foreach ($arrCustomerID as $item) {
+                $action = DB::table('tbl_payment')->where('customer_id', $item->customer_id)->value('action');
+                if ($action == 1) {
+                    $paid = true;
+                }
+            }
+
+            if ($paid == true) {
+                $button = '<button type="button" name="calc_commission" id="btn_calc_commission" data-content="'. $data['user_link_id'] .'" class=" btn btn-primary btn -sm" disabled>Đã thanh toán</button>';
+                
+            } else {
+                $button = '<button type="button" name="calc_commission" id="btn_calc_commission" data-content="'. $data['user_link_id'] .'" class=" btn btn-primary btn -sm" >Thanh Toán</button>';
+            }
             return $button;
         })
         ->addColumn('STT','')

@@ -58,7 +58,6 @@
 </div>
 @endsection
 @section('scripts')
-<script src="{{asset('js/saleProfit.js')}}"></script>
 <script>
   $(document).ready(function(){
      var t = $('#sale_profit_ad').DataTable({
@@ -94,5 +93,4 @@
   })
   
 </script>
-
 @endsection
