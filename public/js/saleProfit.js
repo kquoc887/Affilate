@@ -153,8 +153,6 @@ $(document).on('click', '.btn_calc_commission',function(){
                     $('#sale_profit_ad').DataTable().ajax.reload();
                     btnPayment.attr('disabled',true);
                 });
-              
-
             }
         }
     })
