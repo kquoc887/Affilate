@@ -100,11 +100,11 @@ class TestController extends Controller
                             ->addColumn('action',function($data){
                                 $have_payment = DB::table('tbl_payment')->where('order_id',$data->order_id)->first();
                                 if(!empty($have_payment)){
-                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-success btn -sm" disabled>Đã tạm tinh</button>';
                                     return $button;
                                 }
                                 else{
-                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
+                                    $button = '<button type="button" name="calc_commission" id="'.$data->customer_id.'" class="btn_calc_commission btn btn-primary btn -sm">Tạm tính Hoa Hồng</button>';
                                     return $button;
                                 }
                             })
@@ -226,6 +226,7 @@ class TestController extends Controller
             'customer_id' => $payment->customer_id,
             'order_id' => $payment->order_id,
             'discount' => $payment->total*$payment->org_commision,
+            'action' => 1,
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ];
@@ -288,6 +289,7 @@ class TestController extends Controller
             $total = DB::table('tbl_customer_action')
                                 ->join('tbl_payment', 'tbl_customer_action.customer_id', '=', 'tbl_payment.customer_id')
                                 ->where('user_link_id',$ctv->user_link_id)
+                                ->where('tbl_payment.action', 1)
                                 ->whereMonth('tbl_customer_action.created_at', $month)
                                 ->sum('discount');
             if($total > 0){
@@ -296,13 +298,12 @@ class TestController extends Controller
                         ->whereMonth('tbl_customer_action.created_at', $month)
                         ->sum('total');
                 $user = DB::table('tbl_users')->where('user_id', $ctv->user_id)->select(DB::raw('concat(lastname, " ",  firstname) as fullname'))->first();
-                $customer_id = DB::table('tbl_customer_action')->where('user_link_id',$ctv->user_link_id)->value('customer_id');
                 $arr_record= array(
+                    'user_link_id' =>$ctv->user_link_id,
                     'fullname' => $user->fullname,
                     'totalProfit'=> $total_profit,
                     'commision' => $org->org_commision,
                     'total' => $total,
-                    '$customer_id'=>$customer_id,
                 );
                 array_push($arr,$arr_record);
             }
@@ -311,12 +312,13 @@ class TestController extends Controller
             ->addColumn('action',function($data){
                 $paid = false;
             
-                $arrCustomerAction = DB::table('tbl_customer_action')->where('user_link_id', $data['user_link_id'])->select([''])->get();
+                $arrCustomerID = DB::table('tbl_customer_action')->where('user_link_id', $data['user_link_id'])->get();
                 foreach ($arrCustomerID as $item) {
                     $action = DB::table('tbl_payment')->where('customer_id', $item->customer_id)->value('action');
                     if ($action == 1) {
                         $paid = true;
                     }
+                    $paid = false;
                 }
 
                 if ($paid == true) {

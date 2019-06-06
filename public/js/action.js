@@ -283,9 +283,11 @@ $(document).ready(function () {
             $('#frmUpdateProfile input[name=password]').attr('disabled','disabled');
             $('#frmUpdateProfile input[name=repass]').attr('disabled','disabled');
         }
+   });
 
 
    $(document).on('change', '#frmUpdateProfile input[name=fileAvatar]', function(event) {
+       console.log(123);
         var tmppath = URL.createObjectURL(event.target.files[0]);
         $('#frmUpdateProfile img#img-avatar').fadeIn('fast').attr('src', tmppath);
         
@@ -328,8 +330,7 @@ $(document).ready(function () {
                     cell.innerHTML = i+1;
                 } );
             }).draw();
-        })
-    })
+    });
 
     $(document).on('click', '.btn_payment', function(event) {
 
