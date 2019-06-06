@@ -314,10 +314,11 @@ $(document).ready(function () {
             columns: [
                 {data:'STT',name:'STT'},
                 {data:'fullname',name:'fullname'},
-                {data:'totalProfit',name:'totalProfit'},
+                {data:'totalOrder',name:'totalOrder'},
                 {data:'commision',name : 'commision'},
-                {data:'total',name:'total'},
+                {data:'moneyCommission',name:'moneyCommission'},
                 {data:'action',name:'action'},
+              
             ],
             columnDefs: [ {
                     "searchable": false,

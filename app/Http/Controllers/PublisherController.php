@@ -24,10 +24,14 @@ class PublisherController extends Controller
         $commission = DB::table('tbl_org')->where('org_id', $org_id)->value('org_commision');
       
         $totalCommission =  DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
+                                ->join('tbl_payment','tbl_customer_action.customer_id', '=', 'tbl_payment.customer_id')
+                                ->where('tbl_payment.action',2)
                                 ->where('tbl_user_link.user_id', $user->user_id)
                                 ->sum('tbl_customer_action.total') * $commission;
 
         $totalCommissionOfMonth = DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
+                                        ->join('tbl_payment','tbl_customer_action.customer_id', '=', 'tbl_payment.customer_id')
+                                        ->where('tbl_payment.action',2)
                                         ->where('tbl_user_link.user_id', $user->user_id)
                                         ->whereMonth('tbl_customer_action.created_at',  Carbon::now()->month)
                                         ->sum('tbl_customer_action.total') * $commission;

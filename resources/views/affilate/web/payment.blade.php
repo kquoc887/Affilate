@@ -46,9 +46,9 @@
                               <tr>
                                   <th>STT</th>
                                   <th>Tên cộng tác viên</th>
-                                  <th>Tổng doanh thu tháng hiện tại</th>
+                                  <th>Tổng tiền đơn hàng</th>
                                   <th>Phần trăm hoa hồng</th>
-                                  <th>Thành tiền</th>
+                                  <th>Tiền hoa hồng</th>
                                   <th>Hành Động</th>
                               </tr>
                           </thead>
