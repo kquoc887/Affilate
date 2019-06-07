@@ -23,8 +23,8 @@
             <input type="date" id="inputFromdate">
             <label for="toDate">Đến ngày:</label>
             <input type="date" id="inputToDate">
-            <button type="button" class="btn btn-success btn-flat" id="btn-search">Tìm kiếm</button>
-            <button type="button" class="btn btn-success btn-flat" id="btn-search-all">Tìm Tất cả</button>
+            <button type="button" class="btn btn-success btn-flat" id="btn-search" value="sale-profit">Tìm kiếm</button>
+            <button type="button" class="btn btn-success btn-flat" id="btn-search-all" value="sale-profit-all">Tìm Tất cả</button>
         </div>
         <div class="container-fluid mt-5">
             <div class="row">

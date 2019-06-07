@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Hoa hồng</h1>
+                    <h1 class="m-0 text-dark">Hoa hồng </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -15,6 +15,14 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
+    </div>
+    <div class="cotainer-fluid region-search text-center" >
+        <label for="toDate">Từ ngày:</label>
+        <input type="date" id="inputFromdate">
+        <label for="toDate">Đến ngày:</label>
+        <input type="date" id="inputToDate">
+        <button type="button" class="btn btn-success btn-flat" id="btn-search" value='payment'>Tìm kiếm</button>
+        <button type="button" class="btn btn-success btn-flat" id="btn-search-all" value='payment-all'>Tìm Tất cả</button>
     </div>
     <div class="container-fluid mt-5">
         <div class="row">
@@ -50,6 +58,11 @@
                     "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
                     "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
                     "search" : "Tìm kiếm:",
+                    "paginate": {
+                   
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
                 },
                 ajax: {
                     url: route('publisher.getOrderSuccess')

@@ -142,41 +142,74 @@ $(document).ready(function () {
 
     // Bắt đầu phần JS tìm kiếm theo ngày
     $(document).on('click', '#btn-search-all', function() {
-        $('#inputFromdate').val(''),
-        $('#inputToDate').val(''),
-        $('#table-sale').DataTable({
-            destroy: true,
-            searching: true,
-            paging: true,
-            language: {
-                "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
-                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-                "search" : "Tìm kiếm:",
-            },
-           processing : true,
-           severSide: true,
-           ajax:{
-              url: route('publisher.getDataOrder'),
-           },
-           columns: [
-                { data: 'rownum', name: 'rownum'},
-                { data: 'order_id', name: 'order_id' },
-                { data: 'total', name:'total' },
-                { data: 'discount', name: 'discount'},
-                { data:'created_at', name:'created_at' },
-            ],
-            columnDefs: [ {
-                "searchable": false,
-                "orderable": false,
-                "targets": 0
-            } ],
-           
-            
-        });
+        $('#inputFromdate').val('');
+        $('#inputToDate').val('');
+        if ($(this).val() == 'sale-profit-all') {
+            $('#table-sale').DataTable({
+                destroy: true,
+                searching: true,
+                paging: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "search" : "Tìm kiếm:",
+                },
+                processing : true,
+                severSide: true,
+                ajax:{
+                    url: route('publisher.getDataOrder'),
+                },
+                columns: [
+                    { data: 'rownum', name: 'rownum'},
+                    { data: 'order_id', name: 'order_id' },
+                    { data: 'total', name:'total' },
+                    { data: 'org_commision', name:'org_commision' },
+                    { data: 'discount', name: 'discount'},
+                    { data: 'created_at', name:'created_at' },
+                ],
+                columnDefs: [ {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                } ], 
+            });
+        }
+
+        if ($(this).val() == 'payment-all') {
+            $('#table-payment').DataTable({
+                destroy: true,
+                searching: true,
+                paging: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "search" : "Tìm kiếm:",
+                },
+                processing : true,
+                severSide: true,
+                ajax:{
+                    url: route('publisher.getOrderSuccess'),
+                },
+                columns: [
+                    { data: 'rownum', name: 'rownum'},
+                    { data: 'order_id', name: 'order_id' },
+                    { data: 'total', name:'total' },
+                    { data: 'discount', name: 'discount'},
+                    { data: 'created_at', name:'created_at' },
+                    { data: 'status', name: 'status'},
+                ],
+                columnDefs: [ {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                } ], 
+            });
+        }
+      
     });
   
     $(document).on('click', '#btn-search', function(event) {
-        if ( $('#inputFromdate').val() == '' ||  $('#inputToDate').val() == '') {
+        if ($('#inputFromdate').val() == '' ||  $('#inputToDate').val() == '') {
             swal({
                 title: 'Lỗi',
                 text: 'Bạn chưa chọn ngày bắt đầu hoặc ngày kết thúc',
@@ -184,38 +217,90 @@ $(document).ready(function () {
               });
             return false;
         }
-    
-        $('#table-sale').DataTable({
-            destroy: true,
-            searching: true,
-            paging: true,
-            language: {
-                "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
-                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-                "search" : "Tìm kiếm:",
-            },
-            processing : true,
-            severSide: true,
-            ajax:{
-                url: route('publisher.searchOrder'),
-                data:{
-                    fromDate: $('#inputFromdate').val(),
-                    toDate : $('#inputToDate').val(),
-                }
-            },
-            columns: [
-                { data: 'rownum', name: 'rownum'},
-                { data: 'order_id', name: 'order_id' },
-                { data: 'total', name:'total' },
-                { data: 'discount', name: 'discount'},
-                { data:'created_at', name:'created_at' },
-            ],
-            columnDefs: [ {
-                "searchable": false,
-                "orderable": false,
-                "targets": 0
-             } ],
-        });
+
+        if ($(this).val() == 'sale-profit') {
+            $('#table-sale').DataTable({
+                destroy: true,
+                searching: true,
+                paging: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "search" : "Tìm kiếm:",
+                    "paginate": {
+                       
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                },
+                processing : true,
+                severSide: true,
+                ajax:{
+                    url: route('publisher.search'),
+                    data:{
+                        btnValue: $(this).val(),
+                        fromDate: $('#inputFromdate').val(),
+                        toDate : $('#inputToDate').val(),
+                    }
+                },
+                columns: [
+                    { data: 'rownum', name: 'rownum'},
+                    { data: 'order_id', name: 'order_id' },
+                    { data: 'total', name:'total' },
+                    { data: 'org_commision', name:'org_commision' },
+                    { data: 'discount', name: 'discount'},
+                    { data: 'created_at', name:'created_at' },
+                ],
+                columnDefs: [ {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                 } ],
+            });
+        }
+        
+        if ($(this).val() == 'payment') {
+           
+            $('#table-payment').DataTable({
+                destroy: true,
+                searching: true,
+                paging: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "search" : "Tìm kiếm:",
+                    "paginate": {
+                       
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                },
+                processing : true,
+                severSide: true,
+                ajax:{
+                    url: route('publisher.search'),
+                    data:{
+                        btnValue: $(this).val(),
+                        fromDate: $('#inputFromdate').val(),
+                        toDate : $('#inputToDate').val(),
+                    }
+                },
+                columns: [
+                    { data: 'rownum', name: 'rownum'},
+                    { data: 'order_id', name: 'order_id' },
+                    { data: 'total', name:'total' },
+                    { data: 'discount', name: 'discount'},
+                    { data: 'created_at', name:'created_at' },
+                    { data: 'status', name: 'status'},
+                ],
+                columnDefs: [ {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                 } ],
+            });
+        }
+       
         
     });
     // Kết thúc phần JS tìm kiếm theo ngày

@@ -48,7 +48,7 @@
                                   <th>Tên cộng tác viên</th>
                                   <th>Tổng doanh thu</th>
                                   <th>Phần trăm hoa hồng</th>
-                                  <th>Thành tiền</th>
+                                  <th>Tiền hoa hồng</th>
                                   <th>Hành động</th>
                               </tr>
                           </thead>
@@ -84,9 +84,9 @@
           columns: [
                 {data:'STT',name:'STT'},
                 {data:'fullname',name:'fullname'},
-                {data:'totalProfit',name:'totalProfit'},
+                {data:'totalOrder',name:'totalOrder'},
                 {data:'commision',name : 'commision'},
-                {data:'total',name:'total'},
+                {data:'moneyCommission', name:'moneyCommission'},
                 {data:'action',name:'action'},
               
           ],

@@ -56,9 +56,10 @@ Route::group(['prefix' => 'app', 'middleware' => 'appLogin'], function () {
         Route::get('editProfile', 'PublisherController@getEditProfile')->name('publisher.geteditProfile');
         Route::post('posteditProfile', 'PublisherController@postEditProfile')->name('publisher.postEditProfile');
         Route::get('infoUser','PublisherController@getInfoUser')->name('publisher.infoUser');
-        Route::get('searchOrder', 'PublisherController@searchOrder')->name('publisher.searchOrder');
+        Route::get('search', 'PublisherController@search')->name('publisher.search');
         Route::get('payment', 'PublisherController@getPayment')->name('publisher.payment');
         Route::get('OrderSuccess','PublisherController@getOrderSuccess' )->name('publisher.getOrderSuccess');
+      
     });
     Route::group(['prefix' => 'advertiser'], function () {
         Route::get('/', 'TestController@index')->name('home');
