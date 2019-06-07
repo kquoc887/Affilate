@@ -71,6 +71,10 @@
             language: {
                 "lengthMenu": "Hiển thị _MENU_ đơn hàng",
                 "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "paginate": {
+                   "next":       "Tiếp theo",
+                   "previous":   "Về trước"
+               },
             },
           processing : true,
           severSide: true,

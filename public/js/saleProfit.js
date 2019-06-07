@@ -37,6 +37,11 @@ $(document).on('click', '#close-all-field', function() {
         language: {
             "lengthMenu": "Hiển thị _MENU_ đơn hàng",
             "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+            "paginate": {
+                   
+                "next":       "Tiếp theo",
+                "previous":   "Về trước"
+            },
         },
        processing : true,
        severSide: true,
@@ -76,6 +81,11 @@ $(document).on('click','#FromToDate',function(){
             language: {
                 "lengthMenu": "Hiển thị _MENU_ đơn hàng",
                 "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "paginate": {
+                   
+                    "next":       "Tiếp theo",
+                    "previous":   "Về trước"
+                },
             },
            processing : true,
            severSide: true,
@@ -119,7 +129,13 @@ $(document).on('click','#FromToDate',function(){
             destroy: true,
             searching: false,
             language: {
-                "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "paginate": {
+                   
+                    "next":       "Tiếp theo",
+                    "previous":   "Về trước"
+                },
             },
            processing : true,
            severSide: true,
@@ -199,7 +215,13 @@ $(document).on('click','#btnSearch-normal',function(){
         destroy: true,
         searching: false,
         language: {
-            "lengthMenu": "Hiển thị _MENU_ đơn hàng"
+            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+            "paginate": {
+                   
+                "next":       "Tiếp theo",
+                "previous":   "Về trước"
+            },
         },
        processing : true,
        severSide: true,

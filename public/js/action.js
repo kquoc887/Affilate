@@ -304,6 +304,7 @@ $(document).ready(function () {
             language: {
                 "lengthMenu": "Hiển thị _MENU_ đơn hàng",
                 "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
             },
             processing : true,
             severSide: true,

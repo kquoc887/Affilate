@@ -149,6 +149,10 @@
                 "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
                 "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
                 "search" : "Tìm kiếm:",
+                "paginate": {
+                   "next":       "Tiếp theo",
+                   "previous":   "Về trước"
+               },
              },
             processing : true,
             severSide  : true,
