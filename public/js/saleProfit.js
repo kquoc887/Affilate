@@ -36,12 +36,18 @@ $(document).on('click', '#close-all-field', function() {
         searching: true,
         language: {
             "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-            "paginate": {
-                   
-                "next":       "Tiếp theo",
-                "previous":   "Về trước"
-            },
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
         },
        processing : true,
        severSide: true,
@@ -80,12 +86,18 @@ $(document).on('click','#FromToDate',function(){
             searching: false,
             language: {
                 "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-                "paginate": {
-                   
-                    "next":       "Tiếp theo",
-                    "previous":   "Về trước"
-                },
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
             },
            processing : true,
            severSide: true,
@@ -130,12 +142,18 @@ $(document).on('click','#FromToDate',function(){
             searching: false,
             language: {
                 "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-                "paginate": {
-                   
-                    "next":       "Tiếp theo",
-                    "previous":   "Về trước"
-                },
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
             },
            processing : true,
            severSide: true,
@@ -217,11 +235,17 @@ $(document).on('click','#btnSearch-normal',function(){
         language: {
             "lengthMenu": "Hiển thị _MENU_ đơn hàng",
             "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+            "emptyTable":     "Không có dữ liệu",
             "paginate": {
-                   
                 "next":       "Tiếp theo",
                 "previous":   "Về trước"
             },
+            "infoEmpty":      "",
+            "infoFiltered":   "",
+            "zeroRecords": "Không tìm thấy dữ liệu",
+            "search":         "Tìm Kiếm:",
+            "loadingRecords": "Đang tải...",
+            "processing":     "Đang tiến hành...",
         },
        processing : true,
        severSide: true,

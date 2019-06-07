@@ -133,8 +133,19 @@
     $(function() {
             var tableOrg = $('#table-org').DataTable({
                 language: {
-                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "lengthMenu": "Hiển thị _MENU_ đơn hàng",
                     "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
                 },
                 processing: true,
                 serverSide: true,

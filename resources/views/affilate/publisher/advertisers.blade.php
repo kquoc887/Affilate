@@ -59,9 +59,19 @@
                 searching: true,
                 info: true,
                 language: {
-                    "lengthMenu": "Hiển thị _MENU_ công ty",
-                    "info": "Trang hiện tại _PAGE_ Trong _PAGES_",
-                    "search" : "Tìm kiếm:",
+                    "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
                 },
                 ajax: {
                     url:"{{route('publisher.getAdvertiser')}}"
