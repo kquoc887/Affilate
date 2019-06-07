@@ -215,6 +215,10 @@ class TestController extends Controller
         
     }
 
+    public function realTimeNotify(Request $request) {
+        return   response()->json(['notify' =>   Auth::user()->unreadNotifications]);
+    }
+
    
 
     /**

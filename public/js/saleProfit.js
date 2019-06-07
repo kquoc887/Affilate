@@ -185,28 +185,6 @@ $(document).on('click','#FromToDate',function(){
               } ).draw();
     }
 })
-//Gửi dữ liệu tính hoa hồng cho từng cộng tác viên
-// <<<<<<< HEAD
-// $(document).on('click', '#btnSearch-normal',function(){
-//     var customer_id = $(this).attr('id');
-//     var btnPayment = $(this);
-//     $.ajax({
-//         url : route('postPayment'),
-//         dataType:"JSON",
-//         type: 'get',
-//         data:{
-//             customer_id : customer_id,
-//         },
-//         success:function(data){  
-//             if(data.success){
-//                 swal("thông báo", data.success).then(() => {
-//                     $('#sale_profit_ad').DataTable().ajax.reload();
-//                     btnPayment.attr('disabled',true);
-//                 });
-//             }
-//         }
-//     })
-// })
 
 $(document).on('click', '.btn_calc_commission',function(){
     var customer_id = $(this).attr('id');
@@ -273,6 +251,6 @@ $(document).on('click','#btnSearch-normal',function(){
               t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                   cell.innerHTML = i+1;
               } );
-          } ).draw();
+    } ).draw();
 
 })

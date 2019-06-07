@@ -19,17 +19,22 @@
                 <i class="fa fa-bell-o"></i>
             <span class="badge badge-warning navbar-badge">{{count(Auth::user()->unreadNotifications)}}</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">{{count(Auth::user()->unreadNotifications)}} Notifications</span>
-                @foreach (Auth::user()->unreadNotifications as $notification)
-                <div class="dropdown-divider"></div>
-                    <button type="button" id="clickNotifi" class="btn btn-default">
-                    <i>Đơn hàng mới-{{'Mã đơn hàng:' .$notification->data['Order_ID']}}</i>
-                    <span class="float-right text-muted text-sm">{{$notification->data['Created_at']}}</span>
-                    <input type="hidden" id="hidden-read" value="{{$notification->id}}">
-                    {{-- <input type="hidden" id="hidden-id" value="{{Auth::user()->user_id}}"> --}}
-                </button>            
-                @endforeach
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notify-content">
+                <span class="dropdown-item dropdown-header notify-header">{{count(Auth::user()->unreadNotifications)}} Notifications</span>
+                <ul class="list-group list-unstyled list-notify">
+                    @foreach (Auth::user()->unreadNotifications as $notification)
+                    <li>
+                        <div class="dropdown-divider"></div>
+                        <button type="button" id="clickNotifi" class="btn btn-default">
+                        <i>Đơn hàng mới-{{'Mã đơn hàng:' .$notification->data['Order_ID']}}</i>
+                        <span class="float-right text-muted text-sm">{{$notification->data['Created_at']}}</span>
+                        <input type="hidden" id="hidden-read" value="{{$notification->id}}">
+                        {{-- <input type="hidden" id="hidden-id" value="{{Auth::user()->user_id}}"> --}}
+                        </button>          
+                    </li>  
+                    @endforeach
+                </ul>
+               
             </div> 
         </li> 
         @endif
