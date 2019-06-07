@@ -142,6 +142,7 @@ $(document).ready(function () {
 
     // Bắt đầu phần JS tìm kiếm theo ngày
     $(document).on('click', '#btn-search-all', function() {
+
         $('#inputFromdate').val('');
         $('#inputToDate').val('');
         if ($(this).val() == 'sale-profit-all') {
@@ -206,6 +207,7 @@ $(document).ready(function () {
             });
         }
       
+
     });
   
     $(document).on('click', '#btn-search', function(event) {
@@ -217,6 +219,7 @@ $(document).ready(function () {
               });
             return false;
         }
+
 
         if ($(this).val() == 'sale-profit') {
             $('#table-sale').DataTable({
@@ -300,7 +303,6 @@ $(document).ready(function () {
                  } ],
             });
         }
-       
         
     });
     // Kết thúc phần JS tìm kiếm theo ngày
@@ -370,6 +372,7 @@ $(document).ready(function () {
         }
    });
 
+
    $(document).on('change', '#frmUpdateProfile input[name=fileAvatar]', function(event) {
         var tmppath = URL.createObjectURL(event.target.files[0]);
         $('#frmUpdateProfile img#img-avatar').fadeIn('fast').attr('src', tmppath);
@@ -377,31 +380,44 @@ $(document).ready(function () {
    });
      //Tim hoa hong theo thang
      $(document).on('change','select[name=selectMonth]',function(){
+
         var option = $(this).val();
         var t = $('#payment_ad').DataTable({
-        destroy:true,
-        searching: false,
-        language: {
-            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-        },
-        processing : true,
-        severSide: true,
-        ajax:{
-            url: route('getDataPayment'),
-            data:{
-                optionMonth: option
-            }
-        },
-        columns: [
-            {data:'STT',name:'STT'},
-            {data:'fullname',name:'fullname'},
-            {data:'totalProfit',name:'totalProfit'},
-            {data:'commision',name : 'commision'},
-            {data:'total',name:'total'},
-            {data:'action',name:'action'},
-        ],
-        columnDefs: [ {
+            destroy:true,
+            searching: false,
+            language: {
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
+            },
+            processing : true,
+            severSide: true,
+            ajax:{
+                url: route('getDataPayment'),
+                data:{
+                    optionMonth: option
+                }
+            },
+            columns: [
+                {data:'STT',name:'STT'},
+                {data:'fullname',name:'fullname'},
+                {data:'totalOrder',name:'totalOrder'},
+                {data:'commision',name : 'commision'},
+                {data:'moneyCommission',name:'moneyCommission'},
+                {data:'action',name:'action'},
+              
+            ],
+            columnDefs: [ {
                     "searchable": false,
                     "orderable": false,
                     "targets": 0
@@ -411,12 +427,10 @@ $(document).ready(function () {
                 t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                     cell.innerHTML = i+1;
                 } );
-            } ).draw();
-
-
+            }).draw();
     });
 
-    $(document).on('click', '#btn_calc_commission', function(event) {
+    $(document).on('click', '.btn_payment', function(event) {
 
         var btnPayment = $(this);
         $.ajax({
@@ -431,6 +445,7 @@ $(document).ready(function () {
                     if (data.message == 'success'){
                         swal("Thông báo", "Thanh toán thành công").then(() => {
                             btnPayment.attr('disabled', true);
+                            $('#payment_ad').DataTable().ajax.reload();
                         });
                     
                     }
@@ -440,6 +455,7 @@ $(document).ready(function () {
 
 }); 
   
+
 
 
 

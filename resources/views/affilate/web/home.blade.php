@@ -24,13 +24,13 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <!-- {{-- sử dụng bảng saleprofit --}} -->
-                <h3>150</h3>
+                <h3>{{$total_order}}</h3>
                 <p>Số lượt thanh toán</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            
             </div>
           </div>
           <!-- ./col -->
@@ -39,14 +39,14 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <!-- {{-- sử dụng bảng payment --}} -->
-                <h3>20<sup style="font-size: 20px">%</sup></h3>
+              <h3>{{$percent_growup}}<sup style="font-size: 20px">%</sup></h3>
 
                 <p>Phần trăm tăng trưởng</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+           
             </div>
           </div>
           <!-- ./col -->
@@ -55,14 +55,12 @@
             <div class="small-box bg-warning">
               <div class="inner">
                 <!-- {{-- sử dụng dữ liệu bảng user_link --}} -->
-                <h3>44</h3>
-
+              <h3>{{$total_pub}}</h3>
                 <p>Số lượng cộng tác viên</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -70,14 +68,12 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
-
+                <h3>0</h3>
                 <p>Lượt Khách xem website</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -150,9 +146,19 @@
           
          var t = $('#dashboard_ad').DataTable({
             language: {
-                "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
-                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
-                "search" : "Tìm kiếm:",
+              "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
              },
             processing : true,
             severSide  : true,
@@ -237,8 +243,7 @@
                   }
                  
                 },
-            })
-                    
+            })       
    })
   </script>
 @endsection

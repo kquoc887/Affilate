@@ -8,12 +8,7 @@
           <div class="col-sm-6">
             <h1>Hoa Hồng Cần Trả Theo Tháng</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Data Tables</li>
-            </ol>
-          </div>
+            
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -46,7 +41,7 @@
                               <tr>
                                   <th>STT</th>
                                   <th>Tên cộng tác viên</th>
-                                  <th>Tổng doanh thu</th>
+                                  <th>Tổng tiền đơn hàng</th>
                                   <th>Phần trăm hoa hồng</th>
                                   <th>Tiền hoa hồng</th>
                                   <th>Hành động</th>
@@ -69,12 +64,24 @@
 @endsection
 @section('scripts')
 <script>  
+
   $(document).ready(function(){
         var t = $('#payment_ad').DataTable({
             searching: false,
             language: {
-                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-                "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+              "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
             },
           processing : true,
           severSide: true,
@@ -101,6 +108,7 @@
                       cell.innerHTML = i+1;
                   } );
               } ).draw();
+
   })
 </script>
 

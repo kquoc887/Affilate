@@ -24,7 +24,7 @@
                     <form action="#" method="POST" class="offset-md-9 form-inline">
                         <div class="form-group">
                             <button type="button" class="btn btn-success btn-flat btn-search" id="addFieldSearch">Tìm theo ngày</button>
-                            <input type="text" id="from-dateTest" class="form-control" placeholder="Thông tin cần tìm">
+                            <input type="text" id="dataSearch" class="form-control" placeholder="Thông tin cần tìm">
                             <button type="button" id="btnSearch-normal" class="btn btn-success btn-flat btn-search">Tìm kiếm</button>
                         </div>
                     </form>
@@ -63,8 +63,19 @@
      var t = $('#sale_profit_ad').DataTable({
         searching: false,
         language: {
-            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                   "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                    "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
         },
        processing : true,
        severSide: true,

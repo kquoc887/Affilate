@@ -24,10 +24,14 @@ class PublisherController extends Controller
         $commission = DB::table('tbl_org')->where('org_id', $org_id)->value('org_commision');
       
         $totalCommission =  DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
+                                ->join('tbl_payment','tbl_customer_action.customer_id', '=', 'tbl_payment.customer_id')
+                                ->where('tbl_payment.action',2)
                                 ->where('tbl_user_link.user_id', $user->user_id)
                                 ->sum('tbl_customer_action.total') * $commission;
 
         $totalCommissionOfMonth = DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
+                                        ->join('tbl_payment','tbl_customer_action.customer_id', '=', 'tbl_payment.customer_id')
+                                        ->where('tbl_payment.action',2)
                                         ->where('tbl_user_link.user_id', $user->user_id)
                                         ->whereMonth('tbl_customer_action.created_at',  Carbon::now()->month)
                                         ->sum('tbl_customer_action.total') * $commission;
@@ -207,12 +211,13 @@ class PublisherController extends Controller
           $todate     = $todate->hour(23)->minute(59)->second(59);
           if($request->has('btnValue') && $request->get('btnValue') == 'sale-profit'){
                 DB::statement(DB::raw('set @rownum=0'));
-                $listOrder  = DB::table('tbl_user_link')
-                                ->join('tbl_org', 'tbl_user_link.org_id', '=', 'tbl_org.org_id')
+
+                $listOrder = DB::table('tbl_user_link')
+                                ->join('tbl_org','tbl_user_link.org_id','=','tbl_org.org_id')
                                 ->join('tbl_customer_action','tbl_user_link.user_link_id','=','tbl_customer_action.user_link_id')
                                 ->where('tbl_user_link.user_id', $user->user_id)
                                 ->whereBetween('tbl_customer_action.created_at',[$fromDate->toDateTimeString(),$todate->toDateTimeString()])
-                                ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total', DB::raw('tbl_customer_action.total * tbl_org.org_commision AS discount'), 'tbl_org.org_commision'  ,'tbl_customer_action.created_at')
+                                ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total',DB::raw('tbl_customer_action.total * tbl_org.org_commision as discount'), 'tbl_org.org_commision' ,'tbl_customer_action.created_at')
                                 ->get();
                 return Datatables::of($listOrder)
                                     ->editColumn('created_at', function($item) {
@@ -260,8 +265,9 @@ class PublisherController extends Controller
         $orders = DB::table('tbl_payment')
                         ->join('tbl_customer_action', 'tbl_payment.customer_id', '=', 'tbl_customer_action.customer_id')
                         ->join('tbl_user_link', 'tbl_customer_action.user_link_id', '=', 'tbl_user_link.user_link_id')
+                        ->join('tbl_org', 'tbl_user_link.org_id', '=', 'tbl_org.org_id')
                         ->where('tbl_user_link.user_id', Auth::user()->user_id)
-                        ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_payment.discount', 'tbl_payment.action' ,'tbl_payment.created_at')
+                        ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_org.org_commision' ,DB::raw('tbl_customer_action.total * tbl_org.org_commision as discount'), 'tbl_payment.action' ,'tbl_payment.created_at')
                         ->get();
                        
         return Datatables::of($orders)
@@ -275,6 +281,12 @@ class PublisherController extends Controller
                             })
                             ->editColumn('created_at', function($order) {
                                 return $order->created_at ? with(new Carbon($order->created_at))->format('d/m/Y') : '';
+                            })
+                            ->editColumn('total', function($order) {
+                                return number_format($order->total, 0, ',', '.');
+                            })
+                            ->editColumn('discount', function($order) {
+                                return number_format($order->discount, 0, ',', '.');
                             })
                             ->rawColumns(['status'])
                             ->make(true);

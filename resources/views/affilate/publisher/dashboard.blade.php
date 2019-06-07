@@ -36,7 +36,7 @@
                             <div class="icon">
                                 <i class="fa fa-eye"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                           
                         </div>
                     </div>
                     <!-- ./col -->
@@ -50,7 +50,7 @@
                             <div class="icon">
                                 <i class="fa fa-check"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                          
                         </div>
                     </div>
                     <!-- ./col -->
@@ -64,7 +64,7 @@
                             <div class="icon">
                                 <i class="fa fa-credit-card"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            
                         </div>
                     </div>
                     <!-- ./col -->
@@ -79,7 +79,7 @@
                             <div class="icon">
                                 <i class="fa fa-money"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                         
                         </div>
                     </div>
                     <!-- ./col -->
@@ -133,8 +133,19 @@
     $(function() {
             var tableOrg = $('#table-org').DataTable({
                 language: {
-                    "lengthMenu": "Hiển thị _MENU_ cộng tác viên",
+                    "lengthMenu": "Hiển thị _MENU_ đơn hàng",
                     "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                    "emptyTable":     "Không có dữ liệu",
+                    "paginate": {
+                        "next":       "Tiếp theo",
+                        "previous":   "Về trước"
+                    },
+                    "infoEmpty":      "",
+                    "infoFiltered":   "",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "search":         "Tìm Kiếm:",
+                    "loadingRecords": "Đang tải...",
+                    "processing":     "Đang tiến hành...",
                 },
                 processing: true,
                 serverSide: true,
