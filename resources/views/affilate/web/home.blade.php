@@ -246,7 +246,9 @@
                 },
             })      
         })
+
        var runtime =  setInterval(function(){ 
+
           $.ajax({
             url : route('realTimeNotify'),  
               type : "get",
@@ -255,14 +257,13 @@
                    numberNotify: $('.badge').text(),
                 },
                 success: function(data){
-
-                  if (data.notify && data.notify.length >0) {  
+                  if (data.notify.length >0) {  
                     $('.badge').text(data.notify.length);
                     $('.notify-header').text(data.notify.length + 'Notifications');
                     $('.list-notify').empty();
                     for (var index = 0; index < data.notify.length; index++) {
                       var div = '<div class="dropdown-divider"></div>';
-                      var button = '<button class="btn btn-default"><i>Đơn hàng mới-Mã đơn hàng:'+ data.notify[index].data.Order_ID + '</i>';
+                      var button = '<button id="clickNotifi" class="btn btn-default"><i>Đơn hàng mới-Mã đơn hàng:'+ data.notify[index].data.Order_ID + '</i>';
                           button += '<span class="float-right text-muted text-sm">'+ data.notify[index].data.Created_at +'</span>'
                           button += '<input type="hidden" id="hidden-read" value="' + data.notify[index].id + '"></button>';
                           $('.list-notify').append('<li>'+ div + button +'</li>');
@@ -270,7 +271,9 @@
                   }
                 },
 
+
             });
         }, 60000);
+
   </script>
 @endsection
