@@ -216,7 +216,12 @@ class TestController extends Controller
     }
 
     public function realTimeNotify(Request $request) {
-        return   response()->json(['notify' =>   Auth::user()->unreadNotifications]);
+        $numberNotifyInTable = DB::table('notifications')->count();
+        if ($request->ajax() && $request->has('numberNotify')) {
+            if ($request->get('numberNotify') < $numberNotifyInTable) {
+                return   response()->json(['notify' =>   Auth::user()->unreadNotifications]);
+            }
+        }
     }
 
    

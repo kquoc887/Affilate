@@ -245,18 +245,18 @@
                 },
             })      
         })
-        setInterval(function(){ 
+        var runtime =  setInterval(function(){ 
+          
           $.ajax({
             url : route('realTimeNotify'),  
               type : "get",
               dataType: 'json',
               data: {
-                    'id_user' : id_user,
-                    'action' : action
+                   numberNotify: $('.badge').text(),
                 },
                 success: function(data){
-                  console.log(data.notify.length);
-                  if (data.notify.length >0) {  
+
+                  if (data.notify && data.notify.length >0) {  
                     $('.badge').text(data.notify.length);
                     $('.notify-header').text(data.notify.length + 'Notifications');
                     $('.list-notify').empty();
@@ -269,7 +269,7 @@
                     }
                   }
                 },
-          });
-        }, 30000);
+            });
+        }, 60000);
   </script>
 @endsection
