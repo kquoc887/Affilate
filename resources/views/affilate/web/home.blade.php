@@ -145,6 +145,7 @@
       $(document).ready(function(){
           
          var t = $('#dashboard_ad').DataTable({
+           searching:true,
             language: {
               "lengthMenu": "Hiển thị _MENU_ đơn hàng",
                     "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
@@ -267,10 +268,9 @@
                           $('.list-notify').append('<li>'+ div + button +'</li>');
                     }
                   }
-
-               
                 },
+
             });
-        }, 1000);
+        }, 60000);
   </script>
 @endsection

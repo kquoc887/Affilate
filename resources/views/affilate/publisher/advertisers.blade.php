@@ -35,7 +35,7 @@
                     <table class="table table-striped table-hover text-center" id="advertiser-table">
                         <thead>
                             <tr>
-                                <th>STT</th>
+                               
                                 <th>Tên công ty</th>
                                 <th>Địa chỉ</th>
                                 <th>Website</th>
@@ -52,11 +52,12 @@
 
 @section('scripts')
     <script>
-       $(function() {
-            $('#advertiser-table').DataTable({
+        $(document).ready(function () {
+            var table_ad = $('#advertiser-table').DataTable({
                 processing: true,
                 serverSide: true,
                 searching: true,
+                ordering:true,
                 info: true,
                 language: {
                     "lengthMenu": "Hiển thị _MENU_ đơn hàng",
@@ -74,15 +75,15 @@
                     "processing":     "Đang tiến hành...",
                 },
                 ajax: {
-                    url:"{{route('publisher.getAdvertiser')}}"
+                    url:"{{route('publisher.getAdvertiser')}}",
                 },
                 columns: [
-                    { data: 'rownum' },
                     { data: 'org_name' },
                     { data: 'org_address' },
                     { data: 'org_uri'},
-                    { data:'action' }
-                ]
+                    { data:'action'}
+                ],
+                order: [[ 3, 'ASC' ]]
             });
         });
     </script>

@@ -321,8 +321,41 @@ $(document).ready(function () {
             cache: false,
             dataType: 'JSON',
             success: function(data) {
-                swal("Thông báo", "Bạn đã đăng ký làm công tác viên của công ty " + data.org_name, "success");
-                button_register.attr('disabled', true);
+                swal("Thông báo", "Bạn đã đăng ký làm công tác viên của công ty " + data.org_name, "success").then(() => {
+                    $('#advertiser-table').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        searching: true,
+                        ordering:true,
+                        destroy:true,
+                        info: true,
+                        language: {
+                            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                            "info": "Trang hiển tại _PAGE_ Trong _PAGES_",
+                            "emptyTable":     "Không có dữ liệu",
+                            "paginate": {
+                                "next":       "Tiếp theo",
+                                "previous":   "Về trước"
+                            },
+                            "infoEmpty":      "",
+                            "infoFiltered":   "",
+                            "zeroRecords": "Không tìm thấy dữ liệu",
+                            "search":         "Tìm Kiếm:",
+                            "loadingRecords": "Đang tải...",
+                            "processing":     "Đang tiến hành...",
+                        },
+                        ajax: {
+                            url: route('publisher.getAdvertiser'),
+                        },
+                        columns: [
+                            { data: 'org_name' },
+                            { data: 'org_address' },
+                            { data: 'org_uri'},
+                            { data:'action'}
+                        ],
+                        order: [[ 3, 'ASC' ]]
+                    });
+                });
             },
         });
     });
