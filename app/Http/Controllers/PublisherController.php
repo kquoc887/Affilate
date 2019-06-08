@@ -14,9 +14,10 @@ class PublisherController extends Controller
     //Trả về màn hình dashboard
     public function index()
     {
+     
         $user = Auth::user();
         
-       
+    
         $numberOrder = DB::table('tbl_user_link')->join('tbl_customer_action', 'tbl_user_link.user_link_id', '=', 'tbl_customer_action.user_link_id')
                                   ->where('tbl_user_link.user_id', $user->user_id)
                                   ->count();
@@ -51,8 +52,8 @@ class PublisherController extends Controller
 
     // Lấy danh sách các công ty để CTV có thể đăng ký
     public function getDataAdvertiser() {
-        DB::statement(DB::raw('set @rownum=0'));
-        $orgs = DB::table('tbl_org')->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'org_name', 'org_uri', 'org_address', 'org_id')->get();
+     
+        $orgs = DB::table('tbl_org')->select('org_name', 'org_uri', 'org_address', 'org_id')->get();
        
         return Datatables::of($orgs)
                         ->addColumn('action', function($org) {
@@ -63,7 +64,7 @@ class PublisherController extends Controller
                                                                 ->where('org_id', $org->org_id)
                                                                 ->exists();
                             if ($result) {
-                                $button_html = '<button type="button" class="btn btn-primary btn-flat" id="' .$org->org_id .'" name="register-advertiser" disabled>Đăng ký </button>' ;
+                                $button_html = '<label class="alert alert-success" id="' .$org->org_id .'" name="register-advertiser">Bạn đã Đăng ký </label>' ;
                             } else {
                                 $button_html = '<button type="button" class="btn btn-primary btn-flat" id="' .$org->org_id .'" name="register-advertiser">Đăng ký </button>' ;
                             }
@@ -172,9 +173,11 @@ class PublisherController extends Controller
         return view('affilate.publisher.edit_profile', compact('user','name_company'));
     }
 
+    // Dùng để chỉnh sửa profile của user
     public function postEditProfile(Request $request) {    
         $user = Auth::user();
         
+        // Cập nhật hoa hồng của org nếu user là Admin
         if ($user->role == 1) {
             $org = DB::table('tbl_org')->where('org_email', $user->email)->update(['org_commision'=> $request->commission]);
         }
@@ -237,6 +240,7 @@ class PublisherController extends Controller
                                     ->whereBetween('tbl_customer_action.created_at',[$fromDate->toDateTimeString(),$todate->toDateTimeString()])
                                     ->select(DB::raw('@rownum  := @rownum  + 1 AS rownum'),'tbl_customer_action.order_id', 'tbl_customer_action.total', 'tbl_payment.discount', 'tbl_payment.action' ,'tbl_payment.created_at')
                                     ->get();
+                                    
                 return Datatables::of($commissions)
                                     ->addColumn('status', function($order) {
                                         $status = '<label class="alert alert-danger">Đơn hàng đã được duyệt chờ thanh toán</label>';
